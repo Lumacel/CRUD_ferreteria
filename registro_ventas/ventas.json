@@ -1,0 +1,429 @@
+﻿[
+    {
+        "timestamp": 1680021251.536005,
+        "numeracion": "00000001",
+        "estado": true,
+        "efectivo": 2333.99,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "CAB0170",
+                "articulo": "CABO PARA PALA DE 070 MTS.PU\u00d1O METAL",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1257.5,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "CAB0172",
+                "articulo": "CABO PARA PALA DE 060 MTS.PU\u00d1O PLAST.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1076.49,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680021270.684373,
+        "numeracion": "00000002",
+        "estado": true,
+        "efectivo": 24063.27,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "REP0IMP 08",
+                "articulo": "SOPAPA DESAGUE BACHAS TIPO FLIP-FLOPP (DACCORD)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 6691.82,
+                "distribuidora": "CFN_NISII"
+            },
+            {
+                "codigo": "ALB034",
+                "articulo": "FONDO BLANCO PARA MADERA \"ALBA\" X 4 LT",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 17371.45,
+                "distribuidora": "INTEGRAL"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680021352.171205,
+        "numeracion": "00000003",
+        "estado": true,
+        "efectivo": 1500.0,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "S/COD.",
+                "articulo": "CADENA TRENZADA",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1500.0,
+                "distribuidora": "LOCAL"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680050579.407751,
+        "numeracion": "00000004",
+        "estado": true,
+        "efectivo": 5714.22,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "E-00810",
+                "articulo": "ESCARDILLO No. 2 - PALA y 2 PUAS -",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1827.57,
+                "distribuidora": "LIMPIA_AVENIDA"
+            },
+            {
+                "codigo": "P-00848",
+                "articulo": "PALA PALEAR    - 'MOISES' - EMP. METALICA",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 3886.65,
+                "distribuidora": "LIMPIA_AVENIDA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680052157.910329,
+        "numeracion": "00000005",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 7640.9,
+        "articulos": [
+            {
+                "codigo": "7935",
+                "articulo": "SICA INTERRUPTOR TERMICO UNIPOLAR 40A",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1553.04,
+                "distribuidora": "LA_PLATA_LED"
+            },
+            {
+                "codigo": "GRI0114",
+                "articulo": "TANZA P/BORD.172 MTS.XKG.RED.25 MM",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 6087.86,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680083242.586764,
+        "numeracion": "00000006",
+        "estado": true,
+        "efectivo": 3319.49,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "TRI1010",
+                "articulo": "MEMBRANA AUTOHADESIVA DE 10CM X 10MTS",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 3182.57,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "B04620",
+                "articulo": "HILO PARA COSER PELOTA 3 MTS. - (BICICLETERIA)",
+                "cantidad": 3,
+                "descuento": 0.0,
+                "precio": 45.64,
+                "distribuidora": "DIS_COS"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680083271.56123,
+        "numeracion": "00000007",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 1483.85,
+        "articulos": [
+            {
+                "codigo": "GAS0012",
+                "articulo": "BOQUILLA TERMOFUSORA 25 MM",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1483.85,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680136446.363732,
+        "numeracion": "00000008",
+        "estado": true,
+        "efectivo": 158.97,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "1943",
+                "articulo": "BRACO HOJA CALAR T/PELO P/MADERA 0.36 X 1.2 MM (HC06)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 158.97,
+                "distribuidora": "ARGENTINA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680136472.294393,
+        "numeracion": "00000009",
+        "estado": true,
+        "efectivo": 3851.77,
+        "tarjeta": 3000.0,
+        "articulos": [
+            {
+                "codigo": "KUW0385",
+                "articulo": "ESPUMA POLIURETAN.EXPANDIDO 500 ML.\"KUWAIT\"",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 3827.77,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "ALE0075",
+                "articulo": "CA\u00d1O CORT.HIERRO ORO 5/8X4 MTS.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 3024.0,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680170648.357501,
+        "numeracion": "00000010",
+        "estado": false,
+        "efectivo": 21845.28,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "CSN",
+                "articulo": "CAMISA SOL DE NOCHE  - ($ X UNID.)- (IMPORTADO)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1396.83,
+                "distribuidora": "DIS_COS"
+            },
+            {
+                "codigo": "PR012029-1",
+                "articulo": "TBC LUM LED EXT EMPOTRAR 3W LUZ NATURAL C/CAMISA PVC (AL0012)",
+                "cantidad": 1,
+                "descuento": 15.0,
+                "precio": 24057.0,
+                "distribuidora": "GUSTAVO_ELECT"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680171043.185208,
+        "numeracion": "00000011",
+        "estado": true,
+        "efectivo": 13800.75,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "CAE0060",
+                "articulo": "PASADOR MARIPOSA ZINCADO 60 MM X12 UNID.",
+                "cantidad": 3,
+                "descuento": 10.0,
+                "precio": 5111.39,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680249217.487953,
+        "numeracion": "00000012",
+        "estado": true,
+        "efectivo": 3024.0,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "ALE0075",
+                "articulo": "CA\u00d1O CORT.HIERRO ORO 5/8X4 MTS.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 3024.0,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680249226.410154,
+        "numeracion": "00000013",
+        "estado": true,
+        "efectivo": 2767.71,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "5700",
+                "articulo": "CABEZA DE DUCHA ANTISARRO CR 6,5CM-LB-5700 (LATYN PLAST)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 2767.71,
+                "distribuidora": "CFN_NISII"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680252841.269877,
+        "numeracion": "00000014",
+        "estado": true,
+        "efectivo": 19850.13,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "BAH0217",
+                "articulo": "ACCE.ENCAST.1/2 PROLONGAC.DE 10\" 763 BAHCO",
+                "cantidad": 2,
+                "descuento": 20.0,
+                "precio": 1903.05,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "RUS0001",
+                "articulo": "LONA PLAST.ANILL.090 MTS VERDE X 25 MTS",
+                "cantidad": 5,
+                "descuento": 0.0,
+                "precio": 3361.05,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680342798.980866,
+        "numeracion": "00000015",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 883.17,
+        "articulos": [
+            {
+                "codigo": "PR014968-1",
+                "articulo": "TBC TERMINAL PRE AISLADO ROJO PALA HEMBRA 6MM H/1.5MM (A16) POR UNIDAD",
+                "cantidad": 10,
+                "descuento": 10.0,
+                "precio": 49.5,
+                "distribuidora": "GUSTAVO_ELECT"
+            },
+            {
+                "codigo": "1489",
+                "articulo": "TOOLMAK ROLLO ALAMBRE GALVANIZADO 18 X 25 MTS. (TMK19382)",
+                "cantidad": 10,
+                "descuento": 10.0,
+                "precio": 48.63,
+                "distribuidora": "ARGENTINA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680343544.409614,
+        "numeracion": "00000016",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 5424.0,
+        "articulos": [
+            {
+                "codigo": "CH16",
+                "articulo": "CAJA HERR. C/BANDEJA Y GAVETERO 16\" (FERRETERIA)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 3682.5,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "AUT2",
+                "articulo": "AUTOPOLISH CERA (ACCESORIOS)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1741.5,
+                "distribuidora": "ACF"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680344134.52057,
+        "numeracion": "00000017",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 3173.94,
+        "articulos": [
+            {
+                "codigo": "ZZV0019",
+                "articulo": "POLEA MOTOR LAVARROPA AGUJERO CHICO",
+                "cantidad": 3,
+                "descuento": 0.0,
+                "precio": 405.31,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "R-01601",
+                "articulo": "REGADERA   5 Lts.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1958.01,
+                "distribuidora": "LIMPIA_AVENIDA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680344236.231106,
+        "numeracion": "00000018",
+        "estado": true,
+        "efectivo": 12104.97,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "COV0202",
+                "articulo": "UNION MANGUERA PLAST.X50 1/2X3/4-803-",
+                "cantidad": 25,
+                "descuento": 0.0,
+                "precio": 24.74,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "ZZV0074",
+                "articulo": "TIJERA CORT.PERNO MANG.TUBUL. 24\"",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 11486.47,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680344306.327907,
+        "numeracion": "00000019",
+        "estado": true,
+        "efectivo": 4029.08,
+        "tarjeta": 15000.0,
+        "articulos": [
+            {
+                "codigo": "ESGB1",
+                "articulo": "PINTURA ESMALTE SINTETICO G. B\u00a0 \u00a0 X 1\u00a0 \u00a0 LT (OCRE- AZUL- TRAFUL- MARINO-CASTA\u00d1O)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 2967.76,
+                "distribuidora": "MASSOL"
+            },
+            {
+                "codigo": "TRI1050",
+                "articulo": "MEMBRANA AUTOHADESIVA DE 50CM X 10MTS",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 16061.32,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    }
+]
