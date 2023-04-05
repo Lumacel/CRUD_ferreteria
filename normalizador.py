@@ -11,6 +11,7 @@ import modelo_LA_PLATA_LED
 import modelo_LIMPIA_AVENIDA
 import modelo_MASSOL
 import modelo_MAURO_IMPORT
+import modelo_SUPRABOND
 
 def normalizar(file, distribuidora):
     if distribuidora == "ACF":
@@ -51,5 +52,8 @@ def normalizar(file, distribuidora):
 
     elif distribuidora == "MAURO_IMPORT":
         modelo_MAURO_IMPORT.normalizar_lista(file, distribuidora)
+
+    elif distribuidora == "SUPRABOND":
+        modelo_SUPRABOND.normalizar_lista(file, distribuidora)
 
     

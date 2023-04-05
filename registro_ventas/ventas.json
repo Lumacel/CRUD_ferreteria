@@ -203,7 +203,7 @@
     {
         "timestamp": 1680170648.357501,
         "numeracion": "00000010",
-        "estado": false,
+        "estado": true,
         "efectivo": 21845.28,
         "tarjeta": 0,
         "articulos": [
@@ -422,6 +422,81 @@
                 "cantidad": 1,
                 "descuento": 0.0,
                 "precio": 16061.32,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680403669.523473,
+        "numeracion": "00000020",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 30970.18,
+        "articulos": [
+            {
+                "codigo": "ROL001",
+                "articulo": "ROLDANA ALBA\u00d1IL 140MM DE FUNDICION",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 10340.28,
+                "distribuidora": "INTEGRAL"
+            },
+            {
+                "codigo": "135",
+                "articulo": "R Y F. ESCALERA PINTOR 07 ESC. ( 2.25 MTS )",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 20629.9,
+                "distribuidora": "ARGENTINA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680471370.964186,
+        "numeracion": "00000021",
+        "estado": true,
+        "efectivo": 40826.49,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "4306",
+                "articulo": "CONOMETAL PANTALLA 1500 CAL. C / VALV.SEG.(NATURAL)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 12580.16,
+                "distribuidora": "ARGENTINA"
+            },
+            {
+                "codigo": "4289",
+                "articulo": "CONOMETAL PANTALLA 1500/3000 CAL. C/ ROBINETE Y VALV.SEG.(ENVASADO)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 28246.33,
+                "distribuidora": "ARGENTINA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680471419.894538,
+        "numeracion": "00000022",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 15643.41,
+        "articulos": [
+            {
+                "codigo": "GAL0018",
+                "articulo": "ANTEOJO POLICARB.UV.ANTIRRAYA CLARO STEELPRO",
+                "cantidad": 5,
+                "descuento": 0.0,
+                "precio": 841.2,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "BAH0055",
+                "articulo": "PINZA UNIVERSAL BAHCO 2678G-180",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 11437.41,
                 "distribuidora": "AMAYA"
             }
         ]

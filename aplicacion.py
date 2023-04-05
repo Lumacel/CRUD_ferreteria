@@ -880,7 +880,7 @@ class App():
         self.lbl_bruto_val = tk.Label(self.toplevel_resumen, text= f"{total_bruto:.2f}", font=("Arial", 12)).grid(row=2, column=1,sticky="e")
         self.lbl_desc_txt = tk.Label(self.toplevel_resumen, text= "TOTAL DESCUENTOS: ",font=("Arial", 12)).grid(row=3, column=0,sticky="w")
         self.lbl_desc_val = tk.Label(self.toplevel_resumen, text= f"{total_descuentos:.2f}", font=("Arial", 12)).grid(row=3, column=1, sticky="e")
-        self.lbl_ventas_txt = tk.Label(self.toplevel_resumen, text= "TOTAL VENTAS:: ",font=("Arial", 12)).grid(row=4, column=0,sticky="w")
+        self.lbl_ventas_txt = tk.Label(self.toplevel_resumen, text= "TOTAL VENTAS: ",font=("Arial", 12)).grid(row=4, column=0,sticky="w")
         self.lbl_ventas_val = tk.Label(self.toplevel_resumen, text= f"{total_ventas:.2f}", font=("Arial", 12)).grid(row=4, column=1,sticky="e")
         self.lbl_efectivo_txt = tk.Label(self.toplevel_resumen, text= "TOTAL EFECTIVO: ",font=("Arial", 12)).grid(row=5, column=0,sticky="w")
         self.lbl_efectivo_val = tk.Label(self.toplevel_resumen, text= f"{total_efectivo:.2f}", font=("Arial", 12)).grid(row=5, column=1, sticky="e")
