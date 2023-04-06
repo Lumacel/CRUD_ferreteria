@@ -26,7 +26,6 @@ def normalizar_lista(file, distribuidora):
 
                     if row[1]== "100" and "ADHESIVO DE CONTACTO" not in row[8]:
                         row[8]= "ADHESIVO DE CONTACTO " + row[8]
-                        row[8]= "BURLETE " + row[8]
                     if row[1]== "200" and "ADHESIVO EPOXI" not in row[8]:
                         row[8]= "ADHESIVO EPOXI " + row[8]
                     if row[1]== "200" and "BURL" not in row[8]:
@@ -35,7 +34,7 @@ def normalizar_lista(file, distribuidora):
                         row[8]= "PISTOLA APLICADORA " + row[8]
                     if row[1]== "850"  and "PISTOLA" not in row[8]:
                         row[8]= "PISTOLA ENCOLADORA " + row[8]
-                    if row[1]== "1300"  and "TOPETINA " not in row[8]:
+                    if row[1]== "1300"  and "TOPETINA" not in row[8]:
                         row[8]= "TOPETINA " + row[8]
                     if row[1]== "1400"  and "ZOCALO" not in row[8]:
                         row[8]= "ZOCALO " + row[8]
@@ -60,7 +59,7 @@ def normalizar_lista(file, distribuidora):
                     if row[1]== "4300"  and "TIJERA" not in row[8]:
                         row[8]= "TIJERA " + row[8]
 
-                    row= [row[0],f"{row[8]} -- {row[4]} {row[5]} ({row[2]})",row[9]]
+                    row= [row[0],f"{row[8]} -- {row[5]} ({row[2]})",row[9]]
                     row.append(distribuidora)
 
                     writer_object.writerow(row)

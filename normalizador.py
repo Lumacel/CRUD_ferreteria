@@ -12,6 +12,7 @@ import modelo_LIMPIA_AVENIDA
 import modelo_MASSOL
 import modelo_MAURO_IMPORT
 import modelo_SUPRABOND
+import modelo_CEDICA
 
 def normalizar(file, distribuidora):
     if distribuidora == "ACF":
@@ -55,5 +56,9 @@ def normalizar(file, distribuidora):
 
     elif distribuidora == "SUPRABOND":
         modelo_SUPRABOND.normalizar_lista(file, distribuidora)
+    
+    elif distribuidora == "CEDICA":
+        modelo_CEDICA.normalizar_lista(file, distribuidora)
+
 
     
