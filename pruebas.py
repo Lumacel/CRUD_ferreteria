@@ -1,10 +1,4 @@
-import inspect
+porcentaje = 50
 
-def funcion_a():
-    print("Llamando a la función B desde la función", inspect.stack()[1].function)
-    funcion_b()
-
-def funcion_b():
-    print("Esta es la función B")
-
-funcion_a()
+if 0<=porcentaje <= 100:
+    print("VALIDO")

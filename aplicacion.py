@@ -63,7 +63,10 @@ class App():
 
         # Crear el menú Editar
         self.menu_ventas = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
+        self.menu_ventas.add_command(label="Ajustes", accelerator="F6", command= self.toplevel_porcentaje_ganancia)
+        self.menu_ventas.add_separator()
         self.menu_ventas.add_command(label="Ver registros", accelerator="F7", command= self.toplevel_registros)
+        
        
         # Crear la barra de menús y agregar los menús
         self.barra_menus = tk.Menu(self.root)
@@ -117,6 +120,7 @@ class App():
         self.root.bind("<F3>", self.ver_archivos)
         self.root.bind("<F4>", lambda x:self.toplevel_normalizar())
         self.root.bind("<F5>", lambda x: self.toplevel_dto_global())
+        self.root.bind("<F6>", lambda x: self.toplevel_porcentaje_ganancia())
         self.root.bind("<F7>", lambda x: self.toplevel_registros())
         self.root.bind("<F8>", lambda x : self.modif_medio_pago()) 
         self.root.bind("<F10>", lambda x : self.editar_item_vta("AGREGAR"))
@@ -131,6 +135,69 @@ class App():
 
         self.treeview_venta()
         self.cargar_treeview_venta()
+    
+    def toplevel_porcentaje_ganancia(self):
+        ancho_ventana= 278
+        alto_ventana= 100
+
+        self.toplevel_ganancia = tk.Toplevel()
+        self.toplevel_ganancia.title("GANANCIA") 
+        self.toplevel_ganancia.resizable(0,0)   
+        self.toplevel_ganancia.focus_force()
+        self.toplevel_ganancia.grab_set() 
+
+        posicion = self.centrar_ventana(ancho_ventana,alto_ventana)
+        self.toplevel_ganancia.geometry(posicion)
+
+        self.password = tk.StringVar()
+        self.porcentaje_ganancia = tk.DoubleVar()
+        self.porcentaje_ganancia.set(self.ventas.get_porcentaje_ganancia())
+
+        self.lbl_ganancia = tk.Label(self.toplevel_ganancia,text="GANANCIA % ", bg = "lightblue", relief= "ridge", width= 13, font=("Arial", 11))
+        self.lbl_ganancia.place(x=12, y= 20)
+        self.entry_ganancia = tk.Entry(self.toplevel_ganancia,textvariable = self.porcentaje_ganancia , width=15,justify = "right", font=("Arial", 11))
+        self.entry_ganancia.place(x=138,y=20)
+
+        self.lbl_clave = tk.Label(self.toplevel_ganancia,text="PASSWORD", bg = "lightblue", relief= "ridge", width= 13, font=("Arial", 11))
+        self.lbl_clave.place(x=12, y= 60)
+        self.entry_clave = tk.Entry(self.toplevel_ganancia,textvariable = self.password , width=15,justify = "right", font=("Arial", 11))
+        self.entry_clave.place(x=138,y=60)
+        
+        self.entry_ganancia.focus()
+        self.entry_ganancia.select_range(0, 'end')
+        self.entry_ganancia.icursor('end')
+
+        self.toplevel_ganancia.bind("<Return>", lambda x: self.cambiar_valor_ganancia())
+        self.toplevel_ganancia.bind("<Escape>", lambda x : self.toplevel_ganancia.destroy())
+
+    def cambiar_valor_ganancia(self):
+        try:
+            porc_gan= float(self.porcentaje_ganancia.get())
+            if 0<= porc_gan <=100 and self.password.get()== "faloelportugues":
+                self.toplevel_ganancia.destroy()
+                messagebox.showinfo(message=f"  EL PORCENTAJE DE GANANCIA AHORA ES {porc_gan}%  ", title="INFO")
+                self.ventas.registrar_porcentaje_ganancia(porc_gan)
+                self.ventas.coeficiente_vta= self.ventas.get_coeficiente_vta()
+
+            else:
+                self.entry_ganancia.focus()
+                self.entry_ganancia.select_range(0, 'end')
+                self.entry_ganancia.icursor('end')
+                messagebox.showinfo(message="POR FAVOR VERIFIQUE LOS DATOS INGRESADOS", title="INFO")
+                pass
+        except Exception as e:
+            print(e)
+            
+
+
+
+
+
+
+
+
+
+
 
     def modif_medio_pago(self):
         if messagebox.askyesno(title="MEDIO DE PAGO" , message = "PAGO CON TARJETA" if self.ventas.medio_pago else "PAGO EN EFECTIVO" ):
@@ -595,8 +662,7 @@ class App():
         self.reiniciar_valores()
         self.ventas.discriminar_forma_pago(self.monto_tarjeta.get())
         self.lbl_modo_pago.config(text = "-- EFECTIVO --")
-
-     
+ 
     def reiniciar_valores_tarjeta(self):
         self.monto_tarjeta.set(round(self.ventas.calc_total_vta(),2))
         self.entry_monto.focus()
@@ -674,7 +740,7 @@ class App():
         self.modo_fecha = "final"
         self.toplevel_calendario()
 
-    def toplevel_calendario(self): # el modo se refiere a si es la fecha inicial o final
+    def toplevel_calendario(self): 
         ancho_ventana= 300
         alto_ventana= 300
 
@@ -978,8 +1044,6 @@ class App():
         return self.dto_global.get()
 
 class Ventas():
-    PORCENTAJE_VENTA = 50 # (50%)
-    
     def __init__(self,codigo="", articulo="",cantidad=0,descuento=0,precio=0, distribuidora=""):
         self.codigo_vta= codigo
         self.articulo_vta= articulo
@@ -987,10 +1051,27 @@ class Ventas():
         self.descuento_vta= descuento
         self.precio_vta= precio 
         self.distribuidora_vta = distribuidora
-        self.coeficiente_vta= (1 + Ventas.PORCENTAJE_VENTA/100)
         self.medio_pago= True
+        self.coeficiente_vta= self.get_coeficiente_vta()
 
         self.items_vta = []  # almacena los objetos items a vender 
+
+    def registrar_porcentaje_ganancia(self,porcentaje):
+        with open(r"remarcacion\\porcentaje.txt", "w") as archivo:
+            archivo.write(str(porcentaje))
+
+    def get_porcentaje_ganancia(self): #toma porcentaje de 
+        with open(r"remarcacion\\porcentaje.txt", "r") as archivo:
+            valor = archivo.readline()
+            try:
+                porcentaje = float(valor)
+                if 0<= porcentaje <= 100:
+                    return porcentaje
+            except Exception as e:
+                print(e)
+
+    def get_coeficiente_vta(self):
+        return (1 + self.get_porcentaje_ganancia()/100)
 
     def modificar_medio_pago(self):
         if self.medio_pago:
