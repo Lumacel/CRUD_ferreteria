@@ -63,11 +63,10 @@ class App():
 
         # Crear el menú Editar
         self.menu_ventas = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
-        self.menu_ventas.add_command(label="Ajustes", accelerator="F6", command= self.toplevel_porcentaje_ganancia)
+        self.menu_ventas.add_command(label="Configuracion", accelerator="F6", command= self.toplevel_porcentaje_ganancia)
         self.menu_ventas.add_separator()
-        self.menu_ventas.add_command(label="Ver registros", accelerator="F7", command= self.toplevel_registros)
+        self.menu_ventas.add_command(label="Registros", accelerator="F7", command= self.toplevel_registros)
         
-       
         # Crear la barra de menús y agregar los menús
         self.barra_menus = tk.Menu(self.root)
         self.barra_menus.add_cascade(label="   Archivo", menu=self.menu_archivo)
@@ -158,9 +157,9 @@ class App():
         self.entry_ganancia = tk.Entry(self.toplevel_ganancia,textvariable = self.porcentaje_ganancia , width=15,justify = "right", font=("Arial", 11))
         self.entry_ganancia.place(x=138,y=20)
 
-        self.lbl_clave = tk.Label(self.toplevel_ganancia,text="PASSWORD", bg = "lightblue", relief= "ridge", width= 13, font=("Arial", 11))
+        self.lbl_clave = tk.Label(self.toplevel_ganancia,text="PASSWORD",  bg = "lightblue", relief= "ridge", width= 13, font=("Arial", 11))
         self.lbl_clave.place(x=12, y= 60)
-        self.entry_clave = tk.Entry(self.toplevel_ganancia,textvariable = self.password , width=15,justify = "right", font=("Arial", 11))
+        self.entry_clave = tk.Entry(self.toplevel_ganancia,textvariable = self.password , show="*", width=15,justify = "right", font=("Arial", 11))
         self.entry_clave.place(x=138,y=60)
         
         self.entry_ganancia.focus()
@@ -171,6 +170,7 @@ class App():
         self.toplevel_ganancia.bind("<Escape>", lambda x : self.toplevel_ganancia.destroy())
 
     def cambiar_valor_ganancia(self):
+        mensaje_except = "POR FAVOR REVISE LOS DATOS INGRESADOS"
         try:
             porc_gan= float(self.porcentaje_ganancia.get())
             if 0<= porc_gan <=100 and self.password.get()== "faloelportugues":
@@ -180,24 +180,16 @@ class App():
                 self.ventas.coeficiente_vta= self.ventas.get_coeficiente_vta()
 
             else:
-                self.entry_ganancia.focus()
-                self.entry_ganancia.select_range(0, 'end')
-                self.entry_ganancia.icursor('end')
-                messagebox.showinfo(message="POR FAVOR VERIFIQUE LOS DATOS INGRESADOS", title="INFO")
-                pass
-        except Exception as e:
-            print(e)
-            
+                self.resetear_level_ganancia()
+                messagebox.showinfo(message=mensaje_except, title="INFO")
+        except:
+            self.resetear_level_ganancia()
+            messagebox.showinfo(message= mensaje_except, title="INFO")
 
-
-
-
-
-
-
-
-
-
+    def resetear_level_ganancia(self):
+        self.entry_ganancia.focus()
+        self.entry_ganancia.select_range(0, 'end')
+        self.entry_ganancia.icursor('end')
 
     def modif_medio_pago(self):
         if messagebox.askyesno(title="MEDIO DE PAGO" , message = "PAGO CON TARJETA" if self.ventas.medio_pago else "PAGO EN EFECTIVO" ):
@@ -484,7 +476,6 @@ class App():
 
         self.fracc_editar.set(1)
         self.ventana_editar.grab_set() 
-        self.ventana_editar.focus()
         
         if self.modo== "EDITAR":
             focus_item = self.tabla_venta.focus()
@@ -492,19 +483,20 @@ class App():
             index = items.index(focus_item)
             item = self.ventas.items_vta[index]
             self.precio_abs= item.precio_vta  # guarda el precio inicial del producto
-
         else:
-            item = Ventas("S/COD.", "", 1, "0.00", "0.00","LOCAL")
+            item = Ventas("S/COD.", "", 1, "0.00", "0.00","LOCAL") # en modo agregar agrega a la lista un item con valores nulos
             self.ventas.agregar_item(item)
-            
+            self.check_btn.config(state="disabled")
+
         self.cant_editar.set(item.cantidad_vta) 
         self.artic_editar.set(item.articulo_vta) 
         self.precio_editar.set(item.precio_vta)
         self.dto_editar.set(item.descuento_vta)
 
-        self.entry_cant_editar.focus()
         self.entry_cant_editar.select_range(0, 'end')
         self.entry_cant_editar.icursor('end') 
+        self.entry_cant_editar.focus()
+        self.ventana_editar.event_generate("<Button-1>") #simula un click para activar ventana y cursor
 
         self.ventana_editar.bind("<Escape>", lambda x: self.escape_editar()) # destruye ventana al apretar Escape
         self.ventana_editar.bind("<Return>", lambda x: self.validar_entradas(item)) # carga articulo

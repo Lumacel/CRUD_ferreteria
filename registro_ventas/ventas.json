@@ -500,5 +500,64 @@
                 "distribuidora": "AMAYA"
             }
         ]
+    },
+    {
+        "timestamp": 1680917112.375915,
+        "numeracion": "00000023",
+        "estado": true,
+        "efectivo": 1962.6,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "LPR0000",
+                "articulo": "PERCHAS CUADRADAS BLANCAS BLISTER X16",
+                "cantidad": 2,
+                "descuento": 0.0,
+                "precio": 981.3,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680917143.806231,
+        "numeracion": "00000024",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 24257.17,
+        "articulos": [
+            {
+                "codigo": "ADB0050",
+                "articulo": "POLEA CHAPA GALV.DE 20 CM PARA EJE DE 70 MM.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1041.18,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "1143",
+                "articulo": "ALBA ALBAFRENT \"F Y M\" X 10 LTS.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 23215.99,
+                "distribuidora": "ARGENTINA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1680919899.931029,
+        "numeracion": "00000025",
+        "estado": true,
+        "efectivo": 20302.52,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "CAE0080",
+                "articulo": "PASADOR MARIPOSA ZINCADO 80 MM X12 UNID.",
+                "cantidad": 22,
+                "descuento": 10.0,
+                "precio": 1025.38,
+                "distribuidora": "AMAYA"
+            }
+        ]
     }
 ]

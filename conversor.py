@@ -1,18 +1,23 @@
 import pandas as pd
+import docx
+import csv
 from tkinter import filedialog
 import os
 
 def convertir_a_csv():  # separa hojas de documentos Excel (.xls y .xlsx) y los convierte a formato .csv
+    #filetypes =[('Excel Files', '*.xlsx'),('Excel Files', '*.xls'),('Word Files', '*.docx')]
     archivo = filedialog.askopenfilename(filetypes =[('Excel Files', '*.xlsx'),('Excel Files', '*.xls')])
+    print(archivo)
     if archivo== "":
         return []
+   
     else:
         name = os.path.basename(archivo)
         path = os.path.dirname(archivo)
-        archivo_excel = pd.ExcelFile(archivo)
-        nombres_hojas = archivo_excel.sheet_names
-
+   
         if name.endswith(".xls"):
+            archivo_excel = pd.ExcelFile(archivo)
+            nombres_hojas = archivo_excel.sheet_names
             for i in nombres_hojas:
                 print(i)
                 df = pd.read_excel(archivo, sheet_name=i)
@@ -20,7 +25,10 @@ def convertir_a_csv():  # separa hojas de documentos Excel (.xls y .xlsx) y los 
                 if df.shape[1]< 3: continue  # cantidad de columnas
                 
                 df.to_csv(f'{path}/{i}.csv', index=False, encoding='utf-8-sig')
+
         elif name.endswith(".xlsx"):
+            archivo_excel = pd.ExcelFile(archivo)
+            nombres_hojas = archivo_excel.sheet_names
             for i in nombres_hojas:
                 print(i)
                 df = pd.read_excel(archivo, sheet_name=i, engine='openpyxl')
@@ -28,6 +36,7 @@ def convertir_a_csv():  # separa hojas de documentos Excel (.xls y .xlsx) y los 
                 if df.shape[1]< 3: continue  # cantidad de columnas
 
                 df.to_csv(f'{path}/{i}.csv', index=False, encoding='utf-8-sig')
+
         else: pass
 
         lista_nueva_arch = []
@@ -39,7 +48,6 @@ def convertir_a_csv():  # separa hojas de documentos Excel (.xls y .xlsx) y los 
             else: continue
             
         return lista_nueva_arch
-
 
 if __name__== "__main__":
     lista_nueva_arch = convertir_a_csv()
