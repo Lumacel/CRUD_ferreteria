@@ -559,5 +559,63 @@
                 "distribuidora": "AMAYA"
             }
         ]
+    },
+    {
+        "timestamp": 1681041989.353314,
+        "numeracion": "00000026",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 1010.14,
+        "articulos": [
+            {
+                "codigo": "S/COD.",
+                "articulo": "CAJAS DE FOSFORO",
+                "cantidad": 2,
+                "descuento": 0.0,
+                "precio": 222.0,
+                "distribuidora": "LOCAL"
+            },
+            {
+                "codigo": "6443",
+                "articulo": "CETOL TINTA PETIRIBI X (60 CC.)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 707.67,
+                "distribuidora": "ARGENTINA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681049157.592484,
+        "numeracion": "00000027",
+        "estado": true,
+        "efectivo": 15634.88,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "CAB0160",
+                "articulo": "CABO PARA PALA DE 060 MTS.PU\u00d1O METAL",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 586.38,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "F-G0010",
+                "articulo": "PALA ESTAMPADA C/HIERRO PUNTEAR **F-G**",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 9227.3,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "F-G0030",
+                "articulo": "PROLONGACION MANGO PALA HOYADORA **F-G**",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 5821.2,
+                "distribuidora": "AMAYA"
+            }
+        ]
     }
 ]

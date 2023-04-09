@@ -5,7 +5,6 @@ from tkinter import filedialog
 import os
 
 def convertir_a_csv():  # separa hojas de documentos Excel (.xls y .xlsx) y los convierte a formato .csv
-    #filetypes =[('Excel Files', '*.xlsx'),('Excel Files', '*.xls'),('Word Files', '*.docx')]
     archivo = filedialog.askopenfilename(filetypes =[('Excel Files', '*.xlsx'),('Excel Files', '*.xls')])
     print(archivo)
     if archivo== "":

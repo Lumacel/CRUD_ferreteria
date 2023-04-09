@@ -55,7 +55,7 @@ class App():
 
         # Crear el menú Archivo
         self.menu_archivo = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
-        self.menu_archivo.add_command(label="Explorar listas", accelerator="F3", command= self.ver_archivos)
+        self.menu_archivo.add_command(label="Explorar listas", accelerator="F3", command= self.ver_archivos_normalizados)
         self.menu_archivo.add_separator()
         self.menu_archivo.add_command(label="Normalizar listas", accelerator="F4", command= self.toplevel_normalizar)
         self.menu_archivo.add_separator()
@@ -116,7 +116,7 @@ class App():
         self.root.bind("<Control-r>", lambda x : self.resetear_venta()) 
         self.root.bind("<Escape>", lambda x :  self.escape_root())
         self.root.bind("<F2>", lambda x: self.aceptar_venta() if len(self.ventas.items_vta) != 0 else None)
-        self.root.bind("<F3>", self.ver_archivos)
+        self.root.bind("<F3>", self.ver_archivos_normalizados)
         self.root.bind("<F4>", lambda x:self.toplevel_normalizar())
         self.root.bind("<F5>", lambda x: self.toplevel_dto_global())
         self.root.bind("<F6>", lambda x: self.toplevel_porcentaje_ganancia())
@@ -170,7 +170,7 @@ class App():
         self.toplevel_ganancia.bind("<Escape>", lambda x : self.toplevel_ganancia.destroy())
 
     def cambiar_valor_ganancia(self):
-        mensaje_except = "POR FAVOR REVISE LOS DATOS INGRESADOS"
+        mensaje_except = "POR FAVOR REVISE LOS DATOS INGRESADOS\n    LOS DOS CAMPOS SON OBLIGATORIOS"
         try:
             porc_gan= float(self.porcentaje_ganancia.get())
             if 0<= porc_gan <=100 and self.password.get()== "faloelportugues":
@@ -471,8 +471,8 @@ class App():
         self.lbl_fraccionar.place(x=5,y=70)
         self.entry_fraccionar = tk.Entry(self.ventana_editar, textvariable = self.fracc_editar , width = 5,state= "disabled", bg= "white", justify = "right", font=("Arial", 11))
         self.entry_fraccionar.place(x=110,y=70)
-        self.check_btn = ttk.Checkbutton(self.ventana_editar, text = "Habilitar", variable = self.fracc_state, command= self.fracc_seleccion)
-        self.check_btn.place(x=160,y=70)
+        self.check_btn_fracc = ttk.Checkbutton(self.ventana_editar, text = "Habilitar", variable = self.fracc_state, command= self.fracc_seleccion)
+        self.check_btn_fracc.place(x=160,y=70)
 
         self.fracc_editar.set(1)
         self.ventana_editar.grab_set() 
@@ -486,7 +486,6 @@ class App():
         else:
             item = Ventas("S/COD.", "", 1, "0.00", "0.00","LOCAL") # en modo agregar agrega a la lista un item con valores nulos
             self.ventas.agregar_item(item)
-            self.check_btn.config(state="disabled")
 
         self.cant_editar.set(item.cantidad_vta) 
         self.artic_editar.set(item.articulo_vta) 
@@ -697,7 +696,7 @@ class App():
         self.entry_fecha_final.place(x=280,y=10)
         self.lbl_relleno = tk.Label(self.toplevel_reg, text = "", width=45, relief= "ridge", bg= None ,fg= "black", font=("Arial", 10))
         self.lbl_relleno.place(x=398, y=10)
-        self.btn_estado_vta= tk.Button(self.toplevel_reg,text= "AUTORIZAR / ANULAR", width= 20, command = self.cambiar_estado_venta)
+        self.btn_estado_vta= tk.Button(self.toplevel_reg,text= "INCLUIR / ANULAR", width= 20, command = self.cambiar_estado_venta)
         self.btn_estado_vta.place(x=798,y=8)
         self.btn_resumen_vta= tk.Button(self.toplevel_reg,text=" VER RESUMEN VENTAS ", width= 20, command = self.toplevel_resumen_ventas)
         self.btn_resumen_vta.place(x=984,y=8)
@@ -905,7 +904,7 @@ class App():
         self.tabla_archivo.delete(*self.tabla_archivo.get_children()) 
         self.tabla_archivo_detalle.delete(*self.tabla_archivo_detalle.get_children())
             
-    def ver_archivos(self,*args):
+    def ver_archivos_normalizados(self,*args):
         ruta = os.getcwd() + "\\archivos_normalizados"
         archivos = filedialog.askopenfilenames(initialdir=ruta, filetypes=[("Archivos Excel", "*.csv")])
         print(archivos)
@@ -917,7 +916,7 @@ class App():
 
     def toplevel_resumen_ventas(self):
         ancho_ventana= 310
-        alto_ventana = 250
+        alto_ventana = 230
 
         self.toplevel_resumen = tk.Toplevel()
         self.toplevel_resumen.focus_force()
@@ -982,21 +981,22 @@ class App():
     def cambiar_estado_venta(self,*args):
         try:
             seleccion= self.tabla_archivo.selection()
-            venta_select = self.tabla_archivo.item(seleccion)["values"][2] # numero de venta
+            if messagebox.askyesno(title="CAMBIAR ESTADO" , message = "REALMENTE DESEA CAMBIAR EL ESTADO DE LA VENTA?", parent= self.toplevel_reg):
+                venta_select = self.tabla_archivo.item(seleccion)["values"][2] # numero de venta
+            
+                with open(r"registro_ventas\\ventas.json", "r+", encoding='utf-8-sig') as file:
+                    data = json.load(file)
+                    for i, elemento in enumerate(data):
+                        if int(elemento["numeracion"])== venta_select:
+                            data[i]["estado"]= False if data[i]["estado"] else True
+                    file.seek(0)
+                    json.dump(data, file, indent=4)
+                    file.truncate()
 
-            with open(r"registro_ventas\\ventas.json", "r+", encoding='utf-8-sig') as file:
-                c=-1
-                data = json.load(file)
-                for i in data:
-                    c+=1
-                    if int(i["numeracion"])== venta_select:
-                        data[c]["estado"]= False if data[c]["estado"] else True
-                file.seek(0)
-                json.dump(data, file, indent=4)
-                file.truncate()
-
-            ts_inicio,ts_final= self.get_fechas_seleccionadas()
-            self.explorar_archivo_ventas(ts_inicio,ts_final)
+                ts_inicio,ts_final= self.get_fechas_seleccionadas()
+                self.explorar_archivo_ventas(ts_inicio,ts_final)
+            else:
+                pass
         except:
             pass
         
@@ -1015,8 +1015,8 @@ class App():
                     m1= "EL ARCHIVO FUE GENERADO EXITOSAMENTE \n\n ¿DESEA ABRIR LA CARPETA CONTENEDORA? "
                     m2= "LOS ARCHIVOS FUERON GENERADOS EXITOSAMENTE  \n\n    ¿DESEA ABRIR LA CARPETA CONTENEDORA?" 
                     
-                    if messagebox.askyesno(title="CONFIRMACION" , message = m1 if len(lista_archivos) == 1 else m2):
-                        self.ver_archivos()
+                    if messagebox.askyesno(title="ABRIR CARPETA" , message = m1 if len(lista_archivos) == 1 else m2):
+                        self.ver_archivos_normalizados()
 
     def get_fechas_seleccionadas(self):
         ts_inicio= datetime.timestamp(datetime.strptime(self.fecha_inicial.get(),"%d-%m-%Y"))
@@ -1097,7 +1097,6 @@ class Ventas():
             total_desc+= descuento_item
                 
         self.total= total_vta - total_desc
-
         return self.total
 
     def discriminar_forma_pago(self,monto_tarjeta=0):
@@ -1107,7 +1106,6 @@ class Ventas():
         else:
             self.tarjeta= round(monto_tarjeta,2)
             self.efectivo = round((self.total-self.tarjeta),2)
-
         self.grabar_venta()
 
     def grabar_venta(self):
