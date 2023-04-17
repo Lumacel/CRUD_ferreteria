@@ -617,5 +617,172 @@
                 "distribuidora": "AMAYA"
             }
         ]
+    },
+    {
+        "timestamp": 1681172162.05631,
+        "numeracion": "00000028",
+        "estado": true,
+        "efectivo": 4210.34,
+        "tarjeta": 3000.0,
+        "articulos": [
+            {
+                "codigo": "EVOE2500",
+                "articulo": "PALA DE CAMPING MULTIFUNCION  EVOL2500 (x1)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 5660.82,
+                "distribuidora": "CEDICA"
+            },
+            {
+                "codigo": "E-00730",
+                "articulo": "POLEAS 20 CMS. - P/EJE 70 MM. - GALV.",
+                "cantidad": 2,
+                "descuento": 0.0,
+                "precio": 774.76,
+                "distribuidora": "LIMPIA_AVENIDA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681298831.375885,
+        "numeracion": "00000029",
+        "estado": true,
+        "efectivo": 59643.48,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "MTALB216",
+                "articulo": "LUBRICANTE 216 ML. 155 GRS. MOTA LB216 (x1)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 787.68,
+                "distribuidora": "CEDICA"
+            },
+            {
+                "codigo": "BRO0022",
+                "articulo": "CALOVENTOR DE AIRE VERTICAL 1000-2000 WATT *CAL-A01*",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 22940.44,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "BRO0055",
+                "articulo": "JGO.CALISUAR PZAS(05-08-1-125-150-18-2)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 3258.18,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "EFM0017",
+                "articulo": "ESCALERA DE ALUMINIO DE 7 ESC.",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 36285.75,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681300265.833293,
+        "numeracion": "00000030",
+        "estado": true,
+        "efectivo": 3192.47,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "ADB0011",
+                "articulo": "CAJA DE MADERA P/ENROLLA. 4 MTS",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 698.03,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "ALE0022",
+                "articulo": "BARRAL MADER.22 MM.COMPL. 180 MTS.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 2494.44,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681300327.128475,
+        "numeracion": "00000031",
+        "estado": true,
+        "efectivo": 46305.87,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "NEO2GG711",
+                "articulo": "GARLOPA 110MM   GG711 (x1)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 46305.87,
+                "distribuidora": "CEDICA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681300594.649474,
+        "numeracion": "00000032",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 1741.5,
+        "articulos": [
+            {
+                "codigo": "AUT2",
+                "articulo": "AUTOPOLISH CERA (ACCESORIOS)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1741.5,
+                "distribuidora": "ACF"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681699137.345823,
+        "numeracion": "00000033",
+        "estado": true,
+        "efectivo": 7319.55,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "FAM0057",
+                "articulo": "MANGUERA CRISTAL X50 MTS. 5X8",
+                "cantidad": 15,
+                "descuento": 0.0,
+                "precio": 100.37,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "AGM22",
+                "articulo": "ARANDELAS GROWER  METRICAS NATURALES 22MM (X1000)",
+                "cantidad": 100,
+                "descuento": 0.0,
+                "precio": 58.14,
+                "distribuidora": "CEDICA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681699195.744177,
+        "numeracion": "00000034",
+        "estado": true,
+        "efectivo": 4469.11,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "SIM0575",
+                "articulo": "JUEGO DE HOJAS P/SIERRA CALADORA 10 PZAS G1953 1AC",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 4469.11,
+                "distribuidora": "AMAYA"
+            }
+        ]
     }
 ]

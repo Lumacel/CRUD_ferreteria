@@ -14,7 +14,6 @@ class App():
         self.distribuidoras =  self.cargar_distribuidoras()
         self.distr_selecc = "TODAS"
         self.ventas = Ventas() # pone clase Venta como instancia de la clase App
-        
         self.ventana_principal()
        
     def cargar_distribuidoras(self):
@@ -43,13 +42,12 @@ class App():
         alto_ventana= 320
         
         self.root = tk.Tk()
-        self.root.title("BORRADOR") 
+        self.root.title("FERRETERIA") 
         self.root.resizable(0,0)   
-    
+
         # -- agrega estilo 
         self.style = ttk.Style()
         self.style.theme_use('winnative')
-
         posicion = self.centrar_ventana(ancho_ventana,alto_ventana)
         self.root.geometry(posicion)
 
@@ -178,7 +176,6 @@ class App():
                 messagebox.showinfo(message=f"  EL PORCENTAJE DE GANANCIA AHORA ES {porc_gan}%  ", title="INFO")
                 self.ventas.registrar_porcentaje_ganancia(porc_gan)
                 self.ventas.coeficiente_vta= self.ventas.get_coeficiente_vta()
-
             else:
                 self.resetear_level_ganancia()
                 messagebox.showinfo(message=mensaje_except, title="INFO")
@@ -430,7 +427,6 @@ class App():
         self.ventas.items_vta = []
         self.ventas.medio_pago = True
         self.lbl_modo_pago.config(text = "-- EFECTIVO --" )
-
         self.cargar_treeview_venta()
         
     def toplevel_editar(self):
@@ -482,7 +478,7 @@ class App():
             items = self.tabla_venta.get_children()
             index = items.index(focus_item)
             item = self.ventas.items_vta[index]
-            self.precio_abs= item.precio_vta  # guarda el precio inicial del producto
+            self.precio_original= item.precio_vta  # guarda el precio inicial del producto
         else:
             item = Ventas("S/COD.", "", 1, "0.00", "0.00","LOCAL") # en modo agregar agrega a la lista un item con valores nulos
             self.ventas.agregar_item(item)
@@ -512,17 +508,16 @@ class App():
 
     def key_released(self): # verifica si se fracciona el producto cuando se ingresa un valor
         if self.fracc_state.get():
-            precio = self.precio_editar.get()
-            fraccion= self.fracc_editar.get()
             try:
+                precio = self.precio_editar.get()
+                fraccion= self.fracc_editar.get()
                 fraccion = int(fraccion)
-                precio = self.precio_abs
+                precio = self.precio_original
                 precio_fracc = round(float(precio)/fraccion,2)
                 self.precio_editar.set(precio_fracc)
-           
             except:
                 self.fracc_editar.set("1")
-                self.precio_editar.set(self.precio_abs)
+                self.precio_editar.set(self.precio_original)
                 self.entry_fraccionar.focus()
                 self.entry_fraccionar.select_range(0, 'end')
                 self.entry_fraccionar.icursor('end')
@@ -533,7 +528,7 @@ class App():
         try:
             articulo= (self.artic_editar.get()).upper()
             cantidad = int(self.cant_editar.get()) 
-            precio = round((float(self.precio_abs if self.fracc_state.get() else self.precio_editar.get())),2)
+            precio = round((float(self.precio_original if self.fracc_state.get() else self.precio_editar.get())),2)
             fraccion = int(self.fracc_editar.get())
             descuento = float(self.dto_editar.get())
             if cantidad == 0 or descuento< 0 or descuento> 100 or precio<= 0 or articulo== "":
@@ -563,7 +558,6 @@ class App():
                 messagebox.showinfo(message="NO HAY COINCIDENCIAS PARA SU BÚSQUEDA", title="INFO")
                 self.entry_buscar.select_range(0, 'end')
                 self.entry_buscar.icursor('end')
-
             else:
                 self.toplevel_buscar()
                 for item in self.lista_coincidencias:
@@ -632,11 +626,14 @@ class App():
         self.toplevel_tarjeta.bind("<Escape>", lambda x : self.toplevel_tarjeta.destroy())
 
     def aceptar_venta(self):
-        if self.ventas.medio_pago:
-            self.reiniciar_valores()
-            self.ventas.discriminar_forma_pago()  
+        if messagebox.askyesno(title="VENTA" , message = " REALMENTE DESEA EFECTUAR ESTA VENTA?"):
+            if self.ventas.medio_pago:
+                self.reiniciar_valores()
+                self.ventas.discriminar_forma_pago()  
+            else:
+                self.toplevel_pago_tarjeta()
         else:
-            self.toplevel_pago_tarjeta()
+            pass
 
     def validar_monto_tarjeta(self):
         total_venta = round(self.ventas.calc_total_vta(),2)
@@ -773,7 +770,6 @@ class App():
             self.fecha_inicial.set(fecha)
         else:
             self.fecha_final.set(fecha)
-            
         self.validar_fechas()
 
     def validar_fechas(self):
@@ -981,20 +977,23 @@ class App():
     def cambiar_estado_venta(self,*args):
         try:
             seleccion= self.tabla_archivo.selection()
-            if messagebox.askyesno(title="CAMBIAR ESTADO" , message = "REALMENTE DESEA CAMBIAR EL ESTADO DE LA VENTA?", parent= self.toplevel_reg):
-                venta_select = self.tabla_archivo.item(seleccion)["values"][2] # numero de venta
-            
-                with open(r"registro_ventas\\ventas.json", "r+", encoding='utf-8-sig') as file:
-                    data = json.load(file)
-                    for i, elemento in enumerate(data):
-                        if int(elemento["numeracion"])== venta_select:
-                            data[i]["estado"]= False if data[i]["estado"] else True
-                    file.seek(0)
-                    json.dump(data, file, indent=4)
-                    file.truncate()
+            if seleccion != ():
+                if messagebox.askyesno(title="CAMBIAR ESTADO" , message = "REALMENTE DESEA CAMBIAR EL ESTADO DE LA VENTA?", parent= self.toplevel_reg) :
+                    venta_select = self.tabla_archivo.item(seleccion)["values"][2] # numero de venta
+                
+                    with open(r"registro_ventas\\ventas.json", "r+", encoding='utf-8-sig') as file:
+                        data = json.load(file)
+                        for i, elemento in enumerate(data):
+                            if int(elemento["numeracion"])== venta_select:
+                                data[i]["estado"]= False if data[i]["estado"] else True
+                        file.seek(0)
+                        json.dump(data, file, indent=4)
+                        file.truncate()
 
-                ts_inicio,ts_final= self.get_fechas_seleccionadas()
-                self.explorar_archivo_ventas(ts_inicio,ts_final)
+                    ts_inicio,ts_final= self.get_fechas_seleccionadas()
+                    self.explorar_archivo_ventas(ts_inicio,ts_final)
+                else:
+                    pass
             else:
                 pass
         except:
