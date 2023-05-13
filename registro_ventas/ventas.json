@@ -784,5 +784,281 @@
                 "distribuidora": "AMAYA"
             }
         ]
+    },
+    {
+        "timestamp": 1681897253.016648,
+        "numeracion": "00000035",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 8710.45,
+        "articulos": [
+            {
+                "codigo": "CAB0171",
+                "articulo": "CABO PARA PALA DE 070 MTS.PU\u00d1O PLAST.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1113.11,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "SIM0580",
+                "articulo": "JUEGO DE HOJAS P/SIERRA CALADORA 18 PZAS G1953 2AC",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 7597.34,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681897468.005339,
+        "numeracion": "00000036",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 3603.6,
+        "articulos": [
+            {
+                "codigo": "CH13",
+                "articulo": "CAJA HERR. C/BANDEJA Y GAVETERO 13\" (FERRETERIA)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 2352.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "MP1000",
+                "articulo": "MASILLA PLASTICA X1 (FERRETERIA)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 2152.5,
+                "distribuidora": "ACF"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681897516.919434,
+        "numeracion": "00000037",
+        "estado": true,
+        "efectivo": 1903.46,
+        "tarjeta": 6000.0,
+        "articulos": [
+            {
+                "codigo": "CM3",
+                "articulo": "CINTA METRICA X3 MTS (FERRETERIA)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 684.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "Q.FL.1.F001.0",
+                "articulo": "AUTOMATICO PARA TANQUE CON CABLE (MOTORARG(BOMBAS/RIEGO))",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 9195.33,
+                "distribuidora": "CFN_NISII"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681897540.061973,
+        "numeracion": "00000038",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 1393.2,
+        "articulos": [
+            {
+                "codigo": "AUT2",
+                "articulo": "AUTOPOLISH CERA (ACCESORIOS)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 1741.5,
+                "distribuidora": "ACF"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681897584.075976,
+        "numeracion": "00000039",
+        "estado": true,
+        "efectivo": 1896.49,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "CAB0171",
+                "articulo": "CABO PARA PALA DE 070 MTS.PU\u00d1O PLAST.",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 1113.11,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "CAB0170",
+                "articulo": "CABO PARA PALA DE 070 MTS.PU\u00d1O METAL",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 1257.5,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681897600.594983,
+        "numeracion": "00000040",
+        "estado": true,
+        "efectivo": 3057.22,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "2115",
+                "articulo": "BRACO PUNTAS PH2 DOBLE 75 MM MAGNETICA - CALIDAD S2 X 10 UN. (BRSB011)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 3821.53,
+                "distribuidora": "ARGENTINA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681898828.491343,
+        "numeracion": "00000041",
+        "estado": true,
+        "efectivo": 2745.59,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "5329",
+                "articulo": "REJA 10 X 10 ACERO PISO GIRATORIA (CASAL)",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 3050.65,
+                "distribuidora": "CFN_NISII"
+            }
+        ]
+    },
+    {
+        "timestamp": 1681898880.649011,
+        "numeracion": "00000042",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 3783.62,
+        "articulos": [
+            {
+                "codigo": "GAL0001",
+                "articulo": "PANTALLA UNA MANO EXTERNA DE POLIPROPILENO",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 1254.0,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "UNI",
+                "articulo": "RODILLO UNIVERSAL (PELO MEDIO) (GALGO)",
+                "cantidad": 3,
+                "descuento": 10.0,
+                "precio": 983.34,
+                "distribuidora": "ACF"
+            }
+        ]
+    },
+    {
+        "timestamp": 1682196390.747348,
+        "numeracion": "00000043",
+        "estado": true,
+        "efectivo": 26607.3,
+        "tarjeta": 10000.0,
+        "articulos": [
+            {
+                "codigo": "4306",
+                "articulo": "CONOMETAL PANTALLA 1500 CAL. C / VALV.SEG.(NATURAL)",
+                "cantidad": 3,
+                "descuento": 10.0,
+                "precio": 12580.16,
+                "distribuidora": "ARGENTINA"
+            },
+            {
+                "codigo": "1941",
+                "articulo": "BRACO HOJA CALAR T/PELO P/MADERA 0.28 X 0.82 (HC02)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 158.97,
+                "distribuidora": "ARGENTINA"
+            },
+            {
+                "codigo": "AR  1030",
+                "articulo": "ARCO DE CALAR COLEGIAL  - ($ X UNID.)- (EL ABUELO )",
+                "cantidad": 2,
+                "descuento": 50.0,
+                "precio": 2481.9,
+                "distribuidora": "DIS_COS"
+            }
+        ]
+    },
+    {
+        "timestamp": 1682344014.796511,
+        "numeracion": "00000044",
+        "estado": true,
+        "efectivo": 34927.2,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "F-G0030",
+                "articulo": "PROLONGACION MANGO PALA HOYADORA **F-G**",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 5821.2,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "BUP0025",
+                "articulo": "PULVERIZADOR PLASTICO 16 LTS.MOCHILA *PRESION*",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 29106.0,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1682344324.87794,
+        "numeracion": "00000045",
+        "estado": true,
+        "efectivo": 29942.24,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "SIM0113",
+                "articulo": "CALADORA PENDUL.LASER 710W-3000RPM COD.G1940AR",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 29942.24,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1682417639.061987,
+        "numeracion": "00000046",
+        "estado": true,
+        "efectivo": 2377.56,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "MET0200",
+                "articulo": "PLOMADAS P/ALBA\u00d1IL DE  200 GRS.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1121.4,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "CEA0004",
+                "articulo": "SEPAR. LADRILLO 5 BOL X 150 UNID.CRUZ 4 MM.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1256.16,
+                "distribuidora": "AMAYA"
+            }
+        ]
     }
 ]

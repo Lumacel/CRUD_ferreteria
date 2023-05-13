@@ -399,7 +399,7 @@ class App():
             lista = (articulo, cantidad, f"{precio:.2f}", f"{subtotal:.2f}", f"{descuento:.2f} %" , f"{total_desc:.2f}", f"{total:.2f}")
             self.tabla_venta.insert("", tk.END, text="", values=(lista))
 
-        # -- cargar lbls root al pie
+        # -- cargar lbls root al pie de root
         self.subtotal.set(f" {subtotales:.2f}".rjust(16," "))
         self.descuento.set(f" {descuentos:.2f}".rjust(16," "))
         self.total.set(f" {totales:.2f}".rjust(16," "))
@@ -488,9 +488,8 @@ class App():
         self.precio_editar.set(item.precio_vta)
         self.dto_editar.set(item.descuento_vta)
 
-        self.entry_cant_editar.select_range(0, 'end')
-        self.entry_cant_editar.icursor('end') 
-        self.entry_cant_editar.focus()
+        self.reset_campo_cantidad() 
+
         self.ventana_editar.event_generate("<Button-1>") #simula un click para activar ventana y cursor
 
         self.ventana_editar.bind("<Escape>", lambda x: self.escape_editar()) # destruye ventana al apretar Escape
@@ -533,6 +532,8 @@ class App():
             descuento = float(self.dto_editar.get())
             if cantidad == 0 or descuento< 0 or descuento> 100 or precio<= 0 or articulo== "":
                 messagebox.showinfo(message="VERIFIQUE QUE LOS VALORES INGRESADOS SEAN CORRECTOS", title="INFO")
+                self.reset_campo_cantidad()
+
             else:
                 self.ventas.editar_articulo(articulo, cantidad, precio, fraccion, descuento, item)
                 self.ventana_editar.destroy()
@@ -540,6 +541,12 @@ class App():
                 self.entry_buscar.focus()
         except Exception:
             messagebox.showinfo(message="VERIFIQUE QUE LOS VALORES INGRESADOS SEAN CORRECTOS", title="INFO")
+            self.reset_campo_cantidad()
+    
+    def reset_campo_cantidad(self): # posiciona cursor en el campo y selecciona valores
+        self.entry_cant_editar.select_range(0, 'end')
+        self.entry_cant_editar.icursor('end') 
+        self.entry_cant_editar.focus()
 
     def escape_editar(self):
         if self.modo == "AGREGAR": 
@@ -626,7 +633,8 @@ class App():
         self.toplevel_tarjeta.bind("<Escape>", lambda x : self.toplevel_tarjeta.destroy())
 
     def aceptar_venta(self):
-        if messagebox.askyesno(title="VENTA" , message = " REALMENTE DESEA EFECTUAR ESTA VENTA?"):
+        if messagebox.askyesno(title="VENTA" , message = "EFECTUAR LA VENTA?"):
+            self.escape_root()
             if self.ventas.medio_pago:
                 self.reiniciar_valores()
                 self.ventas.discriminar_forma_pago()  
@@ -662,6 +670,7 @@ class App():
         self.subtotal.set(f" {0:.2f}".rjust(16," "))
         self.descuento.set(f" {0:.2f}".rjust(16," "))
         self.total.set(f" {0:.2f}".rjust(16," "))
+        self.dto_global.set("0.00")
 
     def toplevel_registros(self): # --- configura ventana para entrada de datos
         ancho_ventana= 1165

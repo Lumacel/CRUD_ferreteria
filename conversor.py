@@ -1,6 +1,4 @@
 import pandas as pd
-import docx
-import csv
 from tkinter import filedialog
 import os
 
