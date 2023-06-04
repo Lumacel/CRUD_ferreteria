@@ -54,31 +54,23 @@ class App():
         # Crear el menú Archivo
         self.menu_archivo = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
         self.menu_archivo.add_command(label="Explorar listas", accelerator="F3", command= self.ver_archivos_normalizados)
-        self.menu_archivo.add_separator()
         self.menu_archivo.add_command(label="Normalizar listas", accelerator="F4", command= self.toplevel_normalizar)
-        self.menu_archivo.add_separator()
-        self.menu_archivo.add_command(label="Salir", command=self.root.quit)
-
+        
         # Crear el menú Editar
         self.menu_ventas = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
         self.menu_ventas.add_command(label="Efectuar venta", accelerator="F2", command= lambda : self.aceptar_venta() if len(self.ventas.items_vta) != 0 else None)
-        self.menu_ventas.add_separator()
         self.menu_ventas.add_command(label="Descuento global", accelerator="F5", command= self.toplevel_dto_global)
-        self.menu_ventas.add_separator()
         self.menu_ventas.add_command(label="Agregar artículo", accelerator="F10", command= lambda: self.editar_item_vta("AGREGAR"))
-        self.menu_ventas.add_separator()
         self.menu_ventas.add_command(label="Editar artículo", accelerator="Return", command= lambda: self.editar_item_vta("EDITAR") if self.tabla_venta.selection() != () else None)
-        self.menu_ventas.add_separator()
         self.menu_ventas.add_command(label="Borrar artículo/s", accelerator="Ctrl+Del", command= self.borrar_items_vta )
-        self.menu_ventas.add_separator()
         self.menu_ventas.add_command(label="Efectivo/Tarjetas", accelerator="F8", command= self.modif_medio_pago)
-        self.menu_ventas.add_separator()
         self.menu_ventas.add_command(label="Reiniciar venta", accelerator="Ctrl+R", command= self.resetear_venta)
+        self.menu_ventas.add_separator()
+        self.menu_ventas.add_command(label="Salir", command=self.root.quit)
         
         # Crear el menú Configuración
         self.menu_config = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
         self.menu_config.add_command(label="Margen ganancia", accelerator="F6", command= self.toplevel_porcentaje_ganancia)
-        self.menu_config.add_separator()
         self.menu_config.add_command(label="Registros", accelerator="F7", command= self.toplevel_registros)
         
         # Crear la barra de menús y agregar los menús
