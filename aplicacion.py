@@ -61,14 +61,31 @@ class App():
 
         # Crear el menú Editar
         self.menu_ventas = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
-        self.menu_ventas.add_command(label="Configuracion", accelerator="F6", command= self.toplevel_porcentaje_ganancia)
+        self.menu_ventas.add_command(label="Efectuar venta", accelerator="F2", command= lambda : self.aceptar_venta() if len(self.ventas.items_vta) != 0 else None)
         self.menu_ventas.add_separator()
-        self.menu_ventas.add_command(label="Registros", accelerator="F7", command= self.toplevel_registros)
+        self.menu_ventas.add_command(label="Descuento global", accelerator="F5", command= self.toplevel_dto_global)
+        self.menu_ventas.add_separator()
+        self.menu_ventas.add_command(label="Agregar artículo", accelerator="F10", command= lambda: self.editar_item_vta("AGREGAR"))
+        self.menu_ventas.add_separator()
+        self.menu_ventas.add_command(label="Editar artículo", accelerator="Return", command= lambda: self.editar_item_vta("EDITAR") if self.tabla_venta.selection() != () else None)
+        self.menu_ventas.add_separator()
+        self.menu_ventas.add_command(label="Borrar artículo/s", accelerator="Ctrl+Del", command= self.borrar_items_vta )
+        self.menu_ventas.add_separator()
+        self.menu_ventas.add_command(label="Efectivo/Tarjetas", accelerator="F8", command= self.modif_medio_pago)
+        self.menu_ventas.add_separator()
+        self.menu_ventas.add_command(label="Reiniciar venta", accelerator="Ctrl+R", command= self.resetear_venta)
+        
+        # Crear el menú Configuración
+        self.menu_config = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
+        self.menu_config.add_command(label="Margen ganancia", accelerator="F6", command= self.toplevel_porcentaje_ganancia)
+        self.menu_config.add_separator()
+        self.menu_config.add_command(label="Registros", accelerator="F7", command= self.toplevel_registros)
         
         # Crear la barra de menús y agregar los menús
         self.barra_menus = tk.Menu(self.root)
-        self.barra_menus.add_cascade(label="   Archivo", menu=self.menu_archivo)
-        self.barra_menus.add_cascade(label="   Ventas ", menu=self.menu_ventas)
+        self.barra_menus.add_cascade(label="   Ventas", menu=self.menu_ventas)
+        self.barra_menus.add_cascade(label=" Archivos", menu=self.menu_archivo)
+        self.barra_menus.add_cascade(label=" Configuración", menu=self.menu_config)
 
         # Agregar la barra de menús a la ventana
         self.root.config(menu=self.barra_menus)
@@ -154,8 +171,7 @@ class App():
         self.lbl_ganancia.place(x=12, y= 20)
         self.entry_ganancia = tk.Entry(self.toplevel_ganancia,textvariable = self.porcentaje_ganancia , width=15,justify = "right", font=("Arial", 11))
         self.entry_ganancia.place(x=138,y=20)
-
-        self.lbl_clave = tk.Label(self.toplevel_ganancia,text="PASSWORD",  bg = "lightblue", relief= "ridge", width= 13, font=("Arial", 11))
+        self.lbl_clave = tk.Label(self.toplevel_ganancia,text="CONTRASEÑA",  bg = "lightblue", relief= "ridge", width= 13, font=("Arial", 11))
         self.lbl_clave.place(x=12, y= 60)
         self.entry_clave = tk.Entry(self.toplevel_ganancia,textvariable = self.password , show="*", width=15,justify = "right", font=("Arial", 11))
         self.entry_clave.place(x=138,y=60)
@@ -490,12 +506,12 @@ class App():
 
         self.reset_campo_cantidad() 
 
-        self.ventana_editar.event_generate("<Button-1>") #simula un click para activar ventana y cursor
+        self.ventana_editar.event_generate("<Button-1>") # simula un click para activar ventana y cursor
 
-        self.ventana_editar.bind("<Escape>", lambda x: self.escape_editar()) # destruye ventana al apretar Escape
+        self.ventana_editar.bind("<Escape>", lambda x: self.escape_editar()) # llama a funcion escape_editar (destruye ventana al apretar Escape)
         self.ventana_editar.bind("<Return>", lambda x: self.validar_entradas(item)) # carga articulo
-        self.ventana_editar.bind("<KeyRelease>", lambda x: self.key_released ())
-        self.ventana_editar.protocol("WM_DELETE_WINDOW", self.escape_editar)
+        self.ventana_editar.bind("<KeyRelease>", lambda x: self.key_released_fracc ()) 
+        self.ventana_editar.protocol("WM_DELETE_WINDOW", self.escape_editar) # llama a la funcion escape_editar cuando se cierra la ventana
 
     def fracc_seleccion(self):
         if self.fracc_state.get():
@@ -505,7 +521,7 @@ class App():
             self.entry_fraccionar.config(state= "disabled")
             self.lbl_fraccionar.config(state= "disabled")
 
-    def key_released(self): # verifica si se fracciona el producto cuando se ingresa un valor
+    def key_released_fracc(self): # verifica si se fracciona el producto cuando se ingresa un valor
         if self.fracc_state.get():
             try:
                 precio = self.precio_editar.get()
@@ -599,6 +615,7 @@ class App():
         self.btn_aceptar.place(x= 10, y= 60)
         self.btn_salir = tk.Button(self.ventana_normalizar, text= " SALIR " , width = 10, command= lambda : self.ventana_normalizar.destroy() , font=("Arial", 11))
         self.btn_salir.place(x= 288, y= 60)
+        
         self.ventana_normalizar.bind("<Return>", lambda x: self.normalizar_lista())
         self.ventana_normalizar.bind("<Escape>", lambda x : self.ventana_normalizar.destroy())
     

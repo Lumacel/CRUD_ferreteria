@@ -24,8 +24,6 @@ def normalizar_lista(file, distribuidora):
                     row[1]=row[1].rstrip()
                     if "KWT" in row[1]:
                         row[1] = "KUWAIT " + row[1]
-                        
-
                     try:
                         row[2]= f"{float(row[2]):.2f}"
                     except Exception:
