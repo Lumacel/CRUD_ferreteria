@@ -53,25 +53,25 @@ class App():
 
         # Crear el menú Archivo
         self.menu_archivo = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
-        self.menu_archivo.add_command(label="Explorar listas", accelerator="F3", command= self.ver_archivos_normalizados)
+        self.menu_archivo.add_command(label="Explorar archivos", accelerator="F3", command= self.ver_archivos_normalizados)
         self.menu_archivo.add_command(label="Normalizar listas", accelerator="F4", command= self.toplevel_normalizar)
         
         # Crear el menú Editar
         self.menu_ventas = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
         self.menu_ventas.add_command(label="Efectuar venta", accelerator="F2", command= lambda : self.aceptar_venta() if len(self.ventas.items_vta) != 0 else None)
-        self.menu_ventas.add_command(label="Descuento global", accelerator="F5", command= self.toplevel_dto_global)
+        self.menu_ventas.add_command(label="Aplicar descuento global", accelerator="F5", command= self.toplevel_dto_global)
         self.menu_ventas.add_command(label="Agregar artículo", accelerator="F10", command= lambda: self.editar_item_vta("AGREGAR"))
-        self.menu_ventas.add_command(label="Editar artículo", accelerator="Return", command= lambda: self.editar_item_vta("EDITAR") if self.tabla_venta.selection() != () else None)
+        self.menu_ventas.add_command(label="Editar artículo", accelerator="Enter", command= lambda: self.editar_item_vta("EDITAR") if self.tabla_venta.selection() != () else None)
         self.menu_ventas.add_command(label="Borrar artículo/s", accelerator="Ctrl+Del", command= self.borrar_items_vta )
-        self.menu_ventas.add_command(label="Efectivo/Tarjetas", accelerator="F8", command= self.modif_medio_pago)
+        self.menu_ventas.add_command(label="Modificar medio de pago", accelerator="F8", command= self.modif_medio_pago)
         self.menu_ventas.add_command(label="Reiniciar venta", accelerator="Ctrl+R", command= self.resetear_venta)
         self.menu_ventas.add_separator()
-        self.menu_ventas.add_command(label="Salir", command=self.root.quit)
+        self.menu_ventas.add_command(label="SALIR", command=self.root.quit)
         
         # Crear el menú Configuración
         self.menu_config = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
-        self.menu_config.add_command(label="Margen ganancia", accelerator="F6", command= self.toplevel_porcentaje_ganancia)
-        self.menu_config.add_command(label="Registros", accelerator="F7", command= self.toplevel_registros)
+        self.menu_config.add_command(label="Modificar margen ganancia", accelerator="F6", command= self.toplevel_porcentaje_ganancia)
+        self.menu_config.add_command(label="Registros historicos", accelerator="F7", command= self.toplevel_registros)
         
         # Crear la barra de menús y agregar los menús
         self.barra_menus = tk.Menu(self.root)
@@ -203,7 +203,7 @@ class App():
         else: None
 
     def return_root(self):
-        if isinstance(self.root.focus_get(), tk.Entry) :
+        if isinstance(self.root.focus_get(), tk.Entry): # al presionar <enter> realiza búsqueda si el foco está en el entry de busqueda 
             self.buscar_item()
         else: 
             self.editar_item_vta("EDITAR") if self.tabla_venta.selection() != () else None
@@ -701,7 +701,7 @@ class App():
         self.fecha_inicial= tk.StringVar(value = fecha)
         self.fecha_final= tk.StringVar(value = fecha)
 
-        self.lbl_fecha_inicial = tk.Label(self.toplevel_reg, text="DESDE", relief= "ridge", width=9, bg= "lightblue", fg= "black",font=("Arial", 10))
+        self.lbl_fecha_inicial = tk.Label(self.toplevel_reg, text="DESDE", relief= "ridge", width=9, bg= "lightblue", fg= "black", font=("Arial", 10))
         self.lbl_fecha_inicial.place(x=12,y=10)
         self.entry_fecha_inicial = tk.Entry(self.toplevel_reg,textvariable = self.fecha_inicial, width=10, font=("Arial", 11))
         self.entry_fecha_inicial.place(x=92,y=10)
@@ -726,8 +726,8 @@ class App():
 
         self.lbl_title_detalle= tk.Label(self.toplevel_reg, text="Detalle", font=("Arial", 10)).place(x= 12, y=308)
 
-        self.entry_fecha_inicial.config(state="disabled",disabledforeground="black")
-        self.entry_fecha_final.config(state="disabled",disabledforeground="black")
+        self.entry_fecha_inicial.config(state="readonly",disabledforeground="black")
+        self.entry_fecha_final.config(state="readonly",disabledforeground="black")
         
         self.entry_fecha_inicial.bind("<Button-1>", lambda x: self.set_modo_fecha_inicial())
         self.entry_fecha_final.bind("<Button-1>", lambda x: self.set_modo_fecha_final())

@@ -9,6 +9,7 @@ import modelo_GUSTAVO_ELECT
 import modelo_INTEGRAL
 import modelo_LA_PLATA_LED
 import modelo_LIMPIA_AVENIDA
+import modelo_LOS_PINOS
 import modelo_MASSOL
 import modelo_MAURO_IMPORT
 import modelo_SUPRABOND
@@ -47,6 +48,9 @@ def normalizar(file, distribuidora):
 
     elif distribuidora == "LIMPIA_AVENIDA":
         modelo_LIMPIA_AVENIDA.normalizar_lista(file, distribuidora)
+
+    elif distribuidora == "LOS_PINOS":
+        modelo_LOS_PINOS.normalizar_lista(file, distribuidora)
 
     elif distribuidora == "MASSOL":
         modelo_MASSOL.normalizar_lista(file, distribuidora)
