@@ -17,52 +17,68 @@ import modelo_CEDICA
 
 def normalizar(file, distribuidora):
     if distribuidora == "ACF":
-        modelo_ACF.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_ACF.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
     elif distribuidora == "AMAYA":
-        modelo_AMAYA.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_AMAYA.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
     elif distribuidora == "ARGENTINA":
-        modelo_ARGENTINA.normalizar_lista(file, distribuidora)
-
+        nuevo_archivo = modelo_ARGENTINA.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
+    
     elif distribuidora == "CFN_NISII":
-        modelo_CFN_NISII.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_CFN_NISII.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
     
     elif distribuidora == "DANIROX":
-        modelo_DANIROX.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_DANIROX.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
     
     elif distribuidora == "DIS_COS":
-        modelo_DIS_COS.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_DIS_COS.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
     elif distribuidora == "FLAVIO":
-        modelo_FLAVIO.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_FLAVIO.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
     elif distribuidora == "GUSTAVO_ELECT":
-        modelo_GUSTAVO_ELECT.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_GUSTAVO_ELECT.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
     
     elif distribuidora == "INTEGRAL":
-        modelo_INTEGRAL.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_INTEGRAL.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
     elif distribuidora == "LA_PLATA_LED":
-        modelo_LA_PLATA_LED.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_LA_PLATA_LED.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
     elif distribuidora == "LIMPIA_AVENIDA":
-        modelo_LIMPIA_AVENIDA.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_LIMPIA_AVENIDA.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
     elif distribuidora == "LOS_PINOS":
-        modelo_LOS_PINOS.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_LOS_PINOS.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
     elif distribuidora == "MASSOL":
-        modelo_MASSOL.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_MASSOL.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
     elif distribuidora == "MAURO_IMPORT":
-        modelo_MAURO_IMPORT.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_MAURO_IMPORT.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
     elif distribuidora == "SUPRABOND":
-        modelo_SUPRABOND.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_SUPRABOND.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
     
     elif distribuidora == "CEDICA":
-        modelo_CEDICA.normalizar_lista(file, distribuidora)
+        nuevo_archivo = modelo_CEDICA.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
 
 
     

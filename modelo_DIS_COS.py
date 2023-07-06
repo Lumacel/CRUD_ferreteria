@@ -36,7 +36,8 @@ def normalizar_lista(file, distribuidora):
                     
     except Exception as e:
             print(e)
-    return c
+    
+    return nombre_arch_csv.split("\\")[1]
            
 if __name__=="__main__":
     distribuidora = "DIS_COS"

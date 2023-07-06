@@ -25,7 +25,7 @@ def normalizar_lista(file, distribuidora):
                         pass
                         if len(row)<2: continue
                         if row[0] == "."  or row[0].startswith("Subtotal") or row[0].startswith("0"): continue
-                        row = ["S/COD.",row[0].upper().strip(),row[1]]
+                        row = ["S/CODIGO",row[0].upper().strip(),row[1]]
                         row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
                         row[1]=row[1].rstrip()            
                         try:
@@ -37,11 +37,11 @@ def normalizar_lista(file, distribuidora):
                         writer_object.writerow(row)
                         c+=1
                         print(c,row)
-
-              
+        
     except Exception as e:
         print(e)
-    return c         
+    
+    return nombre_arch_csv.split("\\")[1]
 
 if __name__=="__main__":
     distribuidora = "FLAVIO"

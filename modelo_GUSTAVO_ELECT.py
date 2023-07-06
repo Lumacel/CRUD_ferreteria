@@ -27,7 +27,7 @@ def normalizar_lista(file, distribuidora):
                             categoria= ""
                         try:
                             if len(row)<3 : continue
-                            row = ["S/COD.", f"{categoria} {row[0]} [{row[1]}]", row[2]]
+                            row = ["S/CODIGO", f"{categoria} {row[0]} [{row[1]}]", row[2]]
                             try:
                                 row[2]= f"{float(row[2]):.2f}"
                             except Exception:
@@ -63,7 +63,8 @@ def normalizar_lista(file, distribuidora):
                             pass                   
     except Exception as e:
            print(e)
-    return c
+           
+    return nombre_arch_csv.split("\\")[1]
   
 if __name__=="__main__":
     distribuidora = "GUSTAVO_ELECT"

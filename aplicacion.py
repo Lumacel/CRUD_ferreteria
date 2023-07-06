@@ -55,7 +55,9 @@ class App():
         self.menu_archivo = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
         self.menu_archivo.add_command(label="Explorar archivos", accelerator="F3", command= self.ver_archivos_normalizados)
         self.menu_archivo.add_command(label="Normalizar listas", accelerator="F4", command= self.toplevel_normalizar)
-        
+        self.menu_archivo.add_separator()
+        self.menu_archivo.add_command(label="Salir", command=self.root.quit)
+
         # Crear el menú Editar
         self.menu_ventas = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
         self.menu_ventas.add_command(label="Efectuar venta", accelerator="F2", command= lambda : self.aceptar_venta() if len(self.ventas.items_vta) != 0 else None)
@@ -65,8 +67,7 @@ class App():
         self.menu_ventas.add_command(label="Borrar artículo/s", accelerator="Ctrl+Del", command= self.borrar_items_vta )
         self.menu_ventas.add_command(label="Modificar medio de pago", accelerator="F8", command= self.modif_medio_pago)
         self.menu_ventas.add_command(label="Reiniciar venta", accelerator="Ctrl+R", command= self.resetear_venta)
-        self.menu_ventas.add_separator()
-        self.menu_ventas.add_command(label="SALIR", command=self.root.quit)
+        
         
         # Crear el menú Configuración
         self.menu_config = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
@@ -75,8 +76,9 @@ class App():
         
         # Crear la barra de menús y agregar los menús
         self.barra_menus = tk.Menu(self.root)
-        self.barra_menus.add_cascade(label="   Ventas", menu=self.menu_ventas)
-        self.barra_menus.add_cascade(label=" Archivos", menu=self.menu_archivo)
+        
+        self.barra_menus.add_cascade(label="   Archivos", menu=self.menu_archivo)
+        self.barra_menus.add_cascade(label=" Ventas", menu=self.menu_ventas)
         self.barra_menus.add_cascade(label=" Configuración", menu=self.menu_config)
 
         # Agregar la barra de menús a la ventana
@@ -1018,6 +1020,11 @@ class App():
             pass
         
     def normalizar_lista(self):
+            m1= "EL ARCHIVO FUE GENERADO EXITOSAMENTE \n\n ¿DESEA ABRIR LA CARPETA CONTENEDORA? "
+            m2= "LOS ARCHIVOS FUERON GENERADOS EXITOSAMENTE  \n\n    ¿DESEA ABRIR LA CARPETA CONTENEDORA?" 
+            m3= "¿DESEA ELIMINAR REGISTROS ANTERIORES?"
+            nuevos_archivos = []
+            
             if self.modelo_distr_norm.get() == "":
                 self.ventana_normalizar.destroy()
             else:
@@ -1027,14 +1034,23 @@ class App():
                     pass
                 else:
                     for archivo in lista_archivos:
-                        normalizador.normalizar(archivo,distribuidora)
+                        nuevo_archivo = normalizador.normalizar(archivo,distribuidora)
+                        nuevos_archivos.append(nuevo_archivo)
 
-                    m1= "EL ARCHIVO FUE GENERADO EXITOSAMENTE \n\n ¿DESEA ABRIR LA CARPETA CONTENEDORA? "
-                    m2= "LOS ARCHIVOS FUERON GENERADOS EXITOSAMENTE  \n\n    ¿DESEA ABRIR LA CARPETA CONTENEDORA?" 
-                    
                     if messagebox.askyesno(title="ABRIR CARPETA" , message = m1 if len(lista_archivos) == 1 else m2):
                         self.ver_archivos_normalizados()
 
+                    if messagebox.askyesno(title="ELIMINAR REGISTROS" , message = m3 ):
+                        self.eliminar_archivos_anteriores(nuevos_archivos,distribuidora)  
+                     
+    def eliminar_archivos_anteriores(self,nuevos_archivos, distribuidora):
+        archivos_anteriores = os.listdir("archivos_normalizados")
+
+        for archivo in archivos_anteriores:
+            if archivo not in nuevos_archivos and distribuidora in archivo: 
+                os.remove(f"archivos_normalizados\\{archivo}")
+            else: continue
+          
     def get_fechas_seleccionadas(self):
         ts_inicio= datetime.timestamp(datetime.strptime(self.fecha_inicial.get(),"%d-%m-%Y"))
         ts_final= datetime.timestamp(datetime.strptime(self.fecha_final.get(),"%d-%m-%Y"))+86399 # le agrego 23hs 59min 59seg (1 dia = 86400seg)

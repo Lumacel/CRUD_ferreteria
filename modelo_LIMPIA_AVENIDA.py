@@ -30,6 +30,7 @@ def normalizar_lista(file, distribuidora):
                         row[1] = row[1].rstrip(" ")
                         row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
                         row[1]=row[1].rstrip()
+                        row[1]=row[1].upper()
                         try:
                             row[2]= f"{float(row[2]):.2f}"
                         except Exception:
@@ -53,6 +54,8 @@ def normalizar_lista(file, distribuidora):
                                 row[1]= "PINZA PUNTA CHATA " + row[1] + " (METZ)"
                             
                         match row[0][0:6]:
+                            case "C-1427"|"C-1428":
+                                row[1]= row[1] + " (DESTAPACIONES) "
                             case "T-0391":
                                 row[1]= "TENAZA PARA CARPINTEROS AISLADAS " + row[1] + " (METZ)"
                             case "T-0380":
@@ -115,7 +118,8 @@ def normalizar_lista(file, distribuidora):
                         
         except Exception as e:
             print(e)
-        return c
+        
+        return nombre_arch_csv.split("\\")[1]
   
 if __name__=="__main__":
     distribuidora = "LIMPIA_AVENIDA"

@@ -86,7 +86,7 @@ def normalizar_lista(file, distribuidora):
                         elif items[18] in row[0]:
                             continue
                         elif items[19] in row[0]:
-                            precio_familiar= row[1] 
+                            precio_familiar= row[1] # precio Escalon Familiar de 4 a 10
                             continue
                         elif items[20] in row[0]:
                             precio_pintor_4_10= row[1] # precio Escalon Pintor de 4 a 10
@@ -118,7 +118,7 @@ def normalizar_lista(file, distribuidora):
                             row[1] = str(float(precio_pintor_4_10 if cant_pintor <11 else precio_pintor_11_12)*cant_pintor)
                             cant_pintor+=1
                                         
-                        row= ["S/COD", texto_inicial + row[0] + texto_final if texto_inicial not in row[0] else row[0] + texto_final, row[1]] 
+                        row= ["S/CODIGO", texto_inicial + row[0] + texto_final if texto_inicial not in row[0] else row[0] + texto_final, row[1]] 
 
                         row[1]= row[1].upper()
                         row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
@@ -131,11 +131,10 @@ def normalizar_lista(file, distribuidora):
                         writer_object.writerow(row)
                         c+=1
                         print(c,row)  
-
         except Exception as e:
             print(e)
         
-        return c #cantidad de items 
+        return nombre_arch_csv.split("\\")[1]
 
 if __name__== "__main__":
     distribuidora = "LOS_PINOS"

@@ -50,7 +50,8 @@ def normalizar_lista(file, distribuidora):
                     print(c,row)     
     except Exception as e:
         print(e)
-    return c #cantidad de items 
+    
+    return nombre_arch_csv.split("\\")[1]
 
 
 if __name__== "__main__":

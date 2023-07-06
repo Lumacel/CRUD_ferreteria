@@ -5,6 +5,7 @@ from tkinter import filedialog
 
 def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
     fecha = datetime.now()
+    
     return f'{carpeta}\\{distribuidora}_{fecha.strftime("%Y-%m-%d_%H-%M-%S")}_'
 
 def normalizar_lista(file, distribuidora):
@@ -37,8 +38,9 @@ def normalizar_lista(file, distribuidora):
                         continue
     except Exception as e:
             print(e)
-    return c
-           
+    
+    return nombre_arch_csv.split("\\")[1]
+
 if __name__== "__main__":
     distribuidora = "INTEGRAL"
     open_files = filedialog.askopenfilenames(filetypes=[("Archivos Excel", "*.csv")])

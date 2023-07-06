@@ -17,8 +17,8 @@ def normalizar_lista(file, distribuidora):
         
         c= 0
         basename = os.path.basename(file)
-        
         nombre_arch_csv= nombrar_archivo(distribuidora) + basename
+
         try:
             with open(nombre_arch_csv, "a", newline="", encoding='utf-8-sig') as new_csvfile:
                 writer_object = csv.writer(new_csvfile)
@@ -53,7 +53,8 @@ def normalizar_lista(file, distribuidora):
                             
         except Exception as e:
             print(e)
-        return c #cantidad de items 
+
+        return nombre_arch_csv.split("\\")[1]
 
 if __name__== "__main__":
     distribuidora = "ACF"
