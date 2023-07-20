@@ -22,7 +22,8 @@ def normalizar_lista(file, distribuidora):
                     row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
                     row[1]=row[1].rstrip()
                     try:
-                        row[2]= f"{float(row[2]):.2f}"
+                        row[2]= float(row[2])*.558 # .558 coeficiente AMAYA (precio lista -38% -10%)
+                        row[2]= f"{(row[2]):.2f}"
                     except Exception:
                         continue
                     row.append(distribuidora)

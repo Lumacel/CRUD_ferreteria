@@ -31,7 +31,8 @@ def normalizar_lista(file, distribuidora):
                     row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
                     row[1]=row[1].rstrip()
                     try:
-                        row[2]= f"{float(row[2]):.2f}"
+                        row[2]= float(row[2])*.56 # coeficiente DANIROX = .56 (precio lista -30% - 20%)
+                        row[2]= f"{(row[2]):.2f}"
                     except Exception:
                         continue
                     row.append(distribuidora)

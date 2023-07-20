@@ -261,75 +261,75 @@ class App():
             self.entry_dto.select_range(0, 'end')
             self.entry_dto.icursor('end')
             
-    def toplevel_buscar(self): # --- configura ventana para entrada de datos
+    def toplevel_resultados(self): # --- configura ventana para entrada de datos
         ancho_ventana= 1150
         alto_ventana = 260
 
-        self.toplevel_busqueda = tk.Toplevel()
-        self.toplevel_busqueda.focus_force()
-        self.toplevel_busqueda.resizable(0,0)
-        self.toplevel_busqueda.title("COINCIDENCIAS")
+        self.toplevel_result = tk.Toplevel()
+        self.toplevel_result.focus_force()
+        self.toplevel_result.resizable(0,0)
+        self.toplevel_result.title("RESULTADOS")
 
         posicion = self.centrar_ventana(ancho_ventana,alto_ventana)
-        self.toplevel_busqueda.geometry(posicion)
+        self.toplevel_result.geometry(posicion)
 
-        self.lbl_distr_busq = tk.Label(self.toplevel_busqueda, text = "DISTRIBUIDORA", width=20, relief= "ridge", bg= "lightblue" ,fg= "black", font=("Arial", 11))
-        self.lbl_distr_busq.place(x=745, y=210)
-        self.lbl_item_busq = tk.Label(self.toplevel_busqueda, text= "BUSQUEDA", relief= "ridge", width= 20, bg= "lightblue", fg= "black",font=("Arial", 11))
-        self.lbl_item_busq.place(x=12,y=210)
-        self.entry_item = tk.Label(self.toplevel_busqueda, text = (self.articulo_busq.get()).upper(),relief= "sunken", width=20, font=("Arial", 11))
-        self.entry_item.place(x=200,y=210)
-        self.entry_distr_busq = ttk.Combobox(self.toplevel_busqueda,textvariable = self.distr_selecc,values=self.get_distribuidoras(), state="readonly", width=20, height=len(self.get_distribuidoras()))
-        self.entry_distr_busq.place(x=933,y=210)
-        self.entry_distr_busq.config(font=("Arial", 11))
+        self.lbl_distr_resultados = tk.Label(self.toplevel_result, text = "DISTRIBUIDORA", width=20, relief= "ridge", bg= "lightblue" ,fg= "black", font=("Arial", 11))
+        self.lbl_distr_resultados.place(x=745, y=210)
+        self.lbl_item_resultados = tk.Label(self.toplevel_result, text= "BUSQUEDA", relief= "ridge", width= 20, bg= "lightblue", fg= "black",font=("Arial", 11))
+        self.lbl_item_resultados.place(x=12,y=210)
+        self.entry_item_resultados = tk.Label(self.toplevel_result, text = (self.articulo_busq.get()).upper(),relief= "sunken", width=20, font=("Arial", 11))
+        self.entry_item_resultados.place(x=200,y=210)
+        self.entry_distr_resultados = ttk.Combobox(self.toplevel_result,textvariable = self.distr_selecc,values=self.get_distribuidoras(), state="readonly", width=20, height=len(self.get_distribuidoras()))
+        self.entry_distr_resultados.place(x=933,y=210)
+        self.entry_distr_resultados.config(font=("Arial", 11))
 		
-        self.toplevel_busqueda.grab_set() # --- inhabilita controles ventana principal
+        self.toplevel_result.grab_set() # --- inhabilita controles ventana principal
         
-        self.toplevel_busqueda.bind("<<ComboboxSelected>>", lambda x : self.combobox_select())
-        self.toplevel_busqueda.bind("<Escape>", lambda x: self.escape_toplevel_busq()) # destruye ventana al apretar Escape
-        self.toplevel_busqueda.bind("<Return>", lambda x: self.agregar_artic_venta()) # carga articulo
-        self.toplevel_busqueda.bind("<Double-Button-1>", lambda x : self.agregar_artic_venta())
-        self.toplevel_busqueda.protocol("WM_DELETE_WINDOW", self.escape_toplevel_busq)
+        self.toplevel_result.bind("<<ComboboxSelected>>", lambda x : self.combobox_select())
+        self.toplevel_result.bind("<Escape>", lambda x: self.esc_toplevel_resultados()) # destruye ventana al apretar Escape
+        self.toplevel_result.bind("<Return>", lambda x: self.agregar_artic_venta()) # carga articulo
+        self.toplevel_result.bind("<Double-Button-1>", lambda x : self.agregar_artic_venta())
+        self.toplevel_result.protocol("WM_DELETE_WINDOW", self.esc_toplevel_resultados)
        
         self.treeview_busqueda()
-        self.cargar_treeview_busqueda()
+        self.cargar_treeview_resultados()
 
-    def escape_toplevel_busq(self):
-        self.toplevel_busqueda.destroy()
+    def esc_toplevel_resultados(self):
+        self.toplevel_result.destroy()
         self.distr_selecc.set("TODAS")
         self.entry_buscar.focus_set()
         self.entry_buscar.select_range(0, 'end')
         self.entry_buscar.icursor('end') 
 
     def combobox_select(self):
-        self.tabla_busqueda.delete(*self.tabla_busqueda.get_children())
-        self.cargar_treeview_busqueda()
+        self.tabla_resultados.delete(*self.tabla_resultados.get_children())
+        self.cargar_treeview_resultados()
     
     def treeview_busqueda(self,filas=8): # --- da formato a la tabla (treeview)
         columnas= ("CODIGO","ARTICULO","P. COMPRA $","P. VENTA $","DISTRIBUIDORA")
-        self.tabla_busqueda = ttk.Treeview(self.toplevel_busqueda, height=filas, columns=(columnas))
-        self.tabla_busqueda.place(x= 10 , y=10)
+        self.tabla_resultados = ttk.Treeview(self.toplevel_result, height=filas, columns=(columnas))
+        self.tabla_resultados.place(x= 10 , y=10)
 		
 		# --- barra scroll
-        self.scroll = tk.Scrollbar(self.toplevel_busqueda, orient="vertical", command=self.tabla_busqueda.yview)
+        self.scroll = tk.Scrollbar(self.toplevel_result, orient="vertical", command=self.tabla_resultados.yview)
         self.scroll.place(x=1120, y=28, height=166)
-        self.tabla_busqueda.configure(yscrollcommand=self.scroll.set)
+        self.tabla_resultados.configure(yscrollcommand=self.scroll.set)
 
 		# --- formato a las columnas
-        self.tabla_busqueda.column("#0", width=0, stretch=tk.NO , minwidth=100)
-        self.tabla_busqueda.column("CODIGO", anchor=tk.W, width=100, minwidth = 120)
-        self.tabla_busqueda.column("ARTICULO", anchor=tk.W, width=640, minwidth = 620)
-        self.tabla_busqueda.column("P. COMPRA $", anchor=tk.E, width=100, minwidth = 100)
-        self.tabla_busqueda.column("P. VENTA $", anchor=tk.E, width=100, minwidth = 100)
-        self.tabla_busqueda.column("DISTRIBUIDORA", anchor=tk.CENTER, width=155,minwidth = 155)
+        self.tabla_resultados.column("#0", width=0, stretch=tk.NO , minwidth=100)
+        self.tabla_resultados.column("CODIGO", anchor=tk.W, width=100, minwidth = 120)
+        self.tabla_resultados.column("ARTICULO", anchor=tk.W, width=640, minwidth = 620)
+        self.tabla_resultados.column("P. COMPRA $", anchor=tk.E, width=100, minwidth = 100)
+        self.tabla_resultados.column("P. VENTA $", anchor=tk.E, width=100, minwidth = 100)
+        self.tabla_resultados.column("DISTRIBUIDORA", anchor=tk.CENTER, width=155,minwidth = 155)
 
 		# --- indicar cabecera
-        self.tabla_busqueda.heading("#0", text="", anchor=tk.W)
-        self.tabla_busqueda.heading("#1", text="CODIGO", anchor=tk.CENTER)
-        self.tabla_busqueda.heading("#2", text="ARTICULO", anchor=tk.CENTER)
-        self.tabla_busqueda.heading("#3", text="P. COMPRA $", anchor=tk.CENTER)
-        self.tabla_busqueda.heading("#4", text="P. VENTA $", anchor=tk.CENTER)
-        self.tabla_busqueda.heading("#5", text="DISTRIBUIDORA", anchor=tk.CENTER)
+        self.tabla_resultados.heading("#0", text="", anchor=tk.W)
+        self.tabla_resultados.heading("#1", text="CODIGO", anchor=tk.CENTER)
+        self.tabla_resultados.heading("#2", text="ARTICULO", anchor=tk.CENTER)
+        self.tabla_resultados.heading("#3", text="P. COMPRA $", anchor=tk.CENTER)
+        self.tabla_resultados.heading("#4", text="P. VENTA $", anchor=tk.CENTER)
+        self.tabla_resultados.heading("#5", text="DISTRIBUIDORA", anchor=tk.CENTER)
 
     def treeview_venta(self, filas = 8 ):
         columnas= ("ARTICULO", "CANT.", "PRECIO", "SUBTOTAL", "DTO. %","DTO. $", "TOTAL")
@@ -362,7 +362,7 @@ class App():
         self.tabla_venta.heading("#6", text="DTO. $", anchor=tk.CENTER)
         self.tabla_venta.heading("#7", text="TOTAL", anchor=tk.CENTER)
         
-    def cargar_treeview_busqueda(self): # --- agrega datos a la tabla (treeview)
+    def cargar_treeview_resultados(self): # --- agrega datos a la tabla (treeview)
         for item in self.lista_coincidencias: 
             if item[3] == self.get_distr_selecc() or self.get_distr_selecc() == "TODAS":
                 codigo = item[0]
@@ -371,15 +371,15 @@ class App():
                 precio_venta = f"{(float(item[2])*self.ventas.coeficiente_vta):.2f}"
                 distribuidora = item[3]
                 lista = (codigo, articulo, precio_compra, precio_venta, distribuidora)
-                self.tabla_busqueda.insert("", tk.END, text="", values=(lista))
+                self.tabla_resultados.insert("", tk.END, text="", values=(lista))
             else:
                 continue
 
     def agregar_artic_venta(self):
-        items_selecc = self.tabla_busqueda.selection()  # items seleccionados (marcados en azul)
+        items_selecc = self.tabla_resultados.selection()  # items seleccionados (marcados en azul)
         if len(items_selecc)>0:
             for i in items_selecc:
-                item = self.tabla_busqueda.item(i)["values"]
+                item = self.tabla_resultados.item(i)["values"]
 
                 v = Ventas(item[0],item[1], 1, self.get_dto_global(), item[3],item[4])  # crea objeto Ventas
 
@@ -409,12 +409,12 @@ class App():
             lista = (articulo, cantidad, f"{precio:.2f}", f"{subtotal:.2f}", f"{descuento:.2f} %" , f"{total_desc:.2f}", f"{total:.2f}")
             self.tabla_venta.insert("", tk.END, text="", values=(lista))
 
-        # -- cargar lbls root al pie de root
+        # -- cargar lbls al pie de root
         self.subtotal.set(f" {subtotales:.2f}".rjust(16," "))
         self.descuento.set(f" {descuentos:.2f}".rjust(16," "))
         self.total.set(f" {totales:.2f}".rjust(16," "))
         try:
-            self.toplevel_busqueda.destroy()
+            self.toplevel_result.destroy()
         except:
             pass
         self.articulo_busq.set("")
@@ -500,7 +500,7 @@ class App():
 
         self.reset_campo_cantidad() 
 
-        self.ventana_editar.event_generate("<Button-1>") # simula un click para activar ventana y cursor
+        self.ventana_editar.event_generate("<Button-1>") # simula un click para activar ventana y cursor 
 
         self.ventana_editar.bind("<Escape>", lambda x: self.escape_editar()) # llama a funcion escape_editar (destruye ventana al apretar Escape)
         self.ventana_editar.bind("<Return>", lambda x: self.validar_entradas(item)) # carga articulo
@@ -576,7 +576,7 @@ class App():
                 self.entry_buscar.select_range(0, 'end')
                 self.entry_buscar.icursor('end')
             else:
-                self.toplevel_buscar()
+                self.toplevel_resultados()
                 for item in self.lista_coincidencias:
                     print(item)
         else:
@@ -1029,7 +1029,7 @@ class App():
                 self.ventana_normalizar.destroy()
             else:
                 distribuidora = self.modelo_distr_norm.get()
-                lista_archivos = conversor.convertir_a_csv()
+                lista_archivos = conversor.convertir_a_csv() 
                 if lista_archivos== []:
                     pass
                 else:
