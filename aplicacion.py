@@ -13,6 +13,7 @@ class App():
     def __init__(self):
         self.distribuidoras =  self.cargar_distribuidoras()
         self.distr_selecc = "TODAS"
+        self.desc_glob = 0
         self.ventas = Ventas() # pone clase Venta como instancia de la clase App
         self.ventana_principal()
        
@@ -63,15 +64,15 @@ class App():
         self.menu_ventas.add_command(label="Efectuar venta", accelerator="F2", command= lambda : self.aceptar_venta() if len(self.ventas.items_vta) != 0 else None)
         self.menu_ventas.add_command(label="Aplicar descuento global", accelerator="F5", command= self.toplevel_dto_global)
         self.menu_ventas.add_command(label="Agregar artículo", accelerator="F10", command= lambda: self.editar_item_vta("AGREGAR"))
-        self.menu_ventas.add_command(label="Editar artículo", accelerator="Enter", command= lambda: self.editar_item_vta("EDITAR") if self.tabla_venta.selection() != () else None)
-        self.menu_ventas.add_command(label="Borrar artículo/s", accelerator="Ctrl+Del", command= self.borrar_items_vta )
+        self.menu_ventas.add_command(label="Editar artículo", accelerator="Enter/Doble Click", command= lambda: self.editar_item_vta("EDITAR") if self.tabla_venta.selection() != () else None)
+        self.menu_ventas.add_command(label="Borrar artículo/s", accelerator="Ctrl + Del", command= self.borrar_items_vta )
         self.menu_ventas.add_command(label="Modificar medio de pago", accelerator="F8", command= self.modif_medio_pago)
-        self.menu_ventas.add_command(label="Reiniciar venta", accelerator="Ctrl+R", command= self.resetear_venta)
+        self.menu_ventas.add_command(label="Reiniciar venta", accelerator="Ctrl + R", command= self.resetear_venta)
         
         
         # Crear el menú Configuración
         self.menu_config = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
-        self.menu_config.add_command(label="Modificar margen ganancia", accelerator="F6", command= self.toplevel_porcentaje_ganancia)
+        self.menu_config.add_command(label="Modificar margen ganancia", accelerator="F6", command= self.toplevel_ganancia)
         self.menu_config.add_command(label="Registros historicos", accelerator="F7", command= self.toplevel_registros)
         
         # Crear la barra de menús y agregar los menús
@@ -128,7 +129,7 @@ class App():
         self.root.bind("<F3>", self.ver_archivos_normalizados)
         self.root.bind("<F4>", lambda x:self.toplevel_normalizar())
         self.root.bind("<F5>", lambda x: self.toplevel_dto_global())
-        self.root.bind("<F6>", lambda x: self.toplevel_porcentaje_ganancia())
+        self.root.bind("<F6>", lambda x: self.toplevel_ganancia())
         self.root.bind("<F7>", lambda x: self.toplevel_registros())
         self.root.bind("<F8>", lambda x : self.modif_medio_pago()) 
         self.root.bind("<F10>", lambda x : self.editar_item_vta("AGREGAR"))
@@ -144,45 +145,49 @@ class App():
         self.treeview_venta()
         self.cargar_treeview_venta()
     
-    def toplevel_porcentaje_ganancia(self):
+    def toplevel_ganancia(self):
         ancho_ventana= 278
-        alto_ventana= 100
+        alto_ventana= 140
 
-        self.toplevel_ganancia = tk.Toplevel()
-        self.toplevel_ganancia.title("GANANCIA") 
-        self.toplevel_ganancia.resizable(0,0)   
-        self.toplevel_ganancia.focus_force()
-        self.toplevel_ganancia.grab_set() 
+        self.toplevel_gan = tk.Toplevel()
+        self.toplevel_gan.title("GANANCIA") 
+        self.toplevel_gan.resizable(0,0)   
+        self.toplevel_gan.focus_force()
+        self.toplevel_gan.grab_set() 
 
         posicion = self.centrar_ventana(ancho_ventana,alto_ventana)
-        self.toplevel_ganancia.geometry(posicion)
+        self.toplevel_gan.geometry(posicion)
 
         self.password = tk.StringVar()
         self.porcentaje_ganancia = tk.DoubleVar()
         self.porcentaje_ganancia.set(self.ventas.get_porcentaje_ganancia())
 
-        self.lbl_ganancia = tk.Label(self.toplevel_ganancia,text="GANANCIA % ", bg = "lightblue", relief= "ridge", width= 13, font=("Arial", 11))
+        self.lbl_ganancia = tk.Label(self.toplevel_gan,text="GANANCIA % ", bg = "lightblue", relief= "ridge", width= 13, font=("Arial", 11))
         self.lbl_ganancia.place(x=12, y= 20)
-        self.entry_ganancia = tk.Entry(self.toplevel_ganancia,textvariable = self.porcentaje_ganancia , width=15,justify = "right", font=("Arial", 11))
+        self.entry_ganancia = tk.Entry(self.toplevel_gan,textvariable = self.porcentaje_ganancia , width=15,justify = "right", font=("Arial", 11))
         self.entry_ganancia.place(x=138,y=20)
-        self.lbl_clave = tk.Label(self.toplevel_ganancia,text="CONTRASEÑA",  bg = "lightblue", relief= "ridge", width= 13, font=("Arial", 11))
+        self.lbl_clave = tk.Label(self.toplevel_gan,text="CONTRASEÑA",  bg = "lightblue", relief= "ridge", width= 13, font=("Arial", 11))
         self.lbl_clave.place(x=12, y= 60)
-        self.entry_clave = tk.Entry(self.toplevel_ganancia,textvariable = self.password , show="*", width=15,justify = "right", font=("Arial", 11))
+        self.entry_clave = tk.Entry(self.toplevel_gan,textvariable = self.password , show="*", width=15,justify = "right", font=("Arial", 11))
         self.entry_clave.place(x=138,y=60)
+        self.btn_ganancia_aceptar = tk.Button(self.toplevel_gan, text= " ACEPTAR " , width = 10, command= lambda: self.cambiar_valor_ganancia(), font=("Arial", 11))
+        self.btn_ganancia_aceptar.place(x= 12, y= 100)
+        self.btn_ganancia_salir = tk.Button(self.toplevel_gan, text= " SALIR " , width = 10, command= lambda: self.toplevel_gan.destroy() , font=("Arial", 11))
+        self.btn_ganancia_salir.place(x= 162, y= 100)
         
         self.entry_ganancia.focus()
         self.entry_ganancia.select_range(0, 'end')
         self.entry_ganancia.icursor('end')
 
-        self.toplevel_ganancia.bind("<Return>", lambda x: self.cambiar_valor_ganancia())
-        self.toplevel_ganancia.bind("<Escape>", lambda x : self.toplevel_ganancia.destroy())
+        self.toplevel_gan.bind("<Return>", lambda x: self.cambiar_valor_ganancia())
+        self.toplevel_gan.bind("<Escape>", lambda x : self.toplevel_gan.destroy())
 
     def cambiar_valor_ganancia(self):
         mensaje_except = "POR FAVOR REVISE LOS DATOS INGRESADOS\n    LOS DOS CAMPOS SON OBLIGATORIOS"
         try:
             porc_gan= float(self.porcentaje_ganancia.get())
             if 0<= porc_gan <=100 and self.password.get()== "faloelportugues":
-                self.toplevel_ganancia.destroy()
+                self.toplevel_gan.destroy()
                 messagebox.showinfo(message=f"  EL PORCENTAJE DE GANANCIA AHORA ES {porc_gan}%  ", title="INFO")
                 self.ventas.registrar_porcentaje_ganancia(porc_gan)
                 self.ventas.coeficiente_vta= self.ventas.get_coeficiente_vta()
@@ -218,7 +223,7 @@ class App():
 
     def toplevel_dto_global(self):
         ancho_ventana= 278
-        alto_ventana= 65
+        alto_ventana= 100
 
         self.toplevel_dto = tk.Toplevel()
         self.toplevel_dto.title("DTO. GLOBAL") 
@@ -233,6 +238,10 @@ class App():
         self.lbl_dto.place(x=12, y= 20)
         self.entry_dto = tk.Entry(self.toplevel_dto,textvariable = self.dto_global , width=15,justify = "right", font=("Arial", 11))
         self.entry_dto.place(x=138,y=20)
+        self.btn_dto_aceptar = tk.Button(self.toplevel_dto, text= " ACEPTAR " , width = 10, command= lambda :self.aplicar_dto_global(), font=("Arial", 11))
+        self.btn_dto_aceptar.place(x= 12, y= 60)
+        self.btn_dto_salir = tk.Button(self.toplevel_dto, text= " SALIR " , width = 10, command= lambda : self.toplevel_dto.destroy() , font=("Arial", 11))
+        self.btn_dto_salir.place(x= 162, y= 60)
         
         self.entry_dto.focus()
         self.entry_dto.select_range(0, 'end')
@@ -246,6 +255,7 @@ class App():
             dto = float(self.dto_global.get())
             if dto>= 0 and dto <= 100:
                 self.ventas.descuento_global(dto)
+                self.desc_glob = dto
                 self.toplevel_dto.destroy()
                 self.cargar_treeview_venta()
             else:
@@ -381,7 +391,7 @@ class App():
             for i in items_selecc:
                 item = self.tabla_resultados.item(i)["values"]
 
-                v = Ventas(item[0],item[1], 1, self.get_dto_global(), item[3],item[4])  # crea objeto Ventas
+                v = Ventas(item[0],item[1], 1, self.desc_glob, item[3],item[4])  # crea objeto Ventas
 
                 self.ventas.agregar_item(v)  # agrega objeto a la lista
 
@@ -436,6 +446,7 @@ class App():
     def resetear_venta(self):
         self.ventas.items_vta = []
         self.ventas.medio_pago = True
+        self.desc_glob= 0
         self.lbl_modo_pago.config(text = "-- EFECTIVO --" )
         self.cargar_treeview_venta()
         
@@ -594,6 +605,7 @@ class App():
         self.ventana_normalizar.resizable(0,0)
         self.ventana_normalizar.focus_force()
         self.ventana_normalizar.grab_set() 
+        self.ventana_normalizar.attributes('-topmost', True) #mantiene ventana por encima de otras
 
         posicion = self.centrar_ventana(ancho_ventana, alto_ventana)
         self.ventana_normalizar.geometry(posicion)
@@ -646,6 +658,7 @@ class App():
     def aceptar_venta(self):
         if messagebox.askyesno(title="VENTA" , message = "EFECTUAR LA VENTA?"):
             self.escape_root()
+            self.desc_glob= 0
             if self.ventas.medio_pago:
                 self.reiniciar_valores()
                 self.ventas.discriminar_forma_pago()  
@@ -681,7 +694,6 @@ class App():
         self.subtotal.set(f" {0:.2f}".rjust(16," "))
         self.descuento.set(f" {0:.2f}".rjust(16," "))
         self.total.set(f" {0:.2f}".rjust(16," "))
-        self.dto_global.set("0.00")
 
     def toplevel_registros(self): # --- configura ventana para entrada de datos
         ancho_ventana= 1165
@@ -1037,10 +1049,10 @@ class App():
                         nuevo_archivo = normalizador.normalizar(archivo,distribuidora)
                         nuevos_archivos.append(nuevo_archivo)
 
-                    if messagebox.askyesno(title="ABRIR CARPETA" , message = m1 if len(lista_archivos) == 1 else m2):
+                    if messagebox.askyesno(title="ABRIR CARPETA" , message = m1 if len(lista_archivos) == 1 else m2, parent= self.ventana_normalizar):
                         self.ver_archivos_normalizados()
 
-                    if messagebox.askyesno(title="ELIMINAR REGISTROS" , message = m3 ):
+                    if messagebox.askyesno(title="ELIMINAR REGISTROS" , message = m3, parent= self.ventana_normalizar):
                         self.eliminar_archivos_anteriores(nuevos_archivos,distribuidora)  
                      
     def eliminar_archivos_anteriores(self,nuevos_archivos, distribuidora):

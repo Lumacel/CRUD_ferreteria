@@ -1060,5 +1060,219 @@
                 "distribuidora": "AMAYA"
             }
         ]
+    },
+    {
+        "timestamp": 1690151495.542809,
+        "numeracion": "00000047",
+        "estado": true,
+        "efectivo": 304.54,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "ZZV0020",
+                "articulo": "POLEA MOTOR LAVARROPA AGUJERO GRANDE",
+                "cantidad": 1,
+                "descuento": 30.0,
+                "precio": 435.06,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1690151815.28307,
+        "numeracion": "00000048",
+        "estado": true,
+        "efectivo": 11147.69,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "F-G0010",
+                "articulo": "PALA ESTAMPADA C/HIERRO PUNTEAR **F-G**",
+                "cantidad": 1,
+                "descuento": 24.0,
+                "precio": 6384.3,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "5587",
+                "articulo": "ALBA DURALBA FRENTES Y MUROS \" ANTISALITRE \" X 1 LT.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 4343.74,
+                "distribuidora": "ARGENTINA"
+            },
+            {
+                "codigo": "TEL250",
+                "articulo": "COLA VINILICA TELPLAST X250 (TELPLAST)",
+                "cantidad": 1,
+                "descuento": 24.0,
+                "precio": 750.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "ADB0105",
+                "articulo": "ZOCALO P/VARILLA RTO.PVC PARA CORTINA CR61 X2.03 MTS",
+                "cantidad": 1,
+                "descuento": 24.0,
+                "precio": 1818.26,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1690155207.560499,
+        "numeracion": "00000049",
+        "estado": true,
+        "efectivo": 15301.95,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "F-G0010",
+                "articulo": "PALA ESTAMPADA C/HIERRO PUNTEAR **F-G**",
+                "cantidad": 1,
+                "descuento": 25.0,
+                "precio": 6384.3,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "MET0200",
+                "articulo": "PLOMADAS P/ALBA\u00d1IL DE  200 GRS.",
+                "cantidad": 1,
+                "descuento": 25.0,
+                "precio": 1080.99,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "ADB0055",
+                "articulo": "POLEA CHAPA GALV.DE 23 CM PARA EJE DE 70 MM.",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 1113.74,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "BAH0050",
+                "articulo": "PINZA UNIVERSAL BAHCO 2678G-160",
+                "cantidad": 1,
+                "descuento": 25.0,
+                "precio": 11600.82,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1690155526.430077,
+        "numeracion": "00000050",
+        "estado": true,
+        "efectivo": 104607.02,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "SIM0580",
+                "articulo": "JUEGO DE HOJAS P/SIERRA CALADORA 18 PZAS G1953 2AC",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 6207.6,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "TAC280",
+                "articulo": "SILICONA ACETICA TRANSP. LUSQTOFF X280 (FERRETERIA)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 1762.5,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "NEO2GG120",
+                "articulo": "GARLOPA 180MM   GG1207 (X1)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 120865.39,
+                "distribuidora": "CEDICA"
+            },
+            {
+                "codigo": "DIN0090",
+                "articulo": "CAMARA DE BICICLETA 26X1.90 TTV TIPO **DUNLOP**",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 1923.29,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1690155618.140718,
+        "numeracion": "00000051",
+        "estado": true,
+        "efectivo": 6140.64,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "COL250",
+                "articulo": "COLA VINILICA X250CC (FERRETERIA)",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 721.5,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "MP500",
+                "articulo": "MASILLA PLASTICA X \u00bd (FERRETERIA)",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 1848.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "400147",
+                "articulo": "REJA 12 X 12 ACERO PISO GIRATORIA (CASAL)",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 4253.43,
+                "distribuidora": "CFN_NISII"
+            }
+        ]
+    },
+    {
+        "timestamp": 1690155726.0136,
+        "numeracion": "00000052",
+        "estado": true,
+        "efectivo": 9009.05,
+        "tarjeta": 6000.0,
+        "articulos": [
+            {
+                "codigo": "MET0400",
+                "articulo": "PLOMADAS P/ALBA\u00d1IL DE  400 GRS.",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 1759.7,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "SIM0061B",
+                "articulo": "AMOLADORA 4\u00bd\" GAMMA-650W-11000RPM. COD.G1909AR",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 14829.24,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "ADB0050",
+                "articulo": "POLEA CHAPA GALV.DE 20 CM PARA EJE DE 70 MM.",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 827.71,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "LUB0077",
+                "articulo": "DOY LIF FOSFATISANTE X 1000 CM3",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 907.77,
+                "distribuidora": "AMAYA"
+            }
+        ]
     }
 ]
