@@ -13,7 +13,6 @@ class App():
     def __init__(self):
         self.distribuidoras =  self.cargar_distribuidoras()
         self.distr_selecc = "TODAS"
-        self.desc_glob = 0
         self.ventas = Ventas() # pone clase Venta como instancia de la clase App
         self.ventana_principal()
        
@@ -101,7 +100,9 @@ class App():
         self.subtotal = tk.DoubleVar()
         self.descuento = tk.DoubleVar()
         self.total = tk.DoubleVar()
-        self.dto_global = tk.DoubleVar()
+        #self.dto_global = tk.DoubleVar()
+
+        #self.dto_global.set(self.get_dto_global())
 
         self.lbl_modo_pago = tk.Label(self.root, text= "-- EFECTIVO --", relief= "sunken", width=24, bg= "lightblue", fg= "blue",justify = "right",font=("Arial", 11))
         self.lbl_modo_pago.place(x=25,y=260)
@@ -231,6 +232,10 @@ class App():
         self.toplevel_dto.focus_force()
         self.toplevel_dto.grab_set() 
 
+        self.dto_global = tk.DoubleVar()
+
+        self.dto_global.set(self.get_dto_global())
+
         posicion = self.centrar_ventana(ancho_ventana,alto_ventana)
         self.toplevel_dto.geometry(posicion)
 
@@ -252,21 +257,20 @@ class App():
 
     def aplicar_dto_global(self):
         try:
-            dto = float(self.dto_global.get())
-            if dto>= 0 and dto <= 100:
-                self.ventas.descuento_global(dto)
-                self.desc_glob = dto
+            descuento = float(self.dto_global.get())
+            if descuento >= 0 and descuento <= 100:
+                self.ventas.descuento_global(descuento)
                 self.toplevel_dto.destroy()
                 self.cargar_treeview_venta()
             else:
                 messagebox.showinfo(message="SOLO SE PERMITEN VALORES NUMERICOS (0-100)", title="INFO")
-                self.dto_global.set("0.00")
+                self.dto_global.set(self.get_dto_global())
                 self.entry_dto.focus()
                 self.entry_dto.select_range(0, 'end')
                 self.entry_dto.icursor('end')
         except Exception:
             messagebox.showinfo(message="SOLO SE PERMITEN VALORES NUMERICOS (0-100)", title="INFO")
-            self.dto_global.set("0.00")
+            self.dto_global.set(self.get_dto_global())
             self.entry_dto.focus()
             self.entry_dto.select_range(0, 'end')
             self.entry_dto.icursor('end')
@@ -391,7 +395,7 @@ class App():
             for i in items_selecc:
                 item = self.tabla_resultados.item(i)["values"]
 
-                v = Ventas(item[0],item[1], 1, self.desc_glob, item[3],item[4])  # crea objeto Ventas
+                v = Ventas(item[0],item[1], 1, self.get_dto_global(), item[3],item[4])  # crea objeto Ventas
 
                 self.ventas.agregar_item(v)  # agrega objeto a la lista
 
@@ -444,9 +448,7 @@ class App():
         self.toplevel_editar()
     
     def resetear_venta(self):
-        self.ventas.items_vta = []
-        self.ventas.medio_pago = True
-        self.desc_glob= 0
+        self.ventas.reiniciar_valores_vta()
         self.lbl_modo_pago.config(text = "-- EFECTIVO --" )
         self.cargar_treeview_venta()
         
@@ -658,7 +660,6 @@ class App():
     def aceptar_venta(self):
         if messagebox.askyesno(title="VENTA" , message = "EFECTUAR LA VENTA?"):
             self.escape_root()
-            self.desc_glob= 0
             if self.ventas.medio_pago:
                 self.reiniciar_valores()
                 self.ventas.discriminar_forma_pago()  
@@ -1078,7 +1079,7 @@ class App():
         return self.distr_selecc.get()
 
     def get_dto_global(self):
-        return self.dto_global.get()
+        return self.ventas.desc_global_vta
 
 class Ventas():
     def __init__(self,codigo="", articulo="",cantidad=0,descuento=0,precio=0, distribuidora=""):
@@ -1089,6 +1090,7 @@ class Ventas():
         self.precio_vta= precio 
         self.distribuidora_vta = distribuidora
         self.medio_pago= True
+        self.desc_global_vta= 0
         self.coeficiente_vta= self.get_coeficiente_vta()
 
         self.items_vta = []  # almacena los objetos items a vender 
@@ -1123,6 +1125,7 @@ class Ventas():
         self.items_vta.pop(index) 
 
     def descuento_global(self,descuento):
+        self.desc_global_vta= descuento
         for item in self.items_vta:
             item.descuento_vta = abs(descuento)
 
@@ -1184,11 +1187,12 @@ class Ventas():
             file.seek(0)
             json.dump(data, file, indent=4)
 
-        self.reiniciar_valores()
+        self.reiniciar_valores_vta()
 
-    def reiniciar_valores(self):
+    def reiniciar_valores_vta(self):
         self.items_vta = []
         self.medio_pago = True
+        self.desc_global_vta= 0
 
 def app():
 	v = App()

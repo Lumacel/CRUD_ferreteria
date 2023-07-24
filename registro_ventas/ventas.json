@@ -1274,5 +1274,211 @@
                 "distribuidora": "AMAYA"
             }
         ]
+    },
+    {
+        "timestamp": 1690197069.904359,
+        "numeracion": "00000053",
+        "estado": true,
+        "efectivo": 36339.95,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "AUT2",
+                "articulo": "AUTOPOLISH CERA (ACCESORIOS)",
+                "cantidad": 1,
+                "descuento": 30.0,
+                "precio": 2047.5,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "CRE0110",
+                "articulo": "TARUGO NYLON TRES CORTES-TC10G-X500 N\u00ba10 -1120-",
+                "cantidad": 1,
+                "descuento": 30.0,
+                "precio": 17606.76,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "CRE0113",
+                "articulo": "TARUGO NYLON TRES CORTES-TC12G-X250 N\u00ba12 -1122-",
+                "cantidad": 1,
+                "descuento": 30.0,
+                "precio": 15165.56,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "ZZZ0425",
+                "articulo": "JGO.LLAVE TUBO ENCASTRE 1/2\" X 52 UNID.",
+                "cantidad": 1,
+                "descuento": 30.0,
+                "precio": 17094.4,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1690197103.586446,
+        "numeracion": "00000054",
+        "estado": true,
+        "efectivo": 2885.22,
+        "tarjeta": 2000.0,
+        "articulos": [
+            {
+                "codigo": "A15S",
+                "articulo": "ALARGUE X 15 MTS.  - ($ X UNID.)- (SANTORO)",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 3722.52,
+                "distribuidora": "DIS_COS"
+            },
+            {
+                "codigo": "500131",
+                "articulo": "MEMBRANA EN PASTA X1 KG (PETROLUX)",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 1705.5,
+                "distribuidora": "ACF"
+            }
+        ]
+    },
+    {
+        "timestamp": 1690197518.2022,
+        "numeracion": "00000055",
+        "estado": true,
+        "efectivo": 33476.1,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "871",
+                "articulo": "SOUSA SILLON 5 POSICIONES ALUMINIO 1\" (ALTA) TELA TRENZADA ( S - 08 )",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 35320.77,
+                "distribuidora": "ARGENTINA"
+            },
+            {
+                "codigo": "EVOE5112",
+                "articulo": "CEPILLO CIRCULAR COPA BRONCEADO TRENZADO 100 EVOL5112 (x1)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 2210.88,
+                "distribuidora": "CEDICA"
+            },
+            {
+                "codigo": "EVOE5113",
+                "articulo": "CEPILLO CIRCULAR COPA BRONCEADO TRENZADO 125 EVOL5113 (x1)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 3099.52,
+                "distribuidora": "CEDICA"
+            },
+            {
+                "codigo": "EVOE5110",
+                "articulo": "CEPILLO CIRCULAR COPA BRONCEADO TRENZADO 60 EVOL5110 (x1)",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 1213.95,
+                "distribuidora": "CEDICA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1690197745.578433,
+        "numeracion": "00000056",
+        "estado": true,
+        "efectivo": 4993.9,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "F-G0030",
+                "articulo": "PROLONGACION MANGO PALA HOYADORA **F-G**",
+                "cantidad": 1,
+                "descuento": 30.0,
+                "precio": 5192.7,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "ADB0050",
+                "articulo": "POLEA CHAPA GALV.DE 20 CM PARA EJE DE 70 MM.",
+                "cantidad": 1,
+                "descuento": 30.0,
+                "precio": 827.71,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "ADB0055",
+                "articulo": "POLEA CHAPA GALV.DE 23 CM PARA EJE DE 70 MM.",
+                "cantidad": 1,
+                "descuento": 30.0,
+                "precio": 1113.74,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1690198707.985858,
+        "numeracion": "00000057",
+        "estado": true,
+        "efectivo": 12348.68,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "BAH0060",
+                "articulo": "PINZA UNIVERSAL BAHCO 2678G-200",
+                "cantidad": 1,
+                "descuento": 12.0,
+                "precio": 13338.22,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "COV0429",
+                "articulo": "CAJA CERROJO UNIVERSAL 72X100X25 -112-",
+                "cantidad": 1,
+                "descuento": 12.0,
+                "precio": 694.37,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1690198757.629985,
+        "numeracion": "00000058",
+        "estado": true,
+        "efectivo": 5260.65,
+        "tarjeta": 2000.0,
+        "articulos": [
+            {
+                "codigo": "CAB0170",
+                "articulo": "CABO PARA PALA DE 070 MTS.PU\u00d1O METAL",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 944.99,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "CAB0171",
+                "articulo": "CABO PARA PALA DE 070 MTS.PU\u00d1O PLAST.",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 836.82,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "CAB0172",
+                "articulo": "CABO PARA PALA DE 060 MTS.PU\u00d1O PLAST.",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 808.62,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "F-G0010",
+                "articulo": "PALA ESTAMPADA C/HIERRO PUNTEAR **F-G**",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 6384.3,
+                "distribuidora": "AMAYA"
+            }
+        ]
     }
 ]
