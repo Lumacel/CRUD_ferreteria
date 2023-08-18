@@ -54,7 +54,7 @@ class App():
         # Crear el menú Archivo
         self.menu_archivo = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
         self.menu_archivo.add_command(label="Explorar archivos", accelerator="F3", command= self.ver_archivos_normalizados)
-        self.menu_archivo.add_command(label="Normalizar listas", accelerator="F4", command= self.toplevel_normalizar)
+        self.menu_archivo.add_command(label="Normalizar listas Excel", accelerator="F4", command= self.toplevel_normalizar)
         self.menu_archivo.add_separator()
         self.menu_archivo.add_command(label="Salir", command=self.root.quit)
 
@@ -63,7 +63,7 @@ class App():
         self.menu_ventas.add_command(label="Efectuar venta", accelerator="F2", command= lambda : self.aceptar_venta() if len(self.ventas.items_vta) != 0 else None)
         self.menu_ventas.add_command(label="Aplicar descuento global", accelerator="F5", command= self.toplevel_dto_global)
         self.menu_ventas.add_command(label="Agregar artículo", accelerator="F10", command= lambda: self.editar_item_vta("AGREGAR"))
-        self.menu_ventas.add_command(label="Editar artículo", accelerator="Enter/Doble Click", command= lambda: self.editar_item_vta("EDITAR") if self.tabla_venta.selection() != () else None)
+        self.menu_ventas.add_command(label="Editar artículo", accelerator="Enter", command= lambda: self.editar_item_vta("EDITAR") if self.tabla_venta.selection() != () else None)
         self.menu_ventas.add_command(label="Borrar artículo/s", accelerator="Ctrl + Del", command= self.borrar_items_vta )
         self.menu_ventas.add_command(label="Modificar medio de pago", accelerator="F8", command= self.modif_medio_pago)
         self.menu_ventas.add_command(label="Reiniciar venta", accelerator="Ctrl + R", command= self.resetear_venta)
@@ -100,10 +100,7 @@ class App():
         self.subtotal = tk.DoubleVar()
         self.descuento = tk.DoubleVar()
         self.total = tk.DoubleVar()
-        #self.dto_global = tk.DoubleVar()
-
-        #self.dto_global.set(self.get_dto_global())
-
+       
         self.lbl_modo_pago = tk.Label(self.root, text= "-- EFECTIVO --", relief= "sunken", width=24, bg= "lightblue", fg= "blue",justify = "right",font=("Arial", 11))
         self.lbl_modo_pago.place(x=25,y=260)
         self.lbl_subtotal_name = tk.Label(self.root, text = "SUBTOTAL ", relief= "ridge", width=12, bg= "lightblue", fg= "black",font=("Arial", 11))
@@ -607,8 +604,7 @@ class App():
         self.ventana_normalizar.resizable(0,0)
         self.ventana_normalizar.focus_force()
         self.ventana_normalizar.grab_set() 
-        self.ventana_normalizar.attributes('-topmost', True) #mantiene ventana por encima de otras
-
+      
         posicion = self.centrar_ventana(ancho_ventana, alto_ventana)
         self.ventana_normalizar.geometry(posicion)
 
@@ -619,14 +615,16 @@ class App():
         self.entry_modelo = ttk.Combobox(self.ventana_normalizar,textvariable = self.modelo_distr_norm ,values=lista_distr, state="readonly", width=18, height=len(lista_distr))
         self.entry_modelo.place(x=220,y=20)
         self.entry_modelo.config(font=("Arial", 11))
-        self.btn_aceptar = tk.Button(self.ventana_normalizar, text= " ACEPTAR " , width = 10, command= self.normalizar_lista, font=("Arial", 11))
+        self.btn_aceptar = tk.Button(self.ventana_normalizar, text= " ARCHIVO " , width = 10, command= self.normalizar_lista, font=("Arial", 11))
         self.btn_aceptar.place(x= 10, y= 60)
         self.btn_salir = tk.Button(self.ventana_normalizar, text= " SALIR " , width = 10, command= lambda : self.ventana_normalizar.destroy() , font=("Arial", 11))
         self.btn_salir.place(x= 288, y= 60)
-        
-        self.ventana_normalizar.bind("<Return>", lambda x: self.normalizar_lista())
-        self.ventana_normalizar.bind("<Escape>", lambda x : self.ventana_normalizar.destroy())
-    
+
+        self.btn_aceptar.bind("<Return>", lambda x: self.normalizar_lista())
+        self.btn_salir.bind("<Return>", lambda x: self.ventana_normalizar.destroy())
+        self.ventana_normalizar.bind("<Escape>", lambda x: self.ventana_normalizar.destroy())
+        self.entry_modelo.bind("<<ComboboxSelected>>", lambda x: self.btn_aceptar.focus())
+
     def toplevel_pago_tarjeta(self):
         ancho_ventana= 278
         alto_ventana= 65
@@ -1033,8 +1031,8 @@ class App():
             pass
         
     def normalizar_lista(self):
-            m1= "EL ARCHIVO FUE GENERADO EXITOSAMENTE \n\n ¿DESEA ABRIR LA CARPETA CONTENEDORA? "
-            m2= "LOS ARCHIVOS FUERON GENERADOS EXITOSAMENTE  \n\n    ¿DESEA ABRIR LA CARPETA CONTENEDORA?" 
+            m1= "EL ARCHIVO FUE GENERADO EXITOSAMENTE\n"
+            m2= "LOS ARCHIVOS FUERON GENERADOS EXITOSAMENTE" 
             m3= "¿DESEA ELIMINAR REGISTROS ANTERIORES?"
             nuevos_archivos = []
             
@@ -1050,11 +1048,13 @@ class App():
                         nuevo_archivo = normalizador.normalizar(archivo,distribuidora)
                         nuevos_archivos.append(nuevo_archivo)
 
-                    if messagebox.askyesno(title="ABRIR CARPETA" , message = m1 if len(lista_archivos) == 1 else m2, parent= self.ventana_normalizar):
-                        self.ver_archivos_normalizados()
+                    messagebox.showinfo(title="INFO" , message = m1 if len(lista_archivos) == 1 else m2, parent= self.ventana_normalizar)
+                    #    self.ver_archivos_normalizados()
 
                     if messagebox.askyesno(title="ELIMINAR REGISTROS" , message = m3, parent= self.ventana_normalizar):
                         self.eliminar_archivos_anteriores(nuevos_archivos,distribuidora)  
+                    
+                    self.btn_salir.focus()
                      
     def eliminar_archivos_anteriores(self,nuevos_archivos, distribuidora):
         archivos_anteriores = os.listdir("archivos_normalizados")

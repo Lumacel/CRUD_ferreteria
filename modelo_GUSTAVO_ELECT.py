@@ -17,14 +17,37 @@ def normalizar_lista(file, distribuidora):
             with open(file, "r", encoding='utf-8-sig') as csvfile:
                 spamreader= csv.reader(csvfile, delimiter=',')
                 categoria= ""
+               
+                
+                casos1 = ['CABLE DE ALUMINIO', 'CABLE DE COBRE', 'CAJAS ESTANCA', 
+                          'CALENTADOR DE INMERSION', 'CINTA METRICA', 'FLEXIBLES', 'FLEXIBLE MALLADO', 
+                          'FOTOCELULAS', 'LUCES DE EMERGENCIA', 'LLAVE CIOCCA  EXTERIOR DE SUPERFICIE ',
+                          'MULTIFICHAS', 'SILICONA TRANSPARENTE ACÉTICA'
+                          ]
+                
+                casos2= ['AUTOMATICOS PARA TANQUE ', 'BOLSA DE AGUA CALIENTE', 'BOMBA DE AGUA', 
+                         'BURLETE DOBLE', 'BUSCAPOLO ', 'CAJAS CAPSULADAS', 'CAJAS DE HIERRO', 
+                         'CAJAS PARA TERMICA (DE EMBUTIR Y EXTERIOR)', 'CAJA PVC', 'CALEFONES Y ACCESORIOS', 
+                         'CALOVENTOR', 'CAMPANILLAS/ZUMBADORES', 'CONECTORES DE HIERRO', 'CONECTORES PVC', 
+                         'CORDON DE PLANCHA/INTERLOCK', 'CURVA PVC', 'ESTAÑO EN BLISTER X 10 UNIDADES', 
+                         'FICHAS 3P', 'FICHA ADAPTADOR / VELADOR', 'GAS BUTANO', 'GUIRNALDA', 
+                         'INTERRUPTOR P/ESTUFA Y BORDEADORA', 'LAMPARA LED DICROICA', 
+                         'LAMPARAS LED: GOTA / VELA', 'LAMPARA PERFUME INCANDESCENTE', 
+                          'PARCHE PILETA', 'PORTALAMPARAS Y RECEPTACULOS', 
+                         'PORTATIL ', 'PROLONGADORES', 'REGULADORES', 'SELLAROSCAS', 'SPOT DE DICROICAS', 
+                         'TAPA AUTOADHESIVA', 'TAPA PVC A PRESIÓN/ TORNILLO', 'TEFLON', 'TIMMER ENCHUFABLE', 
+                         'UNION PVC', 'VARIADORES ', 'ZAPATILLAS Y PROLONGADORES'
+                         ]
+
                 for row in spamreader:
                     if os.path.basename(file).startswith("GENERAL"):
-                        if "CABLE DE ALUMINIO" in row[0]:
-                            categoria= "CABLE DE ALUMINIO"
-                        elif "CABLE DE COBRE" in row[0]:
-                            categoria= "CABLE DE COBRE"
-                        elif "CAJAS CAPSULADAS" in row[0]:
+                        if row[0] in casos1:
+                            categoria= row[0]
+                            continue
+                       
+                        elif row[0] in casos2:
                             categoria= ""
+                            continue
                         try:
                             if len(row)<3 : continue
                             row = ["S/CODIGO", f"{categoria} {row[0]} [{row[1]}]", row[2]]
@@ -60,7 +83,7 @@ def normalizar_lista(file, distribuidora):
                             writer_object.writerow(row)
                             print(c,row)
                         except Exception as e:
-                            pass                   
+                            pass                                             
     except Exception as e:
            print(e)
            
@@ -72,3 +95,5 @@ if __name__=="__main__":
     for file in open_files:
         normalizar_lista(file, distribuidora)
         
+
+
