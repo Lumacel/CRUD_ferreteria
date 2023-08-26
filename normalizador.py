@@ -1,19 +1,5 @@
-import modelo_ACF
-import modelo_AMAYA
-import modelo_ARGENTINA
-import modelo_CFN_NISII
-import modelo_DANIROX
-import modelo_DIS_COS
-import modelo_FLAVIO
-import modelo_GUSTAVO_ELECT
-import modelo_INTEGRAL
-import modelo_LA_PLATA_LED
-import modelo_LIMPIA_AVENIDA
-import modelo_LOS_PINOS
-import modelo_MASSOL
-import modelo_MAURO_IMPORT
-import modelo_SUPRABOND
-import modelo_CEDICA
+from modelos_distribuidoras import *
+
 
 def normalizar(file, distribuidora):
     if distribuidora == "ACF":
@@ -26,6 +12,10 @@ def normalizar(file, distribuidora):
 
     elif distribuidora == "ARGENTINA":
         nuevo_archivo = modelo_ARGENTINA.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
+    
+    elif distribuidora == "CEDICA":
+        nuevo_archivo = modelo_CEDICA.normalizar_lista(file, distribuidora)
         return nuevo_archivo
     
     elif distribuidora == "CFN_NISII":
@@ -76,9 +66,7 @@ def normalizar(file, distribuidora):
         nuevo_archivo = modelo_SUPRABOND.normalizar_lista(file, distribuidora)
         return nuevo_archivo
     
-    elif distribuidora == "CEDICA":
-        nuevo_archivo = modelo_CEDICA.normalizar_lista(file, distribuidora)
-        return nuevo_archivo
+    
 
 
     

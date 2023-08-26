@@ -17,6 +17,7 @@ def normalizar_lista(file, distribuidora):
             with open(file, "r", encoding= 'utf-8-sig') as csvfile:
                 spamreader = csv.reader(csvfile, delimiter=',')
                 for row in spamreader:
+                    comienzo=""
                     try:
                         while True:
                             row.remove('')
@@ -28,8 +29,14 @@ def normalizar_lista(file, distribuidora):
                         row= [row[1],row[0],row[3]]
                     except Exception:
                         continue
-                    row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
-                    row[1]=row[1].rstrip()
+                    row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ±Ð','AEIOUUÑÑ'))
+                    row[1]= row[1].upper().rstrip()
+                    if row[1].startswith("TOMA ") or row[1].startswith("MULTIPLE") or row[1].startswith("MEGA BIN") or row[1].startswith("BASE BINO"): 
+                        comienzo = "ZAPATILLA " 
+                    else:
+                        comienzo = ""
+                
+                    row[1]= comienzo + row[1]
                     try:
                         row[2]= float(row[2])*.56 # coeficiente DANIROX = .56 (precio lista -30% - 20%)
                         row[2]= f"{(row[2]):.2f}"

@@ -54,7 +54,7 @@ class App():
         # Crear el menú Archivo
         self.menu_archivo = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
         self.menu_archivo.add_command(label="Explorar archivos", accelerator="F3", command= self.ver_archivos_normalizados)
-        self.menu_archivo.add_command(label="Normalizar listas Excel", accelerator="F4", command= self.toplevel_normalizar)
+        self.menu_archivo.add_command(label="Normalizar listas", accelerator="F4", command= self.toplevel_normalizar)
         self.menu_archivo.add_separator()
         self.menu_archivo.add_command(label="Salir", command=self.root.quit)
 
@@ -142,7 +142,7 @@ class App():
 
         self.treeview_venta()
         self.cargar_treeview_venta()
-    
+
     def toplevel_ganancia(self):
         ancho_ventana= 278
         alto_ventana= 140
@@ -318,7 +318,7 @@ class App():
     
     def treeview_busqueda(self,filas=8): # --- da formato a la tabla (treeview)
         columnas= ("CODIGO","ARTICULO","P. COMPRA $","P. VENTA $","DISTRIBUIDORA")
-        self.tabla_resultados = ttk.Treeview(self.toplevel_result, height=filas, columns=(columnas))
+        self.tabla_resultados = ttk.Treeview(self.toplevel_result, height=filas, show="headings", columns=(columnas))
         self.tabla_resultados.place(x= 10 , y=10)
 		
 		# --- barra scroll
@@ -327,7 +327,7 @@ class App():
         self.tabla_resultados.configure(yscrollcommand=self.scroll.set)
 
 		# --- formato a las columnas
-        self.tabla_resultados.column("#0", width=0, stretch=tk.NO , minwidth=100)
+        #self.tabla_resultados.column("#0", width=0, stretch=tk.NO , minwidth=100)
         self.tabla_resultados.column("CODIGO", anchor=tk.W, width=100, minwidth = 120)
         self.tabla_resultados.column("ARTICULO", anchor=tk.W, width=640, minwidth = 620)
         self.tabla_resultados.column("P. COMPRA $", anchor=tk.E, width=100, minwidth = 100)
@@ -335,7 +335,7 @@ class App():
         self.tabla_resultados.column("DISTRIBUIDORA", anchor=tk.CENTER, width=155,minwidth = 155)
 
 		# --- indicar cabecera
-        self.tabla_resultados.heading("#0", text="", anchor=tk.W)
+        #self.tabla_resultados.heading("#0", text="", anchor=tk.W)
         self.tabla_resultados.heading("#1", text="CODIGO", anchor=tk.CENTER)
         self.tabla_resultados.heading("#2", text="ARTICULO", anchor=tk.CENTER)
         self.tabla_resultados.heading("#3", text="P. COMPRA $", anchor=tk.CENTER)
@@ -344,7 +344,7 @@ class App():
 
     def treeview_venta(self, filas = 8 ):
         columnas= ("ARTICULO", "CANT.", "PRECIO", "SUBTOTAL", "DTO. %","DTO. $", "TOTAL")
-        self.tabla_venta = ttk.Treeview(self.root, height=filas, columns=(columnas))
+        self.tabla_venta = ttk.Treeview(self.root, height=filas, show="headings", columns=(columnas))
         self.tabla_venta.place(x= 25 , y=50)
 
         self.style.configure("Treeview", font=("Arial", 11))
@@ -354,7 +354,7 @@ class App():
         self.scroll_venta.place(x=1160, y=74, height=161)
         self.tabla_venta.configure(yscrollcommand=self.scroll_venta.set)
 
-        self.tabla_venta.column("#0", width=0, stretch=tk.NO , minwidth=100)
+        #self.tabla_venta.column("#0", width=0, stretch=tk.NO , minwidth=100)
         self.tabla_venta.column("ARTICULO", anchor=tk.W, width=570, minwidth = 570)
         self.tabla_venta.column("CANT.", anchor=tk.CENTER, width=50, minwidth = 50)
         self.tabla_venta.column("PRECIO", anchor=tk.E, width=100, minwidth = 100)
@@ -364,7 +364,7 @@ class App():
         self.tabla_venta.column("TOTAL", anchor=tk.E, width=100, minwidth = 100)
         
 		# --- indicar cabecera
-        self.tabla_venta.heading("#0", text="", anchor=tk.CENTER)
+        #self.tabla_venta.heading("#0", text="", anchor=tk.CENTER)
         self.tabla_venta.heading("#1", text="ARTICULO", anchor=tk.CENTER)
         self.tabla_venta.heading("#2", text="CANT.", anchor=tk.CENTER)
         self.tabla_venta.heading("#3", text="PRECIO", anchor=tk.CENTER)
@@ -823,14 +823,14 @@ class App():
 
     def treeview_archivo(self,filas=10):
         columnas= ("FECHA", "HORA", "NUMERACION", "EFECTIVO", "TARJETA", "TOTAL", "ESTADO")
-        self.tabla_archivo = ttk.Treeview(self.toplevel_reg, height=filas, selectmode="browse", columns=(columnas)) # selectmode="browse" no permite que se seleccione mas de una fila
+        self.tabla_archivo = ttk.Treeview(self.toplevel_reg, height=filas,show="headings", selectmode="browse", columns=(columnas)) # selectmode="browse" no permite que se seleccione mas de una fila
         self.tabla_archivo.place(x= 12 , y=70)
 
         self.scroll_archivo = tk.Scrollbar(self.toplevel_reg, orient="vertical", command=self.tabla_archivo.yview)
         self.scroll_archivo.place(x=1140, y=94, height=200)
         self.tabla_archivo.configure(yscrollcommand=self.scroll_archivo.set)
 
-        self.tabla_archivo.column("#0", width=0, stretch=tk.NO , minwidth=160)
+        #self.tabla_archivo.column("#0", width=0, stretch=tk.NO , minwidth=160)
         self.tabla_archivo.column("FECHA", anchor=tk.CENTER, width=160, minwidth = 160)
         self.tabla_archivo.column("HORA", anchor=tk.CENTER, width=160, minwidth = 160)
         self.tabla_archivo.column("NUMERACION", anchor=tk.CENTER, width=160, minwidth = 160)
@@ -840,7 +840,7 @@ class App():
         self.tabla_archivo.column("ESTADO", anchor=tk.CENTER, width=160, minwidth =160)
 
 		# --- indicar cabecera
-        self.tabla_archivo.heading("#0", text="", anchor=tk.CENTER)
+        #self.tabla_archivo.heading("#0", text="", anchor=tk.CENTER)
         self.tabla_archivo.heading("#1", text="FECHA", anchor=tk.CENTER)
         self.tabla_archivo.heading("#2", text="HORA", anchor=tk.CENTER)
         self.tabla_archivo.heading("#3", text="NUMERACION", anchor=tk.CENTER)
@@ -870,14 +870,14 @@ class App():
 
     def treeview_archivo_detalle(self,filas=6):
         columnas= ("CODIGO", "ARTICULO", "CANT.", "PRECIO", "SUBTOTAL", "DTO. %","DTO. $", "TOTAL","DISTRIB.")
-        self.tabla_archivo_detalle = ttk.Treeview(self.toplevel_reg, height=filas, columns=(columnas))
+        self.tabla_archivo_detalle = ttk.Treeview(self.toplevel_reg, show="headings", height=filas, columns=(columnas))
         self.tabla_archivo_detalle.place(x= 12, y=332)
 
         self.scroll_archivo_detalle = tk.Scrollbar(self.toplevel_reg, orient="vertical", command=self.tabla_archivo_detalle.yview)
         self.scroll_archivo_detalle.place(x=1140, y=355, height=125)
         self.tabla_archivo_detalle.configure(yscrollcommand=self.scroll_archivo_detalle.set)
 
-        self.tabla_archivo_detalle.column("#0", width=0, stretch=tk.NO , minwidth=100)
+        #self.tabla_archivo_detalle.column("#0", width=0, stretch=tk.NO , minwidth=100)
         self.tabla_archivo_detalle.column("CODIGO", anchor=tk.W, width=95, minwidth = 95)
         self.tabla_archivo_detalle.column("ARTICULO", anchor=tk.W, width=415, minwidth = 415)
         self.tabla_archivo_detalle.column("CANT.", anchor=tk.CENTER, width=50, minwidth = 50)
@@ -889,7 +889,7 @@ class App():
         self.tabla_archivo_detalle.column("DISTRIB.", anchor=tk.CENTER, width=135, minwidth = 135)
         
 		# --- indicar cabecera
-        self.tabla_archivo_detalle.heading("#0", text="", anchor=tk.CENTER)
+        #self.tabla_archivo_detalle.heading("#0", text="", anchor=tk.CENTER)
         self.tabla_archivo_detalle.heading("#1", text="CODIGO", anchor=tk.CENTER)
         self.tabla_archivo_detalle.heading("#2", text="ARTICULO", anchor=tk.CENTER)
         self.tabla_archivo_detalle.heading("#3", text="CANT.", anchor=tk.CENTER)
