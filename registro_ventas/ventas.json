@@ -1480,5 +1480,172 @@
                 "distribuidora": "AMAYA"
             }
         ]
+    },
+    {
+        "timestamp": 1693224416.535638,
+        "numeracion": "00000060",
+        "estado": true,
+        "efectivo": 3578.25,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "CAB0170",
+                "articulo": "CABO PARA PALA DE 070 MTS.PU\u00d1O METAL",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1283.34,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "CAB0171",
+                "articulo": "CABO PARA PALA DE 070 MTS.PU\u00d1O PLAST.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1196.34,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "CAB0172",
+                "articulo": "CABO PARA PALA DE 060 MTS.PU\u00d1O PLAST.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1098.57,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1693225214.160267,
+        "numeracion": "00000061",
+        "estado": true,
+        "efectivo": 2491.75,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "CAB0160",
+                "articulo": "CABO PARA PALA DE 060 MTS.PU\u00d1O METAL",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1208.41,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "CAB0170",
+                "articulo": "CABO PARA PALA DE 070 MTS.PU\u00d1O METAL",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1283.34,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1693225470.074592,
+        "numeracion": "00000064",
+        "estado": true,
+        "efectivo": 14320.81,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "EVOE9030",
+                "articulo": "CANILLA MONOCOMANDO LAVATORIO CIERRE PREG9030 (x1)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 14320.81,
+                "distribuidora": "CEDICA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1693227316.451693,
+        "numeracion": "00000065",
+        "estado": true,
+        "efectivo": 0.0,
+        "tarjeta": 1028.46,
+        "articulos": [
+            {
+                "codigo": "KUW0400",
+                "articulo": "RENOVADOR VEHICULOS SILICONA *KUWAIT* 440 CM3",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1028.46,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1693234006.870278,
+        "numeracion": "00000066",
+        "estado": true,
+        "efectivo": 1889.57,
+        "tarjeta": 2000.0,
+        "articulos": [
+            {
+                "codigo": "COL125",
+                "articulo": "COLA VINILICA X125CC (FERRETERIA)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 465.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "KW440",
+                "articulo": "KUWAIT COLORES VARIOS X 440 (KUWAIT)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1995.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "FDO1000",
+                "articulo": "FONDO BLANCO X 1 (NETCOLOR)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1429.57,
+                "distribuidora": "ACF"
+            }
+        ]
+    },
+    {
+        "timestamp": 1693764156.099692,
+        "numeracion": "00000067",
+        "estado": true,
+        "efectivo": 1267.5,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "COL125",
+                "articulo": "COLA VINILICA X125CC (FERRETERIA)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 465.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "TEL250",
+                "articulo": "COLA VINILICA TELPLAST X250 (TELPLAST)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 802.5,
+                "distribuidora": "ACF"
+            }
+        ]
+    },
+    {
+        "timestamp": 1693764214.950083,
+        "numeracion": "00000068",
+        "estado": true,
+        "efectivo": 149837.54,
+        "tarjeta": 10000.0,
+        "articulos": [
+            {
+                "codigo": "999996",
+                "articulo": "TABLERO DE CLIP AUTOMOTOR (MAXIFER)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 159837.54,
+                "distribuidora": "CFN_NISII"
+            }
+        ]
     }
 ]

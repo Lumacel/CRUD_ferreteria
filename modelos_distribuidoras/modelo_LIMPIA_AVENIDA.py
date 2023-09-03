@@ -1,17 +1,25 @@
+"""Este modulo crea un archivo .csv con la informacion que hay en
+archivo original pero normaliza la cantidad de columnas y
+corrige omisiones que pueden hacer dificil la busqueda de un articulo
+"""
 import csv
 import os
-from datetime import datetime 
+from datetime import datetime
 from tkinter import filedialog
 
 def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
+    """Agrega encabezado al nombre del archivo con la fecha y hora actual
+    """
     fecha = datetime.now()
     return f'{carpeta}\\{distribuidora}_{fecha.strftime("%Y-%m-%d_%H-%M-%S")}_'
 
 def normalizar_lista(file, distribuidora):
+    """Reorganiza la lista para facilitar la busqueda de cada articulo
+    """
     if "CAMBIOS" in file: ###### filtra hoja que tiene informacion sobre los cambios
         pass
     else:
-        c=0
+        cont=0
         basename = os.path.basename(file)
         nombre_arch_csv= nombrar_archivo(distribuidora) + basename
         try:
@@ -25,15 +33,15 @@ def normalizar_lista(file, distribuidora):
                                 row.remove('')
                         except ValueError:
                             pass
-                        if row == []: continue
-                        if len(row)<3:continue
-                        row[1] = row[1].rstrip(" ")
+                        if row == []:
+                            continue
+                        if len(row)<3:
+                            continue
+                        row[1] = row[1].rstrip(" ").upper()
                         row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
-                        row[1]=row[1].rstrip()
-                        row[1]=row[1].upper()
                         try:
                             row[2]= f"{float(row[2]):.2f}"
-                        except Exception:
+                        except ValueError:
                             continue
                         match row[0][0:7]:
                             case "A-24035"|"A-24036"|"A-24037":
@@ -52,7 +60,7 @@ def normalizar_lista(file, distribuidora):
                                 row[1]= "PINZA ROSARIO PARA ARTESANIA " + row[1] + " (METZ)"
                             case "P-06914"|"P-06915":
                                 row[1]= "PINZA PUNTA CHATA " + row[1] + " (METZ)"
-                            
+
                         match row[0][0:6]:
                             case "C-1427"|"C-1428":
                                 row[1]= row[1] + " (DESTAPACIONES) "
@@ -90,14 +98,14 @@ def normalizar_lista(file, distribuidora):
                                 row[1]= "LLAVE AJUSTABLE FOSFATIZADA " + row[1] + " (METZ)"
                             case "P-0692":
                                 row[1]= "PINZA PICO DE LORO CON AISLACION " + row[1] + " (METZ)"
-                            
+
                         match row[0][0:5]:
                             case "A-001"|"A-002"|"A-003"|"A-007":
-                                row[1]= "ABRAZADERA " + row[1] 
+                                row[1]= "ABRAZADERA " + row[1]
                             case "E-039":
-                                row[1]= "ESQUINERO PLANO CROMATIZADO " + row[1] 
+                                row[1]= "ESQUINERO PLANO CROMATIZADO " + row[1]
                             case "M-060"|"M-061"|"M-062"|"M-063"|"M-069"|"M-071":
-                                row[1]= "MECHA CILINDRICA " + row[1] 
+                                row[1]= "MECHA CILINDRICA " + row[1]
                             case "T-014":
                                 row[1]= "TANZA DE NYLON " + row[1]
                             case "L-304"|"L-305":
@@ -107,23 +115,26 @@ def normalizar_lista(file, distribuidora):
                             case "M-077":
                                 row[1]= "MENSULA DE HIERRO " + row[1] + " (CORVEX)"
                             case "B-305":
-                                row[1]= "BISAGRAS PORTONES TIPO 'T' PROCEDENCIA CHINA" + row[1] 
+                                row[1]= "BISAGRAS PORTONES TIPO 'T' PROCEDENCIA CHINA" + row[1]
                             case "T-048":
                                 row[1]= "TENSOR PARA SOGAS Y TOLDOS GALVANIZADOS " + row[1]
                         row.append(distribuidora)
-            
+
                         writer_object.writerow(row)
-                        c+=1
-                        print(c,row)
-                        
-        except Exception as e:
-            print(e)
-        
+                        cont+=1
+                        print(cont,row)
+
+        except FileNotFoundError as error:
+            print(error)
+            return None
+
         return nombre_arch_csv.split("\\")[1]
-  
+    return None
+
+
 if __name__=="__main__":
-    distribuidora = "LIMPIA_AVENIDA"
+    DISTRIBUIDORA= "LIMPIA_AVENIDA"
     open_files = filedialog.askopenfilenames(filetypes=[("Archivos Excel", "*.csv")])
-    for file in open_files:
-        normalizar_lista(file, distribuidora)
+    for archivo in open_files:
+        normalizar_lista(archivo, DISTRIBUIDORA)
         

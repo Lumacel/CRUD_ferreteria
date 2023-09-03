@@ -1,5 +1,5 @@
-__all__ = ["modelo_ACF","modelo_AMAYA", "modelo_ARGENTINA","modelo_CEDICA", "modelo_CFN_NISII",
-           "modelo_DANIROX", "modelo_DIS_COS", "modelo_FLAVIO", "modelo_GUSTAVO_ELECT", "modelo_INTEGRAL",
-           "modelo_LA_PLATA_LED","modelo_LIMPIA_AVENIDA","modelo_LOS_PINOS","modelo_MASSOL","modelo_MASSOL",
-           "modelo_MAURO_IMPORT", "modelo_SUPRABOND"
+__all__ = ["modelo_acf","modelo_amaya", "modelo_argentina","modelo_cedica", "modelo_cfn_nisii",
+           "modelo_danirox", "modelo_dis_cos", "modelo_flavio", "modelo_gustavo_elect", 
+           "modelo_integral", "modelo_la_plata_led","modelo_limpia_avenida","modelo_los_pinos",
+           "modelo_massol", "modelo_mauro_import", "modelo_suprabond"
            ]

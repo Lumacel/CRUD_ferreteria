@@ -1,15 +1,20 @@
+"""Este modulo crea un archivo .csv con la informacion que hay en
+archivo original pero normaliza la cantidad de columnas y
+corrige omisiones que pueden hacer dificil la busqueda de un articulo
+"""
 import csv
 import os
-from datetime import datetime 
+from datetime import datetime
 from tkinter import filedialog
 
 def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
+    """Agrega encabezado al nombre del archivo con la fecha y hora actual
+    """
     fecha = datetime.now()
-    
     return f'{carpeta}\\{distribuidora}_{fecha.strftime("%Y-%m-%d_%H-%M-%S")}_'
 
 def normalizar_lista(file, distribuidora):
-    c=0
+    """Reorganiza la lista para facilitar la busqueda de cada articulo"""
     basename = os.path.basename(file)
     nombre_arch_csv= nombrar_archivo(distribuidora) + basename
     try:
@@ -17,34 +22,32 @@ def normalizar_lista(file, distribuidora):
             writer_object = csv.writer(new_csvfile)
             with open(file, "r", encoding='utf-8-sig') as csvfile:
                 spamreader = csv.reader(csvfile, delimiter=',')
-                c=0
+                cont=0
                 for row in spamreader:
+                    row[0]= row[0].strip("\"").upper()
+                    row[1]= row[1].strip("\"").upper()
+                    row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
+                    row[1]=row[1].rstrip()
                     try:
-                        row[0]= row[0].strip("\"").upper()
-                        row[1]= row[1].strip("\"").upper()
-                        row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
-                        row[1]=row[1].rstrip()
-                        try:
-                            row[2]= float(row[2])*.52 # coeficiente Integral= .52 (precio lista -48%)
-                            row[2]= f"{(row[2]):.2f}"
-                        except ValueError:
-                            continue
-                        row.append(distribuidora)
-
-                        writer_object.writerow(row)
-                        c+=1
-                        print(c,row)
-                        
-                    except Exception:
+                        row[2]= float(row[2])*.52 # coeficiente Integral= .52 (precio lista -48%)
+                        row[2]= f"{(row[2]):.2f}"
+                    except ValueError:
                         continue
-    except Exception as e:
-            print(e)
-    
+                    row.append(distribuidora)
+
+                    writer_object.writerow(row)
+                    cont+=1
+                    print(cont,row)
+
+    except FileNotFoundError as error:
+        print(error)
+        return None
+
     return nombre_arch_csv.split("\\")[1]
 
 if __name__== "__main__":
-    distribuidora = "INTEGRAL"
+    DISTRIBUIDORA = "INTEGRAL"
     open_files = filedialog.askopenfilenames(filetypes=[("Archivos Excel", "*.csv")])
-    for file in open_files:
-        normalizar_lista(file, distribuidora)
+    for archivo in open_files:
+        normalizar_lista(archivo, DISTRIBUIDORA)
         
