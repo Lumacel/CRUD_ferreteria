@@ -60,50 +60,8 @@ class App():
         posicion = self.centrar_ventana(ancho_ventana,alto_ventana)
         self.root.geometry(posicion)
 
-        # Crear el menú Archivo
-        self.menu_archivo = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
-        self.menu_archivo.add_command(label="Explorar archivos", accelerator="F3",
-                                      command= self.ver_archivos_normalizados)
-        self.menu_archivo.add_command(label="Normalizar listas", accelerator="F4",
-                                      command= self.toplevel_normalizar)
-        self.menu_archivo.add_separator()
-        self.menu_archivo.add_command(label="Salir", command=self.root.quit)
-
-        # Crear el menú Editar
-        self.menu_ventas = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
-        self.menu_ventas.add_command(label="Efectuar venta", accelerator="F2",
-                                     command= lambda : self.aceptar_venta()
-                                     if self.ventas.items_vta else None)
-        self.menu_ventas.add_command(label="Aplicar descuento global", accelerator="F5",
-                                     command= self.toplevel_dto_global)
-        self.menu_ventas.add_command(label="Agregar artículo", accelerator="F10",
-                                     command= lambda: self.editar_item_vta("AGREGAR"))
-        self.menu_ventas.add_command(label="Editar artículo", accelerator="Enter",
-                                     command= lambda: self.editar_item_vta("EDITAR")
-                                     if self.tabla_venta.selection() else None)
-        self.menu_ventas.add_command(label="Borrar artículo/s", accelerator="Ctrl + Del",
-                                     command= self.borrar_items_vta )
-        self.menu_ventas.add_command(label="Modificar medio de pago", accelerator="F8",
-                                     command= self.modif_medio_pago)
-        self.menu_ventas.add_command(label="Reiniciar venta", accelerator="Ctrl + R",
-                                     command= self.resetear_venta)
-
-        # Crear el menú Configuración
-        self.menu_config = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
-        self.menu_config.add_command(label="Modificar margen ganancia", accelerator="F6",
-                                     command= self.toplevel_ganancia)
-        self.menu_config.add_command(label="Registros historicos", accelerator="F7",
-                                     command= self.toplevel_registros)
-
-        # Crear la barra de menús y agregar los menús
-        self.barra_menus = tk.Menu(self.root)
-
-        self.barra_menus.add_cascade(label="   Archivos", menu=self.menu_archivo)
-        self.barra_menus.add_cascade(label=" Ventas", menu=self.menu_ventas)
-        self.barra_menus.add_cascade(label=" Configuración", menu=self.menu_config)
-
-        # Agregar la barra de menús a la ventana
-        self.root.config(menu=self.barra_menus)
+        # --aloja el menú
+        self.menu()
 
         self.articulo_busq = tk.StringVar()
         self.distr_selecc= tk.StringVar()
@@ -186,6 +144,54 @@ class App():
 
         self.treeview_venta()
         self.cargar_treeview_venta()
+
+    def menu(self):
+        """Crea el menú que irá alojado en la raiz"""
+
+        # --Crea el menú Archivo
+        menu_archivo = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
+        menu_archivo.add_command(label="Explorar archivos", accelerator="F3",
+                                      command= self.ver_archivos_normalizados)
+        menu_archivo.add_command(label="Normalizar listas", accelerator="F4",
+                                      command= self.toplevel_normalizar)
+        menu_archivo.add_separator()
+        menu_archivo.add_command(label="Salir", command=self.root.quit)
+
+        # Crear el menú Editar
+        menu_ventas = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
+        menu_ventas.add_command(label="Efectuar venta", accelerator="F2",
+                                     command= lambda : self.aceptar_venta()
+                                     if self.ventas.items_vta else None)
+        menu_ventas.add_command(label="Aplicar descuento global", accelerator="F5",
+                                     command= self.toplevel_dto_global)
+        menu_ventas.add_command(label="Agregar artículo", accelerator="F10",
+                                     command= lambda: self.editar_item_vta("AGREGAR"))
+        menu_ventas.add_command(label="Editar artículo", accelerator="Enter",
+                                     command= lambda: self.editar_item_vta("EDITAR")
+                                     if self.tabla_venta.selection() else None)
+        menu_ventas.add_command(label="Borrar artículo/s", accelerator="Ctrl + Del",
+                                     command= self.borrar_items_vta )
+        menu_ventas.add_command(label="Modificar medio de pago", accelerator="F8",
+                                     command= self.modif_medio_pago)
+        menu_ventas.add_command(label="Reiniciar venta", accelerator="Ctrl + R",
+                                     command= self.resetear_venta)
+
+        # --Crea el menú Configuración
+        menu_config = tk.Menu(self.root, tearoff= False, font=("Arial", 11))
+        menu_config.add_command(label="Modificar margen ganancia", accelerator="F6",
+                                     command= self.toplevel_ganancia)
+        menu_config.add_command(label="Registros historicos", accelerator="F7",
+                                     command= self.toplevel_registros)
+
+        # --Crea la barra de menús y agregar los menús
+        barra_menus = tk.Menu(self.root)
+
+        barra_menus.add_cascade(label="   Archivos", menu=menu_archivo)
+        barra_menus.add_cascade(label=" Ventas", menu=menu_ventas)
+        barra_menus.add_cascade(label=" Configuración", menu=menu_config)
+
+        # --Agrega la barra de menús a la ventana
+        self.root.config(menu=barra_menus)
 
     def toplevel_ganancia(self):
         """Abre una ventana dondse se podrá cambiar el porcentaje de ganancia"""

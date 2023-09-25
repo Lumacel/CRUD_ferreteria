@@ -1,5 +1,19 @@
-from modelos_distribuidoras import *
-
+from modelos_distribuidoras import modelo_acf
+from modelos_distribuidoras import modelo_amaya
+from modelos_distribuidoras import modelo_argentina
+from modelos_distribuidoras import modelo_cedica
+from modelos_distribuidoras import modelo_cfn_nisii
+from modelos_distribuidoras import modelo_danirox
+from modelos_distribuidoras import modelo_dis_cos
+from modelos_distribuidoras import modelo_flavio
+from modelos_distribuidoras import modelo_gustavo_elect
+from modelos_distribuidoras import modelo_integral
+from modelos_distribuidoras import modelo_la_plata_led
+from modelos_distribuidoras import modelo_limpia_avenida
+from modelos_distribuidoras import modelo_los_pinos
+from modelos_distribuidoras import modelo_massol
+from modelos_distribuidoras import modelo_lucas_import
+from modelos_distribuidoras import modelo_suprabond
 
 def normalizar(file, distribuidora):
     if distribuidora == "ACF":
@@ -61,8 +75,8 @@ def normalizar(file, distribuidora):
         nuevo_archivo = modelo_massol.normalizar_lista(file, distribuidora)
         return nuevo_archivo
 
-    elif distribuidora == "MAURO_IMPORT":
-        nuevo_archivo = modelo_mauro_import.normalizar_lista(
+    elif distribuidora == "LUCAS_IMPORT":
+        nuevo_archivo = modelo_lucas_import.normalizar_lista(
             file, distribuidora)
         return nuevo_archivo
 

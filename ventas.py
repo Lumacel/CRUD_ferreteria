@@ -3,7 +3,6 @@
 import json
 from datetime import datetime
 
-
 class Ventas():
     """ Esta clase maneja todo lo que a la venta
     se refiere: items ingresados con sus valores y descuentos"""
@@ -82,7 +81,8 @@ class Ventas():
     def calc_total_vta(self):
         """calcula el total de la venta sumando 
         todos los items y restando los descuentos"""
-        total_vta, total_desc = 0, 0
+        total_vta= 0
+        total_desc= 0
         for item in self.items_vta:
             total_item = int(item.cantidad_vta)*float(item.precio_vta)
             descuento = float(item.descuento_vta)

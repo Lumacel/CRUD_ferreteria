@@ -52,7 +52,7 @@ def normalizar_lista(file, distribuidora):
 
 
 if __name__== "__main__":
-    DISTRIBUIDORA= "MAURO_IMPORT"
+    DISTRIBUIDORA= "LUCAS_IMPORT"
     open_files = filedialog.askopenfilenames(filetypes=[("Archivos Excel", "*.csv")])
     for archivo in open_files:
         normalizar_lista(archivo, DISTRIBUIDORA)

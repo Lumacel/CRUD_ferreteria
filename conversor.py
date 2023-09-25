@@ -18,45 +18,32 @@ def convertir_a_csv():
     path = os.path.dirname(archivo)
 
     if name.endswith(".xls"):
-        archivo_excel = pd.ExcelFile(archivo)
-        nombres_hojas = archivo_excel.sheet_names
-        for i in nombres_hojas:
-            print(i)
-            dataframe = pd.read_excel(archivo, sheet_name=i)
-            if dataframe.empty:
-                continue
-            if dataframe.shape[1] < 3:
-                continue  # cantidad de columnas
-
-            dataframe.to_csv(f'{path}/{i}.csv', index=False, encoding='utf-8-sig')
-
-    elif name.endswith(".xlsx"):
-        archivo_excel = pd.ExcelFile(archivo)
-        nombres_hojas = archivo_excel.sheet_names
-        for i in nombres_hojas:
-            print(i)
-            dataframe = pd.read_excel(archivo, sheet_name=i, engine='openpyxl')
-            if dataframe.empty:
-                continue
-            if dataframe.shape[1] < 3:
-                continue  # cantidad de columnas
-
-            dataframe.to_csv(f'{path}/{i}.csv', index=False, encoding='utf-8-sig')
-
+        engine = 'xlrd' # archivos excel formato antiguo
     else:
-        pass
+        engine = 'openpyxl' # archivos excel formato nuevo
 
-    lista_nueva_arch = []
-    lista_arch_bn = os.listdir(path)
+    archivo_excel = pd.ExcelFile(archivo)
+    nombres_hojas = archivo_excel.sheet_names
+    for hoja in nombres_hojas:
+        print(hoja)
+        dataframe = pd.read_excel(archivo, sheet_name= hoja, engine= engine )
+        if dataframe.empty:
+            continue
+        if dataframe.shape[1] < 3: # cantidad de columnas
+            continue
 
-    for arch in lista_arch_bn:
+        dataframe.to_csv(f'{path}/{hoja}.csv', index=False, encoding='utf-8-sig')
+
+    lista_nueva_archivos = []
+    lista_achivos = os.listdir(path)
+
+    for arch in lista_achivos:
         if arch.endswith(".csv"):
-            lista_nueva_arch.append(f"{path}//{arch}")
+            lista_nueva_archivos.append(f"{path}//{arch}")
         else:
             continue
 
-    return lista_nueva_arch
-
+    return lista_nueva_archivos
 
 if __name__ == "__main__":
     lista_nueva = convertir_a_csv()
