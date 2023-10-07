@@ -1,5 +1,5 @@
-"""Arma un archivo csv con cada  hoja del documento Excel (.xls y .xlsx)
-"""
+"""Arma un archivo csv con cada  hoja del documento Excel (.xls y .xlsx)"""
+
 import os
 from tkinter import filedialog
 import pandas as pd
@@ -14,19 +14,14 @@ def convertir_a_csv():
     if archivo == "":
         return []
 
-    name = os.path.basename(archivo)
+    #name = os.path.basename(archivo)
     path = os.path.dirname(archivo)
-
-    if name.endswith(".xls"):
-        engine = 'xlrd' # archivos excel formato antiguo
-    else:
-        engine = 'openpyxl' # archivos excel formato nuevo
 
     archivo_excel = pd.ExcelFile(archivo)
     nombres_hojas = archivo_excel.sheet_names
     for hoja in nombres_hojas:
         print(hoja)
-        dataframe = pd.read_excel(archivo, sheet_name= hoja, engine= engine )
+        dataframe = pd.read_excel(archivo, sheet_name= hoja)
         if dataframe.empty:
             continue
         if dataframe.shape[1] < 3: # cantidad de columnas
