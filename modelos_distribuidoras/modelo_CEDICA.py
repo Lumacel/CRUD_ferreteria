@@ -2,45 +2,40 @@
 archivo original pero normaliza la cantidad de columnas y
 corrige omisiones que pueden hacer dificil la busqueda de un articulo
 """
-import csv
 import os
-from datetime import datetime 
+from datetime import datetime
 from tkinter import filedialog
+import pandas as pd
 
 def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
-    """Agrega encabezado al nombre del archivo con la fecha y hora actual
-    """
+    """Agrega encabezado al nombre del archivo con la fecha y hora actual"""
     fecha = datetime.now()
     return f'{carpeta}\\{distribuidora}_{fecha.strftime("%Y-%m-%d_%H-%M-%S")}_'
 
 def normalizar_lista(file, distribuidora):
     """Reorganiza la lista para facilitar la busqueda de cada articulo"""
-    cont= 0
     basename = os.path.basename(file)
     nombre_arch_csv= nombrar_archivo(distribuidora) + basename
-    try:
-        with open(nombre_arch_csv, "a", newline="", encoding='utf-8-sig') as new_csvfile:
-            writer_object = csv.writer(new_csvfile)
-            with open(file, "r", encoding='utf-8-sig') as csvfile:
-                spamreader = csv.reader(csvfile, delimiter=',')
-                for row in spamreader:
-                    row[0] = row[0].upper() 
-                    row[0]= row[0].translate(row[0].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
-                    row[0]=row[0].rstrip()
-                    row[0]=row[0].replace("\n","")
-                    row= [row[1],f"{row[0]} (x{row[3]})",row[2]]
-                    try:
-                        row[2]= f"{float(row[2]):.2f}"
-                    except ValueError:
-                        continue
-                    row.append(distribuidora)
-                    
-                    writer_object.writerow(row)
-                    cont+=1
-                    print(cont,row)  
-    except FileNotFoundError as error:
-        print(error)
-        return None
+
+    lista = pd.read_csv(file)
+    
+    columnas = {lista.columns[1] : 'codigo',
+                lista.columns[0] : 'detalle',
+                lista.columns[2] : 'precio',
+                lista.columns[3] : 'unidades'
+                }
+    lista = lista.rename(columns= columnas)
+    # eliminando acentos, dieresis y caracteres no ascii
+    lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+    lista['detalle'] = lista['detalle'].str.replace('\n', '')
+    lista['detalle'] = lista['detalle'].str.upper()
+    lista.loc[lista['unidades'] != '1', 'detalle'] = lista['detalle'] + ' (' + lista['unidades'] + ' UNID.)'
+    lista = lista[['codigo','detalle','precio']]
+    lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')
+    lista = lista.dropna()
+    lista['distribuidora'] = distribuidora
+    
+    lista.to_csv(nombre_arch_csv, index= False, header= False)
 
     return nombre_arch_csv.split("\\")[1]
 

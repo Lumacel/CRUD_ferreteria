@@ -1647,5 +1647,71 @@
                 "distribuidora": "CFN_NISII"
             }
         ]
+    },
+    {
+        "timestamp": 1699156921.924548,
+        "numeracion": "00000069",
+        "estado": true,
+        "efectivo": 27198.96,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "S/CODIGO",
+                "articulo": "CABALLETES DE MADERA (ART. DE PINO)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 4200.0,
+                "distribuidora": "LOS_PINOS"
+            },
+            {
+                "codigo": "FRA0124",
+                "articulo": "CARRETEL BORDEADORA MEDIANO",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 498.96,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "S/CODIGO",
+                "articulo": "TABLA CON CABALLETE INCLUIDO DE 2.50 MTS (ART. DE PINO)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 22500.0,
+                "distribuidora": "LOS_PINOS"
+            }
+        ]
+    },
+    {
+        "timestamp": 1699157003.613971,
+        "numeracion": "00000070",
+        "estado": true,
+        "efectivo": 9560.86,
+        "tarjeta": 10000.0,
+        "articulos": [
+            {
+                "codigo": "CAB0171",
+                "articulo": "CABO PARA PALA DE 070 MTS.PU\u00d1O PLAST.",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 1238.5,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "F-G0030",
+                "articulo": "PROLONGACION MANGO PALA HOYADORA **F-G**",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 12245.79,
+                "distribuidora": "AMAYA"
+            },
+            {
+                "codigo": "S/CODIGO",
+                "articulo": "RUBEROI LIVIANO X 40 MTS",
+                "cantidad": 1,
+                "descuento": 10.0,
+                "precio": 8250.0,
+                "distribuidora": "LOS_PINOS"
+            }
+        ]
     }
 ]

@@ -49,8 +49,7 @@ def normalizar(file, distribuidora):
         return nuevo_archivo
 
     elif distribuidora == "GUSTAVO_ELECT":
-        nuevo_archivo = modelo_gustavo_elect.normalizar_lista(
-            file, distribuidora)
+        nuevo_archivo = modelo_gustavo_elect.normalizar_lista(file, distribuidora)
         return nuevo_archivo
 
     elif distribuidora == "INTEGRAL":
@@ -58,13 +57,11 @@ def normalizar(file, distribuidora):
         return nuevo_archivo
 
     elif distribuidora == "LA_PLATA_LED":
-        nuevo_archivo = modelo_la_plata_led.normalizar_lista(
-            file, distribuidora)
+        nuevo_archivo = modelo_la_plata_led.normalizar_lista(file, distribuidora)
         return nuevo_archivo
 
     elif distribuidora == "LIMPIA_AVENIDA":
-        nuevo_archivo = modelo_limpia_avenida.normalizar_lista(
-            file, distribuidora)
+        nuevo_archivo = modelo_limpia_avenida.normalizar_lista(file, distribuidora)
         return nuevo_archivo
 
     elif distribuidora == "LOS_PINOS":
@@ -76,8 +73,7 @@ def normalizar(file, distribuidora):
         return nuevo_archivo
 
     elif distribuidora == "LUCAS_IMPORT":
-        nuevo_archivo = modelo_lucas_import.normalizar_lista(
-            file, distribuidora)
+        nuevo_archivo = modelo_lucas_import.normalizar_lista(file, distribuidora)
         return nuevo_archivo
 
     elif distribuidora == "SUPRABOND":

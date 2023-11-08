@@ -2,10 +2,10 @@
 archivo original pero normaliza la cantidad de columnas y
 corrige omisiones que pueden hacer dificil la busqueda de un articulo
 """
-import csv
 import os
 from datetime import datetime
 from tkinter import filedialog
+import pandas as pd
 
 def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
     """Agrega encabezado al nombre del archivo con la fecha y hora actual
@@ -19,65 +19,56 @@ def normalizar_lista(file, distribuidora):
     cont= 0
     basename = os.path.basename(file)
     nombre_arch_csv= nombrar_archivo(distribuidora) + basename
-    try:
-        with open(nombre_arch_csv, "a", newline="", encoding='utf-8-sig') as new_csvfile:
-            writer_object = csv.writer(new_csvfile)
-            with open(file, "r", encoding='utf-8-sig') as csvfile:
-                spamreader = csv.reader(csvfile, delimiter=',')
-                for row in spamreader:
-                    try:
-                        row[9]= f"{float(row[9]):.2f}"
-                    except ValueError:
-                        continue
-                    row[8] = row[8].upper()
-                    row[8]= row[8].translate(row[8].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
 
-                    if row[1]== "100" and "ADHESIVO DE CONTACTO" not in row[8]:
-                        row[8]= "ADHESIVO DE CONTACTO " + row[8]
-                    if row[1]== "200" and "ADHESIVO EPOXI" not in row[8]:
-                        row[8]= "ADHESIVO EPOXI " + row[8]
-                    if row[1]== "200" and "BURL" not in row[8]:
-                        row[8]= "BURLETE " + row[8]
-                    if row[1]== "800"  and "PISTOLA" not in row[8]:
-                        row[8]= "PISTOLA APLICADORA " + row[8]
-                    if row[1]== "850"  and "PISTOLA" not in row[8]:
-                        row[8]= "PISTOLA ENCOLADORA " + row[8]
-                    if row[1]== "1300"  and "TOPETINA" not in row[8]:
-                        row[8]= "TOPETINA " + row[8]
-                    if row[1]== "1400"  and "ZOCALO" not in row[8]:
-                        row[8]= "ZOCALO " + row[8]
-                    if row[1]== "2500"  and "CANDADO" not in row[8]:
-                        row[8]= "CANDADO " + row[8]
-                    if row[1]== "2900":
-                        row[8]= "DESTORNILLADOR " + row[8]
-                    if row[1]== "3050" and "DISCO ABRASIVO" not in row[8]:
-                        row[8]= "DISCO ABRASIVO DE CORTE " + row[8]
-                    if row[1]== "3051" and "DISCO ABRASIVO" not in row[8]:
-                        row[8]= "DISCO ABRASIVO DE DESBASTE " + row[8]
-                    if row[1]== "3000" and "DISCO DIAMANTADO" not in row[8]:
-                        row[8]= "DISCO DIAMANTADO " + row[8]
-                    if row[1]== "3200"  and "ESPATULA" not in row[8]:
-                        row[8]= "ESPATULA " + row[8]
-                    if row[1]== "3605"  and "LIMA" not in row[8]:
-                        row[8]= "LIMA SERIE 500 " + row[8]
-                    if row[1]== "4150"  and "PINZA" not in row[8]:
-                        row[8]= "PINZA " + row[8]
-                    if row[1]== "4700"  and "SERRUCHO" not in row[8]:
-                        row[8]= "SERRUCHO " + row[8]
-                    if row[1]== "4300"  and "TIJERA" not in row[8]:
-                        row[8]= "TIJERA " + row[8]
+    lista = pd.read_csv(file)
 
-                    row= [row[0],f"{row[8]} -- {row[5]} ({row[2]})",row[9]]
-                    row.append(distribuidora)
+    columnas= {lista.columns[0] : 'codigo',
+            lista.columns[1] : 'grupo',
+            lista.columns[2] : 'marca',
+            lista.columns[5] : 'presentacion',
+            lista.columns[6] : 'tipo',
+            lista.columns[8] : 'detalle',
+            lista.columns[9] : 'precio'
+            }
+    lista = lista.rename(columns= columnas)
+    lista['grupo'] = lista['grupo'].fillna(0)
+    lista['presentacion'] = lista['presentacion'].fillna('.')
+    lista = lista[columnas.values()] # seleccionamos columnas que formaran dataframe
+    lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+    lista[['presentacion', 'tipo', 'detalle']] = lista[['presentacion', 'tipo', 'detalle']].apply(lambda x : x.str.upper())
+    lista['detalle'] = lista['detalle'] + '  - ' + lista['presentacion'] + ' (' + lista['marca'] + ')'
+    lista = lista.dropna()
 
-                    writer_object.writerow(row)
+    mapeo = {'ADHESIVO DE CONTACTO ' : [100, "ADHESIVO DE CONTACTO"],
+            'ADHESIVO EPOXI ' : [200, 'ADHESIVO EPOXI'],
+            "BURLETE " : [800, "PISTOLA"],
+            "PISTOLA APLICADORA " : [800, "PISTOLA"],
+            "PISTOLA ENCOLADORA " : [850, "PISTOLA"],
+            'SELLADOR ' : [1000, 'SELLADOR'],
+            "TOPETINA " : [1300, "TOPETINA"],
+            "ZOCALO " : [1400, "ZOCALO"],
+            "CANDADO " : [2500, "CANDADO"],
+            "DESTORNILLADOR " : [2900, 'x.x.x'],
+            "DISCO ABRASIVO DE CORTE " : [3050, "DISCO ABRASIVO"],
+            "DISCO ABRASIVO DE DESBASTE " : [3051, "DISCO ABRASIVO"],
+            "DISCO DIAMANTADO " : [3000, "DISCO DIAMANTADO"],
+            "ESPATULA " : [3200, "ESPATULA"],
+            "LIMA SERIE 500 " : [3605, "LIMA"],
+            "PINZA " : [4150, "PINZA"],
+            "SERRUCHO " : [4700, "SERRUCHO"],
+            "TIJERA " : [4300, "TIJERA"]}
+    
+    for key,value in mapeo.items():
+        condicion_1 = lista['grupo'] == value[0]
+        condicion_2 = ~lista['detalle'].str.contains(value[1])
+        condicion = condicion_1 & condicion_2
+        lista.loc[condicion, 'detalle'] = key + lista['detalle']
 
-                    cont+=1
-                    print(cont,row)
+    lista['precio'] = lista['precio'].round(2)
+    lista = lista[['codigo', 'detalle', 'precio']]
+    lista['distribuidora'] = distribuidora
 
-    except FileNotFoundError as error:
-        print(error)
-        return None
+    lista.to_csv(nombre_arch_csv, header= False, index= False)
 
     return nombre_arch_csv.split("\\")[1]
 

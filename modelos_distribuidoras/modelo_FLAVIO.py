@@ -2,10 +2,10 @@
 archivo original pero normaliza la cantidad de columnas y
 corrige omisiones que pueden hacer dificil la busqueda de un articulo
 """
-import csv
 import os
 from datetime import datetime
 from tkinter import filedialog
+import pandas as pd
 
 
 def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
@@ -16,40 +16,29 @@ def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
 
 def normalizar_lista(file, distribuidora):
     """Reorganiza la lista para facilitar la busqueda de cada articulo"""
-    cont=0
     basename = os.path.basename(file)
     nombre_arch_csv= nombrar_archivo(distribuidora) + basename
-    try:
-        with open(nombre_arch_csv, "a", newline="", encoding='utf-8-sig') as new_csvfile:
-            writer_object = csv.writer(new_csvfile)
-            with open(file, "r", encoding='utf-8-sig') as csvfile:
-                spamreader = csv.reader(csvfile, delimiter=',')
-                for row in spamreader:
-                    try:
-                        while True:
-                            row.remove('')
-                    except ValueError:
-                        pass
-                    if len(row)<2:
-                        continue
-                    if row[0] == "."  or row[0].startswith("Subtotal") or row[0].startswith("0"):
-                        continue
-                    row = ["S/CODIGO",row[0].upper().strip(),row[1]]
-                    row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
-                    row[1]=row[1].rstrip()
-                    try:
-                        row[2]= f"{float(row[2]):.2f}"
-                    except ValueError:
-                        continue
-                    row.append(distribuidora)
 
-                    writer_object.writerow(row)
-                    cont+=1
-                    print(cont,row)
+    lista = pd.read_csv(file)
 
-    except FileNotFoundError as error:
-        print(error)
-        return None
+    columnas = {lista.columns[1] : 'detalle',
+                lista.columns[0] : 'codigo',
+                lista.columns[2] : 'precio'
+                }
+    lista = lista.rename(columns= columnas)
+    lista = lista[['codigo', 'detalle', 'precio' ]]
+    lista['codigo'] = 'S/CODIGO'
+    lista['detalle'] = lista['detalle'].str.upper()
+    lista['detalle'] = lista['detalle'].str.strip()
+    # eliminando acentos, dieresis y caracteres no ascii
+    lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+    lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
+    lista = lista.dropna()
+    lista['precio'] = lista['precio'].round(2)
+    lista = lista[lista['precio'] != 0]
+    lista['distribuidora'] = distribuidora
+
+    lista.to_csv(nombre_arch_csv, index = False, header= False)
 
     return nombre_arch_csv.split("\\")[1]
 

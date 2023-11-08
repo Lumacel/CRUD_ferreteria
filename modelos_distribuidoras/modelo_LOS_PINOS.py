@@ -2,164 +2,117 @@
 archivo original pero normaliza la cantidad de columnas y
 corrige omisiones que pueden hacer dificil la busqueda de un articulo
 """
-import csv
 import os
 from datetime import datetime
 from tkinter import filedialog
+import pandas as pd
 
 def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
-    """Agrega encabezado al nombre del archivo con la fecha y hora actual
-    """
+    """Agrega encabezado al nombre del archivo con la fecha y hora actual"""
     fecha = datetime.now()
     return f'{carpeta}\\{distribuidora}_{fecha.strftime("%Y-%m-%d_%H-%M-%S")}_'
 
 def normalizar_lista(file, distribuidora):
-    """Reorganiza la lista para facilitar la busqueda de cada articulo
-    """
+    """Reorganiza la lista para facilitar la busqueda de cada articulo"""
     if "Hoja2" in file:
-        pass  # filtra hoja2
-    else:
-        items= {0: 'Ruberoi', 1: 'Telgopor ( Dólar oficial)', 2: 'Membranas',
-                3: 'MEMBRANA EN PASTA',4: 'MEMBRANA EN PASTA FIBRADA',5: 'VENDA DE TELA',
-                6: 'LATEX PREMIUM',7: 'LATEX LINEA DECOR',8: 'ENDUIDO PLASTICO',
-                9: 'REVESTIMIENTO PLASTICO',10: 'Pintura Asfaltica',11: 'Espumas para techo.',
-                12: 'Hormigoneras Economica', 13: ',Hormigoneras SuperReforzada',14: 'Carretillas',
-                15: 'Repuestos para hormigonera',16: 'Ruedas', 17: 'Carritos de Carga',
-                18: 'Precio Por Escalon', 19: 'Escalon Familiar',20: 'Escalon Pintor de 4 a 10',
-                21:'Escalon Pintor de 11 a 12', 22: 'Escaleras',23: 'Articulos de Pino',
-                24: 'Herramientas de Albaliñeria', 25: 'Fieltros de Espuma',
-                26: 'Calefones', 27: 'Clavos y Alambre'}
-        # veriables para calcular precio de las escaleras segun cantidad de escalones
-        txt_ini = ""
-        txt_fin = ""
-        cant_famil= 3
-        cant_pint=4
-        cont= 0
-        basename = os.path.basename(file)
-        nombre_arch_csv= nombrar_archivo(distribuidora) + basename
-        try:
-            with open(nombre_arch_csv, "a", newline="", encoding='utf-8-sig') as new_csvfile:
-                writer_object = csv.writer(new_csvfile)
-                with open(file, "r", encoding='utf-8-sig') as csvfile:
-                    spamreader = csv.reader(csvfile, delimiter=',')
-                    for row in spamreader:
-                        try:
-                            while True:
-                                row = [item.strip(" $") for item in row]
-                                row.remove('')
-                        except ValueError:
-                            pass
+        return None
 
-                        if row == [] or  len(row)>2 : continue
-                        if len(row)==1 and not row[0] in items.values():
-                            continue
-                        if  items[0] in row[0]:
-                            txt_ini ="RUBEROI "
-                            continue
-                        if items[1] in row[0]:
-                            txt_ini =""
-                            continue
-                        if items[2] in row[0]:
-                            txt_ini ="MEMB "
-                            continue
-                        if items[3] in row[0] or items[4] in row[0]:
-                            txt_ini =""
-                            continue
-                        if items[5] in row[0]:
-                            continue
-                        if items[6] in row[0]:
-                            txt_fin =" (PREMIUM)"
-                            continue
-                        if items[7] in row[0]:
-                            txt_fin =" (DECOR)"
-                            continue
-                        if items[8] in row[0]:
-                            txt_fin =""
-                            continue
-                        if items[9] in row[0]:
-                            continue
-                        if items[10] in row[0]:
-                            continue
-                        if items[11] in row[0]:
-                            continue
-                        if items[12] in row[0]:
-                            continue
-                        if items[13] in row[0]:
-                            txt_fin =" (SUPER-REFORZADA)"
-                            continue
-                        if items[14] in row[0]:
-                            txt_fin =""
-                            continue
-                        if items[15] in row[0]:
-                            txt_fin =" (REPUESTO HORMIGONERA)"
-                            continue
-                        if items[16] in row[0]:
-                            txt_ini ="Rueda "
-                            txt_fin = ""
-                            continue
-                        if items[17] in row[0]:
-                            txt_ini =""
-                            continue
-                        if items[18] in row[0]:
-                            continue
-                        if items[19] in row[0]:
-                            prec_famil= row[1] # precio Escalon Familiar de 4 a 10
-                            continue
-                        if items[20] in row[0]:
-                            prec_pint_4_10= row[1] # precio Escalon Pintor de 4 a 10
-                            continue
-                        if items[21] in row[0]:
-                            prec_pint_11_12= row[1] # precio Escalon Pintor de 11 a 12
-                            continue
-                        if items[22] in row[0]:
-                            continue
-                        if items[23] in row[0]:
-                            txt_fin = " (Artic. de pino)"
-                            txt_ini= ""
-                            continue
-                        if items[24] in row[0]:
-                            txt_ini= ""
-                            txt_fin = ""
-                            continue
-                        if items[25] in row[0]:
-                            continue
-                        if items[26] in row[0]:
-                            txt_ini = "Calefon "
-                            continue
-                        if items[27] in row[0]:
-                            continue
-                        if row[0].startswith("Familiar"):
-                            txt_ini= "Escalera "
-                            row[0] = f"{row[0]} ({row[1]})"
-                            row[1] = str(float(prec_famil)*cant_famil)
-                            cant_famil+=1
-                        if row[0].startswith("Pintor"):
-                            row[0] = f"{row[0]} ({row[1]})"
-                            row[1] = str(float(prec_pint_4_10 if cant_pint <11 else prec_pint_11_12)*cant_pint)
-                            cant_pint+=1
+    basename = os.path.basename(file)
+    nombre_arch_csv = nombrar_archivo(distribuidora) + basename
 
-                        row= ["S/CODIGO",
-                               txt_ini+row[0]+txt_fin if txt_ini not in row[0] else row[0]+txt_fin,
-                                 row[1]]
+    lista = pd.read_csv(file)
 
-                        row[1]= row[1].upper()
-                        row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
-                        try:
-                            row[2]= f"{float(row[2]):.2f}"
-                        except ValueError:
-                            continue
-                        row.append(distribuidora)
+    lista = lista.astype(object)
 
+    # corre los campos hacia laizquierda donde hay lugares vacios
+    for i in range(3):
+        lista[lista['Unnamed: 0'].isna()] = lista.shift(periods=-1, axis=1, fill_value=None)
 
-                        writer_object.writerow(row)
-                        cont+=1
-                        print(cont,row)
-        except FileNotFoundError as error:
-            print(error)
-            return None
+    columnas= {lista.columns[0] : 'detalle',
+            lista.columns[1] : 'precio',}
+    lista = lista.rename(columns= columnas)
+    lista= lista.dropna(how= 'all')
+    lista = lista[lista['precio'].notna()]
+    lista = lista[~lista['precio'].str.contains('U')]
+    lista = lista[['detalle', 'precio']]
+    lista['precio'] = lista['precio'].str.strip(' $')
+    lista['detalle'] = lista['detalle'].str.strip(' ')
+    lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.\
+                        encode('ASCII', 'ignore').str.decode('ASCII')
 
-        return nombre_arch_csv.split("\\")[1]
-    return None
+    condicion = lista['detalle'].str.contains('Pintor') | lista['detalle'].str.contains('Familiar')
+    lista.loc[condicion, 'detalle'] = 'Escalera ' + lista['detalle'] + ' (' + lista['precio'] + ')'
+
+    try:
+        # crear filas con los valores segun tipo cantidad de escalones
+        items = ['Escalon Familiar',
+                 'Escalon Pintor de 4 a 10',
+                 'Escalon Pintor de 11 a 12',
+                 'Escaleras']
+
+        familiar = lista.loc[lista['detalle'].str.contains(items[0]),
+                             'precio'].astype(float).iloc[0]
+        pint_4_10 = lista.loc[lista['detalle'].str.contains(items[1]),
+                              'precio'].astype(float).iloc[0]
+        pint_11_12 = lista.loc[lista['detalle'].str.contains(items[2]),
+                               'precio'].astype(float).iloc[0]
+
+        for item in items: # elimina las filas que tienen los precios de  escalones
+            lista = lista.loc[~lista['detalle'].str.contains(item)]
+        for escalones in range(3,13): #asigna los precios a escaleras famil segunescalones
+            cadena = f'Familiar de {escalones}'
+            lista.loc[lista['detalle'].str.contains(cadena) , ['precio']] =\
+                str(escalones*familiar)
+        for escalones in range(4,13): #asigna los precios a escaleras pintor segun escalones
+            cadena = f'Pintor de {escalones}'
+            lista.loc[lista['detalle'].str.contains(cadena) , ['precio']] =\
+                str(escalones*pint_4_10) if escalones < 11 else str(escalones*pint_11_12)
+    except IndexError:
+        pass
+
+    mapeo_items= {'Liviano|Pesado' : ['Ruberoi ', ''],
+                'Rollo lamiplas|Autoadhesiva de|Memb ' : ['Membrana ', ''],
+                'Motor|Tambor' : ['', ' (Repuesto para hormigonera)'],
+                'Maciza|Neumatica p/' : ['Rueda ', ''],
+                'Banqueta|Caballetes de Madera|Tabla|Banco' : ['', ' (Art. de pino)'],
+                'Electrico Aleman' : ['Calefon ', '']
+                }
+    for key, value in mapeo_items.items():
+        condicion = lista['detalle'].str.contains(key)
+        lista.loc[condicion, 'detalle'] = value[0] + lista['detalle'] + value[1]
+
+    # diferencia tipos de pintura
+    index_pinturas = lista.loc[lista['detalle'].str.contains('Pintura Latex')].index
+    for numero,indice in enumerate(index_pinturas):
+        marca = ' (PREMIUM)' if numero < 7 else ' (LINEA DECOR) '
+        lista.loc[indice,'detalle'] = lista.loc[indice,'detalle'] + marca
+
+    try:
+        # Separa valores en una misma linea transforma en 2 items independientes
+        p_cab = lista.loc[lista['detalle'].str.contains('Caballetes'), 'precio'].str.split('/')
+        p_cab_reforz = p_cab.iloc[0][0].strip('$')
+        p_cab_comun = p_cab.iloc[0][1].strip('$')
+        index_caba = p_cab.index[0]
+        lista.loc[index_caba, 'precio'] = str(p_cab_comun)
+        nueva_fila = pd.DataFrame({'detalle' : ['Caballetes de Madera reforzado (Art. de pino)'],
+                                    'precio' : [str(p_cab_reforz)]})
+        lista = pd.concat([lista.loc[:index_caba],nueva_fila,
+                           lista.loc[index_caba + 1:]]).reset_index(drop=True)
+    except IndexError:
+        pass
+
+    lista['detalle'] = lista['detalle'].str.upper()
+    lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')
+    lista['precio'] = lista['precio'].round(2)
+    lista = lista.dropna()
+
+    lista['codigo'] = 'S/CODIGO'
+    lista['distribuidora'] = distribuidora
+    lista = lista[['codigo','detalle','precio','distribuidora']]
+
+    lista.to_csv(nombre_arch_csv, header= False, index= False)
+
+    return nombre_arch_csv.split("\\")[1]
 
 if __name__== "__main__":
     DISTRIBUIDORA= "LOS_PINOS"

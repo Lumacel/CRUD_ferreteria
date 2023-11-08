@@ -2,10 +2,10 @@
 archivo original pero normaliza la cantidad de columnas y
 corrige omisiones que pueden hacer dificil la busqueda de un articulo
 """
-import csv
 import os
 from datetime import datetime
 from tkinter import filedialog
+import pandas as pd
 
 def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
     """Agrega encabezado al nombre del archivo con la fecha y hora actual
@@ -17,31 +17,25 @@ def normalizar_lista(file, distribuidora):
     """Reorganiza la lista para facilitar la busqueda de cada articulo"""
     basename = os.path.basename(file)
     nombre_arch_csv= nombrar_archivo(distribuidora) + basename
-    try:
-        with open(nombre_arch_csv, "a", newline="", encoding='utf-8-sig') as new_csvfile:
-            writer_object = csv.writer(new_csvfile)
-            with open(file, "r", encoding='utf-8-sig') as csvfile:
-                spamreader = csv.reader(csvfile, delimiter=',')
-                cont=0
-                for row in spamreader:
-                    row[0]= row[0].strip("\"").upper()
-                    row[1]= row[1].strip("\"").upper()
-                    row[1]= row[1].translate(row[1].maketrans('ÁÉÍÓÚÜ','AEIOUU'))
-                    row[1]=row[1].rstrip()
-                    try:
-                        row[2]= float(row[2])*.52 # coeficiente Integral= .52 (precio lista -48%)
-                        row[2]= f"{(row[2]):.2f}"
-                    except ValueError:
-                        continue
-                    row.append(distribuidora)
 
-                    writer_object.writerow(row)
-                    cont+=1
-                    print(cont,row)
+    lista = pd.read_csv(file)
 
-    except FileNotFoundError as error:
-        print(error)
-        return None
+    columnas = {lista.columns[0] : 'codigo',
+                lista.columns[1]: 'detalle',
+                lista.columns[2] : 'precio'
+                }
+    lista = lista.rename(columns= columnas)
+    lista['detalle'] = lista['detalle'].str.upper()
+    lista['detalle'] = lista['detalle'].str.replace('\n', ' ')
+    lista['codigo'] = lista['codigo'].str.upper()
+    lista['precio'] =lista['precio']*.52 # coeficiente Integral= .52 (precio lista -48%)
+    lista['precio'] =lista['precio'].round(2)
+    # eliminando acentos, dieresis y caracteres no ascii
+    lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+    lista['distribuidora'] = distribuidora
+    lista = lista.dropna()
+
+    lista.to_csv(nombre_arch_csv, index= False, header= False)
 
     return nombre_arch_csv.split("\\")[1]
 

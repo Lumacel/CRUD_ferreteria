@@ -491,7 +491,7 @@ class App():
             if item[3] == self.get_distr_selecc() or self.get_distr_selecc() == "TODAS":
                 codigo = item[0]
                 articulo = item[1]
-                precio_compra = item[2]
+                precio_compra = f'{float(item[2]):.2f}'
                 precio_venta = f"{(float(item[2])*self.ventas.coeficiente_vta):.2f}"
                 distribuidora = item[3]
                 lista = (codigo, articulo, precio_compra, precio_venta, distribuidora)
