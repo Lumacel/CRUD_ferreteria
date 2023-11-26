@@ -14,8 +14,6 @@ def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
 
 def normalizar_lista(file, distribuidora):
     """Reorganiza la lista para facilitar la busqueda de cada articulo"""
-    if "Hoja2" in file:
-        return None
 
     basename = os.path.basename(file)
     nombre_arch_csv = nombrar_archivo(distribuidora) + basename
@@ -24,13 +22,17 @@ def normalizar_lista(file, distribuidora):
 
     lista = lista.astype(object)
 
-    # corre los campos hacia laizquierda donde hay lugares vacios
-    for i in range(3):
-        lista[lista['Unnamed: 0'].isna()] = lista.shift(periods=-1, axis=1, fill_value=None)
+    if lista.shape[0] < 75:
+        return None
 
     columnas= {lista.columns[0] : 'detalle',
-            lista.columns[1] : 'precio',}
+                lista.columns[1] : 'precio',}
     lista = lista.rename(columns= columnas)
+
+    # corre los campos hacia la izquierda donde hay lugares vacios
+    for i in range(3):
+        lista[lista['detalle'].isna()] = lista.shift(periods=-1, axis=1, fill_value=None)
+
     lista= lista.dropna(how= 'all')
     lista = lista[lista['precio'].notna()]
     lista = lista[~lista['precio'].str.contains('U')]
@@ -44,25 +46,27 @@ def normalizar_lista(file, distribuidora):
     lista.loc[condicion, 'detalle'] = 'Escalera ' + lista['detalle'] + ' (' + lista['precio'] + ')'
 
     try:
-        # crear filas con los valores segun tipo cantidad de escalones
         items = ['Escalon Familiar',
+                 'Escalon Familiar 11-12',
                  'Escalon Pintor de 4 a 10',
                  'Escalon Pintor de 11 a 12',
                  'Escaleras']
 
-        familiar = lista.loc[lista['detalle'].str.contains(items[0]),
+        familiar_3_10 = lista.loc[lista['detalle'].str.contains(items[0]),
                              'precio'].astype(float).iloc[0]
-        pint_4_10 = lista.loc[lista['detalle'].str.contains(items[1]),
+        familiar_11_12 = lista.loc[lista['detalle'].str.contains(items[1]),
+                             'precio'].astype(float).iloc[0]
+        pint_4_10 = lista.loc[lista['detalle'].str.contains(items[2]),
                               'precio'].astype(float).iloc[0]
-        pint_11_12 = lista.loc[lista['detalle'].str.contains(items[2]),
+        pint_11_12 = lista.loc[lista['detalle'].str.contains(items[3]),
                                'precio'].astype(float).iloc[0]
 
         for item in items: # elimina las filas que tienen los precios de  escalones
             lista = lista.loc[~lista['detalle'].str.contains(item)]
-        for escalones in range(3,13): #asigna los precios a escaleras famil segunescalones
+        for escalones in range(3,13): #asigna los precios a escaleras familiar segun escalones
             cadena = f'Familiar de {escalones}'
             lista.loc[lista['detalle'].str.contains(cadena) , ['precio']] =\
-                str(escalones*familiar)
+                str(escalones*familiar_3_10) if escalones < 11 else str(escalones*familiar_11_12)
         for escalones in range(4,13): #asigna los precios a escaleras pintor segun escalones
             cadena = f'Pintor de {escalones}'
             lista.loc[lista['detalle'].str.contains(cadena) , ['precio']] =\

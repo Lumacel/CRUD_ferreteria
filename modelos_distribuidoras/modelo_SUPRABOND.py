@@ -16,7 +16,6 @@ def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
 def normalizar_lista(file, distribuidora):
     """Reorganiza la lista para facilitar la busqueda de cada articulo
     """
-    cont= 0
     basename = os.path.basename(file)
     nombre_arch_csv= nombrar_archivo(distribuidora) + basename
 
@@ -34,9 +33,12 @@ def normalizar_lista(file, distribuidora):
     lista['grupo'] = lista['grupo'].fillna(0)
     lista['presentacion'] = lista['presentacion'].fillna('.')
     lista = lista[columnas.values()] # seleccionamos columnas que formaran dataframe
-    lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
-    lista[['presentacion', 'tipo', 'detalle']] = lista[['presentacion', 'tipo', 'detalle']].apply(lambda x : x.str.upper())
-    lista['detalle'] = lista['detalle'] + '  - ' + lista['presentacion'] + ' (' + lista['marca'] + ')'
+    lista['detalle'] = lista['detalle'].str.normalize('NFKD')\
+                    .str.encode('ASCII', 'ignore').str.decode('ASCII')
+    lista[['presentacion', 'tipo', 'detalle']] =\
+             lista[['presentacion', 'tipo', 'detalle']].apply(lambda x : x.str.upper())
+    lista['detalle'] = lista['detalle'] + '  - ' + lista['presentacion'] +\
+            ' (' + lista['marca'] + ')'
     lista = lista.dropna()
 
     mapeo = {'ADHESIVO DE CONTACTO ' : [100, "ADHESIVO DE CONTACTO"],
@@ -57,7 +59,7 @@ def normalizar_lista(file, distribuidora):
             "PINZA " : [4150, "PINZA"],
             "SERRUCHO " : [4700, "SERRUCHO"],
             "TIJERA " : [4300, "TIJERA"]}
-    
+
     for key,value in mapeo.items():
         condicion_1 = lista['grupo'] == value[0]
         condicion_2 = ~lista['detalle'].str.contains(value[1])

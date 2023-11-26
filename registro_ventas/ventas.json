@@ -1713,5 +1713,30 @@
                 "distribuidora": "LOS_PINOS"
             }
         ]
+    },
+    {
+        "timestamp": 1699448706.731169,
+        "numeracion": "00000071",
+        "estado": true,
+        "efectivo": 12948.97,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "HEL502",
+                "articulo": "LLAVE AJUSTABLE FOSFAT. 10\" CON ESCALA",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 12039.7,
+                "distribuidora": "INTEGRAL"
+            },
+            {
+                "codigo": "DES 8RT 4X150",
+                "articulo": "DESTORNILLADOR SERIE 800 CROMO VANADIO RECTO #4X150MM  - 4 X 150 MM (BULIT)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 909.27,
+                "distribuidora": "SUPRABOND"
+            }
+        ]
     }
 ]
