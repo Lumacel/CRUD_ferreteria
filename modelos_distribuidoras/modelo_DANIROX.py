@@ -22,7 +22,7 @@ def normalizar_lista(file, distribuidora):
 
     columnas = {lista.columns[1] : 'detalle',
                 lista.columns[2] : 'codigo',
-                lista.columns[4] : 'precio'
+                lista.columns[3] : 'precio'
                 }
     lista = lista.rename(columns = columnas)
     lista = lista[['codigo', 'detalle', 'precio']]
@@ -42,7 +42,7 @@ def normalizar_lista(file, distribuidora):
     lista = lista.dropna()
     lista['precio'] =  lista['precio']*.56 # coeficiente DANIROX = .56 (precio lista -30% - 20%)
     lista['precio'] =  lista['precio'].round(2)
-    
+
     lista['distribuidora'] = distribuidora
 
     mapeo_codigos = {'TOMA|MULTIPLE|MEGA BIN|BASE BINO' : 'ZAPATILLA' }
