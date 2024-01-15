@@ -34,6 +34,16 @@ def normalizar_lista(file, distribuidora):
     lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')
     lista = lista.dropna()
     lista['distribuidora'] = distribuidora
+    mapeo_reemplazos = {'CANO' : 'CAÑO',
+                        'P/CANO' : 'P/CAÑO',
+                        'C/CANO ' : 'C/CAÑO',
+                        'VULCAÑO' : 'VULCANO',
+                        'VOLCAÑO' : 'VOLCANO',
+                        'AMERICAÑO' : 'AMERICANO',
+                        'AFRICAÑO' : 'AFRICANO'
+                        }
+    for key,value in mapeo_reemplazos.items():
+        lista['detalle'] = lista['detalle'].str.replace(key, value)
     
     lista.to_csv(nombre_arch_csv, index= False, header= False)
 

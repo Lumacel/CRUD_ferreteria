@@ -34,6 +34,16 @@ def normalizar_lista(file, distribuidora):
     condicion_1 = lista['precio'] >= 2
     lista = lista[condicion_1]
     lista['distribuidora'] = distribuidora
+    mapeo_reemplazos = {'CANO' : 'CAÑO',
+                        'P/CANO' : 'P/CAÑO',
+                        'C/CANO ' : 'C/CAÑO',
+                        'VULCAÑO' : 'VULCANO',
+                        'VOLCAÑO' : 'VOLCANO',
+                        'AMERICAÑO' : 'AMERICANO',
+                        'AFRICAÑO' : 'AFRICANO'
+                        }
+    for key,value in mapeo_reemplazos.items():
+        lista['detalle'] = lista['detalle'].str.replace(key, value)
 
     lista.to_csv(nombre_arch_csv, header= False, index = False)
 

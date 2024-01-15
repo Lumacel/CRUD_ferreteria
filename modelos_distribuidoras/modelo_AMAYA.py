@@ -33,6 +33,16 @@ def normalizar_lista(file, distribuidora):
     lista['detalle'] = lista['detalle'].str.upper()
     lista['precio'] = lista['precio']*.558  # .558 coeficiente AMAYA (precio lista -38% -10%)
     lista['precio'] = lista['precio'].round(2)
+    mapeo_reemplazos = {'CANO' : 'CAÑO',
+                        'P/CANO' : 'P/CAÑO',
+                        'C/CANO ' : 'C/CAÑO',
+                        'VULCAÑO' : 'VULCANO',
+                        'VOLCAÑO' : 'VOLCANO',
+                        'AMERICAÑO' : 'AMERICANO',
+                        'AFRICAÑO' : 'AFRICANO'
+                        }
+    for key,value in mapeo_reemplazos.items():
+        lista['detalle'] = lista['detalle'].str.replace(key, value)
 
     lista.to_csv(f'{nombre_arch_csv}', header= False, index= False)
 

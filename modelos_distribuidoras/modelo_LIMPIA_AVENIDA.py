@@ -122,6 +122,16 @@ def normalizar_lista(file, distribuidora):
     for key, value in mapeo_codigos.items():
         condicion = lista['codigo'].str.contains(key)
         lista.loc[condicion, 'detalle'] = value[0] + lista['detalle'] + value[1]
+    mapeo_reemplazos = {'CANO' : 'CAÑO',
+                        'P/CANO' : 'P/CAÑO',
+                        'C/CANO ' : 'C/CAÑO',
+                        'VULCAÑO' : 'VULCANO',
+                        'VOLCAÑO' : 'VOLCANO',
+                        'AMERICAÑO' : 'AMERICANO',
+                        'AFRICAÑO' : 'AFRICANO'
+                        }
+    for key,value in mapeo_reemplazos.items():
+        lista['detalle'] = lista['detalle'].str.replace(key, value)
 
     lista.to_csv(nombre_arch_csv, header= False, index= False)
 
