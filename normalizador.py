@@ -1,19 +1,19 @@
-import modelo_acf
-import modelo_amaya
-import modelo_argentina
-import modelo_cedica
-import modelo_cfn_nisii
-import modelo_danirox
-import modelo_dis_cos
-import modelo_flavio
-import modelo_gustavo_elect
-import modelo_integral
-import modelo_la_plata_led
-import modelo_limpia_avenida
-import modelo_los_pinos
-import modelo_massol
-import modelo_lucas_import
-import modelo_suprabond
+from modelos import modelo_acf
+from modelos import modelo_amaya
+from modelos import modelo_argentina
+from modelos import modelo_cedica
+from modelos import modelo_cfn_nisii
+from modelos import modelo_danirox
+from modelos import modelo_dis_cos
+from modelos import modelo_flavio
+from modelos import modelo_gustavo_elect
+from modelos import modelo_integral
+from modelos import modelo_la_plata_led
+from modelos import modelo_limpia_avenida
+from modelos import modelo_los_pinos
+from modelos import modelo_massol
+from modelos import modelo_lucas_import
+from modelos import modelo_suprabond
 
 def normalizar(file, distribuidora):
     if distribuidora == "ACF":
