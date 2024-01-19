@@ -18,7 +18,7 @@ def normalizar_lista(file, distribuidora):
     nombre_arch_csv= nombrar_archivo(distribuidora) + basename
 
     lista = pd.read_csv(file)
-    
+
     columnas = {lista.columns[1] : 'codigo',
                 lista.columns[0] : 'detalle',
                 lista.columns[2] : 'precio',
@@ -40,11 +40,12 @@ def normalizar_lista(file, distribuidora):
                         'VULCAÑO' : 'VULCANO',
                         'VOLCAÑO' : 'VOLCANO',
                         'AMERICAÑO' : 'AMERICANO',
-                        'AFRICAÑO' : 'AFRICANO'
+                        'AFRICAÑO' : 'AFRICANO',
+                        '?' : 'Ñ'
                         }
     for key,value in mapeo_reemplazos.items():
         lista['detalle'] = lista['detalle'].str.replace(key, value)
-    
+
     lista.to_csv(nombre_arch_csv, index= False, header= False)
 
     return nombre_arch_csv.split("\\")[1]
@@ -54,4 +55,3 @@ if __name__== "__main__":
     open_files = filedialog.askopenfilenames(filetypes=[("Archivos Excel", "*.csv")])
     for archivo in open_files:
         normalizar_lista(archivo, DISTRIBUIDORA)
-        
