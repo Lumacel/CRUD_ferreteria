@@ -41,7 +41,9 @@ def normalizar_lista(file, distribuidora):
                         'VOLCAÑO' : 'VOLCANO',
                         'AMERICAÑO' : 'AMERICANO',
                         'AFRICAÑO' : 'AFRICANO',
-                        '?' : 'Ñ'
+                        '?' : 'Ñ',
+                        'HÑMED' : 'HUMED',
+                        'CIÑO': 'CION'
                         }
     for key,value in mapeo_reemplazos.items():
         lista['detalle'] = lista['detalle'].str.replace(key, value)
