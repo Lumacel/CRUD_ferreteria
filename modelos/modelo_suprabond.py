@@ -20,69 +20,74 @@ def normalizar_lista(file, distribuidora):
     nombre_arch_csv= nombrar_archivo(distribuidora) + basename
 
     lista = pd.read_csv(file)
+    try:
+        columnas= {lista.columns[0] : 'codigo',
+                lista.columns[1] : 'grupo',
+                lista.columns[2] : 'marca',
+                lista.columns[5] : 'presentacion',
+                lista.columns[6] : 'tipo',
+                lista.columns[8] : 'detalle',
+                lista.columns[9] : 'precio'
+                }
+        lista = lista.rename(columns= columnas)
+        lista['grupo'] = lista['grupo'].fillna(0)
+        lista['presentacion'] = lista['presentacion'].fillna('.')
+        lista = lista[columnas.values()] # seleccionamos columnas que formaran dataframe
+        lista['detalle'] = lista['detalle'].str.normalize('NFKD')\
+                        .str.encode('ASCII', 'ignore').str.decode('ASCII')
+        lista[['presentacion', 'tipo', 'detalle']] =\
+                lista[['presentacion', 'tipo', 'detalle']].apply(lambda x : x.str.upper())
+        lista['detalle'] = lista['detalle'] + '  - ' + lista['presentacion'] +\
+                ' (' + lista['marca'] + ')'
+        lista = lista.dropna()
 
-    columnas= {lista.columns[0] : 'codigo',
-            lista.columns[1] : 'grupo',
-            lista.columns[2] : 'marca',
-            lista.columns[5] : 'presentacion',
-            lista.columns[6] : 'tipo',
-            lista.columns[8] : 'detalle',
-            lista.columns[9] : 'precio'
-            }
-    lista = lista.rename(columns= columnas)
-    lista['grupo'] = lista['grupo'].fillna(0)
-    lista['presentacion'] = lista['presentacion'].fillna('.')
-    lista = lista[columnas.values()] # seleccionamos columnas que formaran dataframe
-    lista['detalle'] = lista['detalle'].str.normalize('NFKD')\
-                    .str.encode('ASCII', 'ignore').str.decode('ASCII')
-    lista[['presentacion', 'tipo', 'detalle']] =\
-             lista[['presentacion', 'tipo', 'detalle']].apply(lambda x : x.str.upper())
-    lista['detalle'] = lista['detalle'] + '  - ' + lista['presentacion'] +\
-            ' (' + lista['marca'] + ')'
-    lista = lista.dropna()
+        mapeo = {'ADHESIVO DE CONTACTO ' : [100, "ADHESIVO DE CONTACTO"],
+                'ADHESIVO EPOXI ' : [200, 'ADHESIVO EPOXI'],
+                "BURLETE " : [800, "PISTOLA"],
+                "PISTOLA APLICADORA " : [800, "PISTOLA"],
+                "PISTOLA ENCOLADORA " : [850, "PISTOLA"],
+                'SELLADOR ' : [1000, 'SELLADOR'],
+                "TOPETINA " : [1300, "TOPETINA"],
+                "ZOCALO " : [1400, "ZOCALO"],
+                "CANDADO " : [2500, "CANDADO"],
+                "DESTORNILLADOR " : [2900, 'x.x.x'],
+                "DISCO ABRASIVO DE CORTE " : [3050, "DISCO ABRASIVO"],
+                "DISCO ABRASIVO DE DESBASTE " : [3051, "DISCO ABRASIVO"],
+                "DISCO DIAMANTADO " : [3000, "DISCO DIAMANTADO"],
+                "ESPATULA " : [3200, "ESPATULA"],
+                "LIMA SERIE 500 " : [3605, "LIMA"],
+                "PINZA " : [4150, "PINZA"],
+                "SERRUCHO " : [4700, "SERRUCHO"],
+                "TIJERA " : [4300, "TIJERA"]}
 
-    mapeo = {'ADHESIVO DE CONTACTO ' : [100, "ADHESIVO DE CONTACTO"],
-            'ADHESIVO EPOXI ' : [200, 'ADHESIVO EPOXI'],
-            "BURLETE " : [800, "PISTOLA"],
-            "PISTOLA APLICADORA " : [800, "PISTOLA"],
-            "PISTOLA ENCOLADORA " : [850, "PISTOLA"],
-            'SELLADOR ' : [1000, 'SELLADOR'],
-            "TOPETINA " : [1300, "TOPETINA"],
-            "ZOCALO " : [1400, "ZOCALO"],
-            "CANDADO " : [2500, "CANDADO"],
-            "DESTORNILLADOR " : [2900, 'x.x.x'],
-            "DISCO ABRASIVO DE CORTE " : [3050, "DISCO ABRASIVO"],
-            "DISCO ABRASIVO DE DESBASTE " : [3051, "DISCO ABRASIVO"],
-            "DISCO DIAMANTADO " : [3000, "DISCO DIAMANTADO"],
-            "ESPATULA " : [3200, "ESPATULA"],
-            "LIMA SERIE 500 " : [3605, "LIMA"],
-            "PINZA " : [4150, "PINZA"],
-            "SERRUCHO " : [4700, "SERRUCHO"],
-            "TIJERA " : [4300, "TIJERA"]}
+        for key,value in mapeo.items():
+            condicion_1 = lista['grupo'] == value[0]
+            condicion_2 = ~lista['detalle'].str.contains(value[1])
+            condicion = condicion_1 & condicion_2
+            lista.loc[condicion, 'detalle'] = key + lista['detalle']
 
-    for key,value in mapeo.items():
-        condicion_1 = lista['grupo'] == value[0]
-        condicion_2 = ~lista['detalle'].str.contains(value[1])
-        condicion = condicion_1 & condicion_2
-        lista.loc[condicion, 'detalle'] = key + lista['detalle']
+        lista['precio'] = lista['precio'].round(2)
+        lista = lista[['codigo', 'detalle', 'precio']]
+        lista['distribuidora'] = distribuidora
+        mapeo_reemplazos = {'CANO' : 'CAÑO',
+                            'P/CANO' : 'P/CAÑO',
+                            'C/CANO ' : 'C/CAÑO',
+                            'VULCAÑO' : 'VULCANO',
+                            'VOLCAÑO' : 'VOLCANO',
+                            'AMERICAÑO' : 'AMERICANO',
+                            'AFRICAÑO' : 'AFRICANO'
+                            }
+        for key,value in mapeo_reemplazos.items():
+            lista['detalle'] = lista['detalle'].str.replace(key, value)
 
-    lista['precio'] = lista['precio'].round(2)
-    lista = lista[['codigo', 'detalle', 'precio']]
-    lista['distribuidora'] = distribuidora
-    mapeo_reemplazos = {'CANO' : 'CAÑO',
-                        'P/CANO' : 'P/CAÑO',
-                        'C/CANO ' : 'C/CAÑO',
-                        'VULCAÑO' : 'VULCANO',
-                        'VOLCAÑO' : 'VOLCANO',
-                        'AMERICAÑO' : 'AMERICANO',
-                        'AFRICAÑO' : 'AFRICANO'
-                        }
-    for key,value in mapeo_reemplazos.items():
-        lista['detalle'] = lista['detalle'].str.replace(key, value)
+        if lista.shape[0]<3 or lista.shape[1]<3:
+                return 'error'
+        else:
+            lista.to_csv(nombre_arch_csv, header= False, index= False)
+            return nombre_arch_csv.split("\\")[1]
 
-    lista.to_csv(nombre_arch_csv, header= False, index= False)
-
-    return nombre_arch_csv.split("\\")[1]
+    except Exception:
+        return 'error'
 
 if __name__== "__main__":
     DISTRIBUIDORA= "SUPRABOND"

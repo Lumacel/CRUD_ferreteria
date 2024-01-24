@@ -19,35 +19,41 @@ def normalizar_lista(file, distribuidora):
 
     lista = pd.read_csv(file)
 
-    columnas = {lista.columns[0] : 'categoria',
-                lista.columns[2] : 'codigo',
-                lista.columns[3] : 'detalle',
-                lista.columns[4] : 'precio'
-                }
-    lista = lista.rename(columns= columnas)
-    lista.loc[lista['categoria'] == 'CABLES', 'detalle'] = 'CABLE ' +  lista['detalle'] 
-    lista = lista[['codigo', 'detalle', 'precio']]
-    lista['distribuidora'] = distribuidora
-    lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
-    lista['precio'] = lista['precio'].round(2)
-    lista['detalle'] = lista['detalle'].str.upper()
-    # eliminando acentos, dieresis y caracteres no ascii
-    lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
-    lista = lista.dropna()
-    mapeo_reemplazos = {'CANO' : 'CAÑO',
-                        'P/CANO' : 'P/CAÑO',
-                        'C/CANO ' : 'C/CAÑO',
-                        'VULCAÑO' : 'VULCANO',
-                        'VOLCAÑO' : 'VOLCANO',
-                        'AMERICAÑO' : 'AMERICANO',
-                        'AFRICAÑO' : 'AFRICANO'
-                        }
-    for key,value in mapeo_reemplazos.items():
-        lista['detalle'] = lista['detalle'].str.replace(key, value)
+    try:
+        columnas = {lista.columns[0] : 'categoria',
+                    lista.columns[2] : 'codigo',
+                    lista.columns[3] : 'detalle',
+                    lista.columns[4] : 'precio'
+                    }
+        lista = lista.rename(columns= columnas)
+        lista.loc[lista['categoria'] == 'CABLES', 'detalle'] = 'CABLE ' +  lista['detalle'] 
+        lista = lista[['codigo', 'detalle', 'precio']]
+        lista['distribuidora'] = distribuidora
+        lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
+        lista['precio'] = lista['precio'].round(2)
+        lista['detalle'] = lista['detalle'].str.upper()
+        # eliminando acentos, dieresis y caracteres no ascii
+        lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+        lista = lista.dropna()
+        mapeo_reemplazos = {'CANO' : 'CAÑO',
+                            'P/CANO' : 'P/CAÑO',
+                            'C/CANO ' : 'C/CAÑO',
+                            'VULCAÑO' : 'VULCANO',
+                            'VOLCAÑO' : 'VOLCANO',
+                            'AMERICAÑO' : 'AMERICANO',
+                            'AFRICAÑO' : 'AFRICANO'
+                            }
+        for key,value in mapeo_reemplazos.items():
+            lista['detalle'] = lista['detalle'].str.replace(key, value)
 
-    lista.to_csv(nombre_arch_csv, index=False, header= False)
+        if lista.shape[0]<3 or lista.shape[1]<3:
+                return 'error'
+        else:
+            lista.to_csv(nombre_arch_csv, header= False, index= False)
+            return nombre_arch_csv.split("\\")[1]
 
-    return nombre_arch_csv.split("\\")[1]
+    except Exception:
+        return 'error'
 
 if __name__=="__main__":
     DISTRIBUIDORA = "LA_PLATA_LED"

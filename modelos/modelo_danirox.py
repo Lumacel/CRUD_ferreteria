@@ -20,40 +20,46 @@ def normalizar_lista(file, distribuidora):
 
     lista = pd.read_csv(file)
 
-    columnas = {lista.columns[1] : 'detalle',
-                lista.columns[2] : 'codigo',
-                lista.columns[3] : 'precio'
-                }
-    lista = lista.rename(columns = columnas)
-    lista = lista[['codigo', 'detalle', 'precio']]
-    lista['detalle'] = lista['detalle'].str.upper()
-    # eliminando acentos, dieresis y caracteres no ascii
-    lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+    try:
+        columnas = {lista.columns[1] : 'detalle',
+                    lista.columns[2] : 'codigo',
+                    lista.columns[3] : 'precio'
+                    }
+        lista = lista.rename(columns = columnas)
+        lista = lista[['codigo', 'detalle', 'precio']]
+        lista['detalle'] = lista['detalle'].str.upper()
+        # eliminando acentos, dieresis y caracteres no ascii
+        lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
 
-    mapeo_reemplazos = {'±' : 'Ñ',
-                        'Ð' : 'Ñ',
-                        'LAMP ' : 'LAMPARA ',
-                        'PUÑO' : 'PORTATIL'
-                        }
-    for key,value in mapeo_reemplazos.items():
-        lista['detalle'] = lista['detalle'].str.replace(key, value)
+        mapeo_reemplazos = {'±' : 'Ñ',
+                            'Ð' : 'Ñ',
+                            'LAMP ' : 'LAMPARA ',
+                            'PUÑO' : 'PORTATIL'
+                            }
+        for key,value in mapeo_reemplazos.items():
+            lista['detalle'] = lista['detalle'].str.replace(key, value)
 
-    lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
-    lista = lista.dropna()
-    lista['precio'] =  lista['precio']*.56 # coeficiente DANIROX = .56 (precio lista -30% - 20%)
-    lista['precio'] =  lista['precio'].round(2)
+        lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
+        lista = lista.dropna()
+        lista['precio'] =  lista['precio']*.56 # coeficiente DANIROX = .56 (precio lista -30% - 20%)
+        lista['precio'] =  lista['precio'].round(2)
 
-    lista['distribuidora'] = distribuidora
+        lista['distribuidora'] = distribuidora
 
-    mapeo_codigos = {'TOMA|MULTIPLE|MEGA BIN|BASE BINO' : 'ZAPATILLA' }
+        mapeo_codigos = {'TOMA|MULTIPLE|MEGA BIN|BASE BINO' : 'ZAPATILLA' }
 
-    for key, value in mapeo_codigos.items():
-        condicion = lista['detalle'].str.contains(key)
-        lista.loc[condicion, 'detalle'] = value + ' ' + lista['detalle']
+        for key, value in mapeo_codigos.items():
+            condicion = lista['detalle'].str.contains(key)
+            lista.loc[condicion, 'detalle'] = value + ' ' + lista['detalle']
 
-    lista.to_csv(nombre_arch_csv, index= False, header= False)
+        if lista.shape[0]<3 or lista.shape[1]<3:
+                    return 'error'   
+        else:
+            lista.to_csv(nombre_arch_csv, header= False, index= False)
+            return nombre_arch_csv.split("\\")[1]
 
-    return nombre_arch_csv.split("\\")[1]
+    except Exception:
+        return 'error'
 
 if __name__== "__main__":
     DISTRIBUIDORA= "DANIROX"

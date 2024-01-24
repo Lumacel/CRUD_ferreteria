@@ -1738,5 +1738,79 @@
                 "distribuidora": "SUPRABOND"
             }
         ]
+    },
+    {
+        "timestamp": 1706063498.710928,
+        "numeracion": "00000072",
+        "estado": true,
+        "efectivo": 1383.19,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "CAB0171",
+                "articulo": "CABO PARA PALA DE 070 MTS.PUNO PLAST.",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 1383.19,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1706063555.634258,
+        "numeracion": "00000073",
+        "estado": true,
+        "efectivo": 7682.24,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "EVOE3320",
+                "articulo": "PASADOR C/ TRABA RESORTE GALV.   EVOL3320",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 684.74,
+                "distribuidora": "CEDICA"
+            },
+            {
+                "codigo": "FOR17",
+                "articulo": "RODILLO FORRADOS 17CM (EL RODILLO)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 2295.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "FOR22",
+                "articulo": "RODILLO FORRADOS 22CM (EL RODILLO)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 2520.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "BAL",
+                "articulo": "BALDE ALBANIL REFORZADO (FERRETERIA)",
+                "cantidad": 1,
+                "descuento": 25.0,
+                "precio": 1260.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "05PF",
+                "articulo": "RODILLO MINI FORRADO 5 (TECNOROLL)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 570.0,
+                "distribuidora": "ACF"
+            },
+            {
+                "codigo": "08PF",
+                "articulo": "RODILLO MINI FORRADO 8 (TECNOROLL)",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 667.5,
+                "distribuidora": "ACF"
+            }
+        ]
     }
 ]

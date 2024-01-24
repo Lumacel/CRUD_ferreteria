@@ -19,34 +19,40 @@ def normalizar_lista(file, distribuidora):
 
     lista = pd.read_csv(file)
 
-    columnas = {lista.columns[0] : 'codigo',
-                lista.columns[1] : 'detalle',
-                lista.columns[3] : 'precio'
-                }
-    lista= lista.rename(columns= columnas)
-    # eliminando acentos, dieresis y caracteres no ascii
-    lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
-    lista = lista[['codigo','detalle','precio']]
-    lista['distribuidora'] = 'AMAYA'
-    lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')
-    lista= lista.dropna()
-    lista['detalle'] = lista['detalle'].str.upper()
-    lista['precio'] = lista['precio']*.558  # .558 coeficiente AMAYA (precio lista -38% -10%)
-    lista['precio'] = lista['precio'].round(2)
-    mapeo_reemplazos = {'CANO' : 'CAÑO',
-                        'P/CANO' : 'P/CAÑO',
-                        'C/CANO ' : 'C/CAÑO',
-                        'VULCAÑO' : 'VULCANO',
-                        'VOLCAÑO' : 'VOLCANO',
-                        'AMERICAÑO' : 'AMERICANO',
-                        'AFRICAÑO' : 'AFRICANO'
-                        }
-    for key,value in mapeo_reemplazos.items():
-        lista['detalle'] = lista['detalle'].str.replace(key, value)
+    try:
+        columnas = {lista.columns[0] : 'codigo',
+                    lista.columns[1] : 'detalle',
+                    lista.columns[3] : 'precio'
+                    }
+        lista= lista.rename(columns= columnas)
+        # eliminando acentos, dieresis y caracteres no ascii
+        lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+        lista = lista[['codigo','detalle','precio']]
+        lista['distribuidora'] = 'AMAYA'
+        lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')
+        lista= lista.dropna()
+        lista['detalle'] = lista['detalle'].str.upper()
+        lista['precio'] = lista['precio']*.558  # .558 coeficiente AMAYA (precio lista -38% -10%)
+        lista['precio'] = lista['precio'].round(2)
+        mapeo_reemplazos = {'CANO' : 'CAÑO',
+                            'P/CANO' : 'P/CAÑO',
+                            'C/CANO ' : 'C/CAÑO',
+                            'VULCAÑO' : 'VULCANO',
+                            'VOLCAÑO' : 'VOLCANO',
+                            'AMERICAÑO' : 'AMERICANO',
+                            'AFRICAÑO' : 'AFRICANO'
+                            }
+        for key,value in mapeo_reemplazos.items():
+            lista['detalle'] = lista['detalle'].str.replace(key, value)
 
-    lista.to_csv(f'{nombre_arch_csv}', header= False, index= False)
+        if lista.shape[0]<3 or lista.shape[1]<3:
+            return 'error' 
+        else:
+            lista.to_csv(nombre_arch_csv, header= False, index= False)
+            return nombre_arch_csv.split("\\")[1]
 
-    return nombre_arch_csv.split("\\")[1]
+    except Exception:
+        return 'error'
 
 if __name__== "__main__":
     DISTRIBUIDORA = "AMAYA"

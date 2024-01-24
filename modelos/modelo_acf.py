@@ -23,34 +23,40 @@ def normalizar_lista(file, distribuidora):
 
     lista = pd.read_csv(file, header= None, na_values=[0])
 
-    columnas= {lista.columns[0]: 'codigo',
-                lista.columns[1] : 'detalle',
-                lista.columns[2]: 'marca',
-                lista.columns[3]: 'precio'
-                }
-    lista = lista.rename(columns= columnas)
-    # eliminando acentos, dieresis y caracteres no ascii
-    lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
-    lista['detalle'] = lista['detalle'].str.cat([' (' + lista['marca'] + ')'], sep='', na_rep='')
-    lista['detalle'] = lista['detalle'].str.upper()
-    lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
-    lista = lista.dropna()
-    lista = lista[['codigo', 'detalle', 'precio']]
-    lista['distribuidora'] = distribuidora
-    lista['precio'] = lista['precio'].round(2)
-
-    mapeo_codigos = {'G101|ONE|GD' : 'PINCEL ',
-                    'ATG|EPG|CUB|ART|LH|LE1|LE2|LN2|SL|ESP1|ESP2|FOR|EP5|EP8|EP11|\
-                    EP17|EP22|AT5|AT8|AT11|AT17|AT22' : 'RODILLO ',
+    try:
+        columnas= {lista.columns[0]: 'codigo',
+                    lista.columns[1] : 'detalle',
+                    lista.columns[2]: 'marca',
+                    lista.columns[3]: 'precio'
                     }
+        lista = lista.rename(columns= columnas)
+        # eliminando acentos, dieresis y caracteres no ascii
+        lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+        lista['detalle'] = lista['detalle'].str.cat([' (' + lista['marca'] + ')'], sep='', na_rep='')
+        lista['detalle'] = lista['detalle'].str.upper()
+        lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
+        lista = lista.dropna()
+        lista = lista[['codigo', 'detalle', 'precio']]
+        lista['distribuidora'] = distribuidora
+        lista['precio'] = lista['precio'].round(2)
 
-    for key, value in mapeo_codigos.items():
-        condicion = lista['codigo'].str.contains(key)
-        lista.loc[condicion, 'detalle'] = value + lista['detalle']
+        mapeo_codigos = {'G101|ONE|GD' : 'PINCEL ',
+                        'ATG|EPG|CUB|ART|LH|LE1|LE2|LN2|SL|ESP1|ESP2|FOR|EP5|EP8|EP11|\
+                        EP17|EP22|AT5|AT8|AT11|AT17|AT22' : 'RODILLO ',
+                        }
 
-    lista.to_csv(nombre_arch_csv, header= False, index= False)
+        for key, value in mapeo_codigos.items():
+            condicion = lista['codigo'].str.contains(key)
+            lista.loc[condicion, 'detalle'] = value + lista['detalle']
 
-    return nombre_arch_csv.split("\\")[1]
+        if lista.shape[0]<3 or lista.shape[1]<3:
+            return 'error'
+        else:
+            lista.to_csv(nombre_arch_csv, header= False, index= False)
+            return nombre_arch_csv.split("\\")[1]
+
+    except Exception:
+        return 'error'
 
 if __name__== "__main__":
     DISTRIBUIDORA= "ACF"

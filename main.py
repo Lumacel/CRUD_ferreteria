@@ -1092,7 +1092,6 @@ class App():
                      f"{total:.2f}",
                      estado
                      )
-
             self.tabla_archivo.insert("", tk.END, text="", values=lista)
 
     def treeview_archivo_detalle(self,filas=6):
@@ -1349,17 +1348,26 @@ class App():
             else:
                 for archivo in lista_archivos:
                     nuevo_archivo = normalizador.normalizar(archivo,distribuidora)
-                    nuevos_archivos.append(nuevo_archivo)
-
-                messagebox.showinfo(title="INFO",
-                                    message = mensaje1 if len(lista_archivos) == 1 else mensaje2,
+                    if nuevo_archivo == 'error':
+                        error = True
+                        messagebox.showwarning(title="ERROR!!!",
+                                    message = 'NO SE PUDO NORMALIZAR EL ARCHIVO.',
                                     parent= self.ventana_normalizar)
-                if messagebox.askyesno(title="ELIMINAR REGISTROS",
-                                        message = mensaje3,
-                                        parent= self.ventana_normalizar
-                                        ):
-                    self.eliminar_archivos_anteriores(nuevos_archivos,distribuidora)
-                self.btn_salir.focus()
+                        break 
+                    else:
+                        error = False
+                        nuevos_archivos.append(nuevo_archivo)
+
+                if not error:
+                    messagebox.showinfo(title="INFO",
+                                        message = mensaje1 if len(lista_archivos) == 1 else mensaje2,
+                                        parent= self.ventana_normalizar)
+                    if messagebox.askyesno(title="ELIMINAR REGISTROS",
+                                            message = mensaje3,
+                                            parent= self.ventana_normalizar
+                                            ):
+                        self.eliminar_archivos_anteriores(nuevos_archivos,distribuidora)
+                    self.btn_salir.focus()
 
     def eliminar_archivos_anteriores(self,nuevos_archivos, distribuidora):
         """Elimina archivos generados anteriormente de la misma distribuidora"""
