@@ -22,10 +22,12 @@ def normalizar_lista(file, distribuidora):
 
     try:
         columnas= {lista.columns[0] : 'codigo',
-                lista.columns[1] : 'detalle',
-                lista.columns[2] : 'precio'
-                }
+            lista.columns[1] : 'detalle',
+            lista.columns[2] : 'marca',
+            lista.columns[3] : 'precio'
+            }
         lista = lista.rename(columns= columnas)
+        lista['detalle'] = lista['detalle'].str.strip() + ' (' + lista['marca'] + ')'
         lista= lista[['codigo', 'detalle', 'precio']]
         lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
         lista['precio'] = lista['precio'].round(2)
@@ -46,7 +48,7 @@ def normalizar_lista(file, distribuidora):
             lista['detalle'] = lista['detalle'].str.replace(key, value)
 
         if lista.shape[0]<3 or lista.shape[1]<3:
-                return 'error' 
+                return 'error'
         else:
             lista.to_csv(nombre_arch_csv, header= False, index= False)
             return nombre_arch_csv.split("\\")[1]
@@ -59,4 +61,3 @@ if __name__== "__main__":
     open_files = filedialog.askopenfilenames(filetypes=[("Archivos Excel", "*.csv")])
     for archivo in open_files:
         normalizar_lista(archivo, DISTRIBUIDORA)
-        
