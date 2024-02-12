@@ -54,7 +54,8 @@ def normalizar_lista(file, distribuidora):
             lista.to_csv(nombre_arch_csv, header= False, index= False)
             return nombre_arch_csv.split("\\")[1]
 
-    except Exception:
+    except Exception as e:
+        print(e)
         return 'error'
 
 if __name__== "__main__":

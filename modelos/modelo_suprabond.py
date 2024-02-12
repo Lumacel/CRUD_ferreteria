@@ -20,54 +20,48 @@ def normalizar_lista(file, distribuidora):
     nombre_arch_csv= nombrar_archivo(distribuidora) + basename
 
     lista = pd.read_csv(file)
+
     try:
         columnas= {lista.columns[0] : 'codigo',
-                lista.columns[1] : 'grupo',
-                lista.columns[2] : 'marca',
-                lista.columns[5] : 'presentacion',
-                lista.columns[6] : 'tipo',
-                lista.columns[8] : 'detalle',
-                lista.columns[9] : 'precio'
-                }
+                    lista.columns[2] : 'detalle',
+                    lista.columns[3] : 'precio'
+                    }
         lista = lista.rename(columns= columnas)
-        lista['grupo'] = lista['grupo'].fillna(0)
-        lista['presentacion'] = lista['presentacion'].fillna('.')
         lista = lista[columnas.values()] # seleccionamos columnas que formaran dataframe
-        lista['detalle'] = lista['detalle'].str.normalize('NFKD')\
-                        .str.encode('ASCII', 'ignore').str.decode('ASCII')
-        lista[['presentacion', 'tipo', 'detalle']] =\
-                lista[['presentacion', 'tipo', 'detalle']].apply(lambda x : x.str.upper())
-        lista['detalle'] = lista['detalle'] + '  - ' + lista['presentacion'] +\
-                ' (' + lista['marca'] + ')'
         lista = lista.dropna()
+        lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+        lista['detalle'] = lista['detalle'].str.upper()
+        lista['precio'] = lista['precio'].round(2)
+        lista['distribuidora'] = distribuidora
 
-        mapeo = {'ADHESIVO DE CONTACTO ' : [100, "ADHESIVO DE CONTACTO"],
-                'ADHESIVO EPOXI ' : [200, 'ADHESIVO EPOXI'],
-                "BURLETE " : [800, "PISTOLA"],
-                "PISTOLA APLICADORA " : [800, "PISTOLA"],
-                "PISTOLA ENCOLADORA " : [850, "PISTOLA"],
-                'SELLADOR ' : [1000, 'SELLADOR'],
-                "TOPETINA " : [1300, "TOPETINA"],
-                "ZOCALO " : [1400, "ZOCALO"],
-                "CANDADO " : [2500, "CANDADO"],
-                "DESTORNILLADOR " : [2900, 'x.x.x'],
-                "DISCO ABRASIVO DE CORTE " : [3050, "DISCO ABRASIVO"],
-                "DISCO ABRASIVO DE DESBASTE " : [3051, "DISCO ABRASIVO"],
-                "DISCO DIAMANTADO " : [3000, "DISCO DIAMANTADO"],
-                "ESPATULA " : [3200, "ESPATULA"],
-                "LIMA SERIE 500 " : [3605, "LIMA"],
-                "PINZA " : [4150, "PINZA"],
-                "SERRUCHO " : [4700, "SERRUCHO"],
-                "TIJERA " : [4300, "TIJERA"]}
+        mapeo = {('SBD', 'ADHESIVO') : 'ADHESIVO DE CONTACTO ',
+                ('NSS 10', 'ADHESIVO') : 'ADHESIVO ',
+                ('CDB', 'CANDADO') : 'CANDADO ',
+                ('CTA', 'CINTA') : 'CINTA METRICA ',
+                ('DES 7', 'DEST') : 'DESTORNILLADOR ',
+                ('DES 8P', 'DEST') : 'DESTORNILLADOR ',
+                ('DES 8R', 'DEST') : 'DESTORNILLADOR ',
+                ('DES 8T', 'DEST') : 'DESTORNILLADOR ',
+                ('DSA ', 'DISCO') : 'DISCO ',
+                ('DSD ', 'DISCO') : 'DISCO ',
+                ('PST ', 'PISTOLA') :'PISTOLA ',
+                ('C P', 'PISTOLA') : 'PISTOLA ',
+                ('PZA P P', 'PINZA') :'PINZA ',
+                ('ZNO', 'ZOCALO') : 'ZOCALO ',
+                ('SR ', 'SERRUCHO') : 'SERRUCHO ',
+                ('RM ', 'REMACHADORA') : 'REMACHADORA ',
+                ('LLV 7C 22', 'LLAVE') : 'KIT LLAVE CRIQUET ',
+                ('LLV C3/4', 'LLAVE') : 'LLAVE ',
+                ('MT BMD 225', 'MARTILLO') : 'MARTILLO ',
+                ('MT GMD 16', 'MARTILLO') : 'MARTILLO ',
+                }
 
         for key,value in mapeo.items():
-            condicion_1 = lista['grupo'] == value[0]
-            condicion_2 = ~lista['detalle'].str.contains(value[1])
+            condicion_1 = lista['codigo'].str.contains(key[0])
+            condicion_2 = ~lista['detalle'].str.contains(key[1])
             condicion = condicion_1 & condicion_2
-            lista.loc[condicion, 'detalle'] = key + lista['detalle']
+            lista.loc[condicion, 'detalle'] = value + lista['detalle']
 
-        lista['precio'] = lista['precio'].round(2)
-        lista = lista[['codigo', 'detalle', 'precio']]
         lista['distribuidora'] = distribuidora
         mapeo_reemplazos = {'CANO' : 'CAÑO',
                             'P/CANO' : 'P/CAÑO',
@@ -81,12 +75,13 @@ def normalizar_lista(file, distribuidora):
             lista['detalle'] = lista['detalle'].str.replace(key, value)
 
         if lista.shape[0]<3 or lista.shape[1]<3:
-                return 'error'
+            return 'error'
         else:
             lista.to_csv(nombre_arch_csv, header= False, index= False)
             return nombre_arch_csv.split("\\")[1]
-
-    except Exception:
+    
+    except Exception as e:
+        print(e)
         return 'error'
 
 if __name__== "__main__":

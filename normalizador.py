@@ -1,6 +1,5 @@
 from modelos import modelo_acf
 from modelos import modelo_amaya
-from modelos import modelo_argentina
 from modelos import modelo_cedica
 from modelos import modelo_cfn_nisii
 from modelos import modelo_danirox
@@ -13,6 +12,7 @@ from modelos import modelo_limpia_avenida
 from modelos import modelo_los_pinos
 from modelos import modelo_massol
 from modelos import modelo_lucas_import
+from modelos import modelo_san_jose
 from modelos import modelo_suprabond
 
 def normalizar(file, distribuidora):
@@ -22,10 +22,6 @@ def normalizar(file, distribuidora):
 
     elif distribuidora == "AMAYA":
         nuevo_archivo = modelo_amaya.normalizar_lista(file, distribuidora)
-        return nuevo_archivo
-
-    elif distribuidora == "ARGENTINA":
-        nuevo_archivo = modelo_argentina.normalizar_lista(file, distribuidora)
         return nuevo_archivo
 
     elif distribuidora == "CEDICA":
@@ -74,6 +70,10 @@ def normalizar(file, distribuidora):
 
     elif distribuidora == "LUCAS_IMPORT":
         nuevo_archivo = modelo_lucas_import.normalizar_lista(file, distribuidora)
+        return nuevo_archivo
+    
+    elif distribuidora == "SAN_JOSE":
+        nuevo_archivo = modelo_san_jose.normalizar_lista(file, distribuidora)
         return nuevo_archivo
 
     elif distribuidora == "SUPRABOND":
