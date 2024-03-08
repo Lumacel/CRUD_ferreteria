@@ -30,6 +30,8 @@ def normalizar_lista(file, distribuidora):
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
         lista['detalle'] = lista['detalle'].str.replace('\n', '')
         lista['detalle'] = lista['detalle'].str.upper()
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista.loc[lista['unidades'] != '1', 'detalle'] = lista['detalle'] + ' (' + lista['unidades'] + ' UNID.)'
         lista = lista[['codigo','detalle','precio']]
         lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')

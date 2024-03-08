@@ -32,6 +32,8 @@ def normalizar_lista(file, distribuidora):
         lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')
         lista= lista.dropna()
         lista['detalle'] = lista['detalle'].str.upper()
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista['precio'] = lista['precio']*.558  # .558 coeficiente AMAYA (precio lista -38% -10%)
         lista['precio'] = lista['precio'].round(2)
         mapeo_reemplazos = {'CANO' : 'CAÑO',

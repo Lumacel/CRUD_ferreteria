@@ -107,6 +107,8 @@ def normalizar_lista(file, distribuidora):
             pass
 
         lista['detalle'] = lista['detalle'].str.upper()
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')
         lista['precio'] = lista['precio'].round(2)
         lista = lista.dropna()

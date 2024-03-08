@@ -36,6 +36,8 @@ def normalizar_lista(file, distribuidora):
             lista['detalle'] = lista['detalle'].str.replace(clave, valor)
 
         lista['detalle'] = lista['detalle'].str.upper()
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista['detalle'] = lista['detalle'].str.strip()
         lista['precio'] = pd.to_numeric(lista['precio'] , errors= 'coerce')
         lista = lista[lista['precio'] > 0]

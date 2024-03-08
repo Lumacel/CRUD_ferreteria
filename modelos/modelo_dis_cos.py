@@ -33,6 +33,8 @@ def normalizar_lista(file, distribuidora):
         lista['detalle'] = lista['detalle'] + ' (' + lista['marca'] + ')'
         lista = lista[['codigo', 'detalle', 'precio']]
         lista['detalle'] = lista['detalle'].str.upper()
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
         # eliminando acentos, dieresis y caracteres no ascii
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')

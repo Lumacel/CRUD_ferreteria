@@ -28,6 +28,8 @@ def normalizar_lista(file, distribuidora):
         lista = lista.rename(columns= columnas)
         lista['precio']= pd.to_numeric(lista['precio'], errors= 'coerce')
         lista['detalle'] = lista['detalle'].str.upper()
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista['detalle'] = lista['detalle'].str.replace('\n', ' ')
         lista['codigo'] = lista['codigo'].str.upper()
         lista['precio'] =lista['precio']*.52 # coeficiente Integral= .52 (precio lista -48%)

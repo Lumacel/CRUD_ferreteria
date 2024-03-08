@@ -37,6 +37,9 @@ def normalizar_lista(file, distribuidora):
             lista['codigo']= 'S/CODIGO'
             lista.loc[lista['marca'].notna(), 'detalle'] = lista['detalle']+' (' + lista['marca'] + ')'
             lista = lista[['codigo','detalle','precio']]
+            lista['detalle'] = lista['detalle'].str.upper()
+            lista['detalle'] = lista['detalle'].str.replace('\'','')
+            lista['detalle'] = lista['detalle'].str.replace('\"','')
             categorias = lista[lista['precio'].isna()]
             categ_dic = categorias['detalle'].to_dict()
             indice_cat = list(categ_dic.keys())

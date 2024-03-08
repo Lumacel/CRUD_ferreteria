@@ -34,6 +34,8 @@ def normalizar_lista(file, distribuidora):
         lista = lista[lista['precio'] != 0]
         lista = lista.dropna()
         lista['detalle'] = lista['detalle'].str.upper()
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         # eliminando acentos, dieresis y caracteres no ascii
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
         lista['precio'] = lista['precio']*.36  # .36 coeficiente SAN_JUAN (precio lista -64%)

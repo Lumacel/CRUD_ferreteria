@@ -33,6 +33,8 @@ def normalizar_lista(file, distribuidora):
         lista['precio'] = lista['precio'].round(2)
         lista['detalle'] = lista['detalle'].str.strip()
         lista['detalle'] = lista['detalle'].str.upper()
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
         lista = lista.dropna()
         lista = lista[lista['precio'] > 0]

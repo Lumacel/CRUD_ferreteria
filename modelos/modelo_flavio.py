@@ -30,6 +30,8 @@ def normalizar_lista(file, distribuidora):
         lista = lista[['codigo', 'detalle', 'precio' ]]
         lista['codigo'] = 'S/CODIGO'
         lista['detalle'] = lista['detalle'].str.upper()
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista['detalle'] = lista['detalle'].str.strip()
         # eliminando acentos, dieresis y caracteres no ascii
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
