@@ -35,16 +35,18 @@ def normalizar_lista(file, distribuidora):
         # eliminando acentos, dieresis y caracteres no ascii
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
         lista = lista.dropna()
-        mapeo_reemplazos = {'CANO' : 'CAÑO',
-                            'P/CANO' : 'P/CAÑO',
-                            'C/CANO ' : 'C/CAÑO',
-                            'VULCAÑO' : 'VULCANO',
-                            'VOLCAÑO' : 'VOLCANO',
-                            'AMERICAÑO' : 'AMERICANO',
-                            'AFRICAÑO' : 'AFRICANO'
+        reemplazos = {'CANO' : 'CAÑO',
+                        'P/CANO' : 'P/CAÑO',
+                        'C/CANO ' : 'C/CAÑO',
+                        'VULCAÑO' : 'VULCANO',
+                        'VOLCAÑO' : 'VOLCANO',
+                        'AMERICAÑO' : 'AMERICANO',
+                        'AFRICAÑO' : 'AFRICANO',
+                        '\n' : '', 
+                        '\'' : '', 
+                        '\"' : ''
                             }
-        for key,value in mapeo_reemplazos.items():
-            lista['detalle'] = lista['detalle'].str.replace(key, value)
+        lista['detalle'] = lista['detalle'].replace(reemplazos, regex=True)
 
         if lista.shape[0]<3 or lista.shape[1]<3:
                 return 'error'

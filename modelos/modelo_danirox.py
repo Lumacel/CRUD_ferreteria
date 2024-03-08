@@ -30,15 +30,22 @@ def normalizar_lista(file, distribuidora):
         lista['detalle'] = lista['detalle'].str.upper()
         # eliminando acentos, dieresis y caracteres no ascii
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
-
-        mapeo_reemplazos = {'±' : 'Ñ',
+        reemplazos = {'CANO' : 'CAÑO',
+                            'P/CANO' : 'P/CAÑO',
+                            'C/CANO ' : 'C/CAÑO',
+                            'VULCAÑO' : 'VULCANO',
+                            'VOLCAÑO' : 'VOLCANO',
+                            'AMERICAÑO' : 'AMERICANO',
+                            'AFRICAÑO' : 'AFRICANO',
+                            '\n' : '', 
+                            '\'' : '', 
+                            '\"' : '',
+                            '±' : 'Ñ',
                             'Ð' : 'Ñ',
                             'LAMP ' : 'LAMPARA ',
                             'PUÑO' : 'PORTATIL'
                             }
-        for key,value in mapeo_reemplazos.items():
-            lista['detalle'] = lista['detalle'].str.replace(key, value)
-
+        lista['detalle'] = lista['detalle'].replace(reemplazos, regex=True)
         lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
         lista = lista.dropna()
         lista['precio'] =  lista['precio']*.56 # coeficiente DANIROX = .56 (precio lista -30% - 20%)

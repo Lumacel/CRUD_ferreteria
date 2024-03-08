@@ -27,15 +27,29 @@ def normalizar_lista(file, distribuidora):
                 }
         lista = lista.rename(columns= columnas)
 
+        lista['detalle'] = lista['detalle'].str.upper()
         reemplazos= {'Ã±' : 'ñ',
                     '?' : 'º',
                     'Jgo' : 'Juego',
-                    'jgo' : 'Juego'
+                    'jgo' : 'Juego',
+                    'CANO' : 'CAÑO',
+                        'P/CANO' : 'P/CAÑO',
+                        'C/CANO ' : 'C/CAÑO',
+                        'VULCAÑO' : 'VULCANO',
+                        'VOLCAÑO' : 'VOLCANO',
+                        'AMERICAÑO' : 'AMERICANO',
+                        'AFRICAÑO' : 'AFRICANO',
+                        '\n' : '', 
+                        '\'' : '', 
+                        '\"' : ''
                     }
         for clave,valor in reemplazos.items():
             lista['detalle'] = lista['detalle'].str.replace(clave, valor)
+        
+        
 
-        lista['detalle'] = lista['detalle'].str.upper()
+        
+        
         lista['detalle'] = lista['detalle'].str.strip()
         lista['precio'] = pd.to_numeric(lista['precio'] , errors= 'coerce')
         lista = lista[lista['precio'] > 0]

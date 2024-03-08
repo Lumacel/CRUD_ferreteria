@@ -25,30 +25,36 @@ def normalizar_lista(file, distribuidora):
                     lista.columns[2] : 'precio',
                     lista.columns[3] : 'unidades'
                     }
+        
         lista = lista.rename(columns= columnas)
         # eliminando acentos, dieresis y caracteres no ascii
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+        reemplazos = {'\n':'', '\'':'', '\"':''}
         lista['detalle'] = lista['detalle'].str.replace('\n', '')
         lista['detalle'] = lista['detalle'].str.upper()
+        reemplazos = {'\n':'', 
+                      '\'':'', 
+                      '\"':''
+                      }
+        lista['detalle'] = lista['detalle'].replace(reemplazos, regex=True)
+        
         lista.loc[lista['unidades'] != '1', 'detalle'] = lista['detalle'] + ' (' + lista['unidades'] + ' UNID.)'
         lista = lista[['codigo','detalle','precio']]
         lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')
         lista = lista.dropna()
         lista['distribuidora'] = distribuidora
-        mapeo_reemplazos = {'CANO' : 'CAÑO',
-                            'P/CANO' : 'P/CAÑO',
-                            'C/CANO ' : 'C/CAÑO',
-                            'VULCAÑO' : 'VULCANO',
-                            'VOLCAÑO' : 'VOLCANO',
-                            'AMERICAÑO' : 'AMERICANO',
-                            'AFRICAÑO' : 'AFRICANO',
-                            '?' : 'Ñ',
-                            'HÑMED' : 'HUMED',
-                            'CIÑO': 'CION'
-                            }
-        for key,value in mapeo_reemplazos.items():
-            lista['detalle'] = lista['detalle'].str.replace(key, value)
-
+        reemplazos = {'CANO' : 'CAÑO',
+                        'P/CANO' : 'P/CAÑO',
+                        'C/CANO ' : 'C/CAÑO',
+                        'VULCAÑO' : 'VULCANO',
+                        'VOLCAÑO' : 'VOLCANO',
+                        'AMERICAÑO' : 'AMERICANO',
+                        'AFRICAÑO' : 'AFRICANO',
+                        '\n' : '', 
+                        '\'' : '', 
+                        '\"' : ''
+                        }
+        lista['detalle'] = lista['detalle'].replace(reemplazos, regex=True)
         if lista.shape[0]<3 or lista.shape[1]<3:
                 return 'error'
         else:

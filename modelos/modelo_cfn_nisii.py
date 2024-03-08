@@ -31,19 +31,26 @@ def normalizar_lista(file, distribuidora):
         lista = lista[['codigo', 'detalle', 'precio']]
         lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
         lista = lista.dropna()
+        reemplazos = {'\n':'', 
+                      '\'':'', 
+                      '\"':''
+                      }
+        lista['detalle'] = lista['detalle'].replace(reemplazos, regex=True)
         # eliminando acentos, dieresis y caracteres no ascii
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
         lista['distribuidora'] = distribuidora
-        mapeo_reemplazos = {'CANO' : 'CAÑO',
-                            'P/CANO' : 'P/CAÑO',
-                            'C/CANO ' : 'C/CAÑO',
-                            'VULCAÑO' : 'VULCANO',
-                            'VOLCAÑO' : 'VOLCANO',
-                            'AMERICAÑO' : 'AMERICANO',
-                            'AFRICAÑO' : 'AFRICANO'
-                            }
-        for key,value in mapeo_reemplazos.items():
-            lista['detalle'] = lista['detalle'].str.replace(key, value)
+        reemplazos = {'CANO' : 'CAÑO',
+                        'P/CANO' : 'P/CAÑO',
+                        'C/CANO ' : 'C/CAÑO',
+                        'VULCAÑO' : 'VULCANO',
+                        'VOLCAÑO' : 'VOLCANO',
+                        'AMERICAÑO' : 'AMERICANO',
+                        'AFRICAÑO' : 'AFRICANO',
+                        '\n' : '', 
+                        '\'' : '', 
+                        '\"' : ''
+                        }
+        lista['detalle'] = lista['detalle'].replace(reemplazos, regex=True)
 
         if lista.shape[0]<3 or lista.shape[1]<3:
                 return 'error'
