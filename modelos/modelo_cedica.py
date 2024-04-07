@@ -32,12 +32,16 @@ def normalizar_lista(file, distribuidora):
         reemplazos = {'\n':'', '\'':'', '\"':''}
         lista['detalle'] = lista['detalle'].str.replace('\n', '')
         lista['detalle'] = lista['detalle'].str.upper()
+
         reemplazos = {'\n':'', 
                       '\'':'', 
                       '\"':''
                       }
         lista['detalle'] = lista['detalle'].replace(reemplazos, regex=True)
         
+
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista.loc[lista['unidades'] != '1', 'detalle'] = lista['detalle'] + ' (' + lista['unidades'] + ' UNID.)'
         lista = lista[['codigo','detalle','precio']]
         lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')

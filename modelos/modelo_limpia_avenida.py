@@ -45,6 +45,9 @@ def normalizar_lista(file, distribuidora):
                       '\"':''
                       }
         lista['detalle'] = lista['detalle'].replace(reemplazos, regex=True)
+
+        lista['detalle'] = lista['detalle'].str.replace('\'','')
+        lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista['distribuidora'] = distribuidora
 
         mapeo_codigos = {'L-3025|S-0166|S-017|S-019|S-028' : ['', ' - SANTA JUANA'],
