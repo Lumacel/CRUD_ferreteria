@@ -30,7 +30,7 @@ def normalizar_lista(file, distribuidora):
                     }
         lista = lista.rename(columns= columnas)
         lista['detalle'] = lista['detalle'].str.strip()
-        lista['detalle'] = lista['detalle'] + ' (' + lista['marca'] + ')'
+        lista['detalle'] = lista['detalle'] + ' -' + lista['marca'] + '-'
         lista = lista[['codigo', 'detalle', 'precio']]
         lista['detalle'] = lista['detalle'].str.upper()
         lista['detalle'] = lista['detalle'].str.replace('\'','')
@@ -42,13 +42,7 @@ def normalizar_lista(file, distribuidora):
         lista= lista.dropna()
         lista['precio'] = lista['precio'].round(2)
         lista['distribuidora'] = distribuidora
-        reemplazos = {'CANO' : 'CAÑO',
-                        'P/CANO' : 'P/CAÑO',
-                        'C/CANO ' : 'C/CAÑO',
-                        'VULCAÑO' : 'VULCANO',
-                        'VOLCAÑO' : 'VOLCANO',
-                        'AMERICAÑO' : 'AMERICANO',
-                        'AFRICAÑO' : 'AFRICANO',
+        reemplazos = {'Ñ' : 'N',
                         '\n' : '', 
                         '\'' : '', 
                         '\"' : ''

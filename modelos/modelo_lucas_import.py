@@ -28,20 +28,13 @@ def normalizar_lista(file, distribuidora):
         lista = lista.rename(columns= columnas)
 
         lista['detalle'] = lista['detalle'].str.upper()
-        reemplazos= {'Ã±' : 'ñ',
+
+        reemplazos= {'Ã±' : 'N',
                     '?' : 'º',
-                    'Jgo' : 'Juego',
-                    'jgo' : 'Juego',
-                    'CANO' : 'CAÑO',
-                        'P/CANO' : 'P/CAÑO',
-                        'C/CANO ' : 'C/CAÑO',
-                        'VULCAÑO' : 'VULCANO',
-                        'VOLCAÑO' : 'VOLCANO',
-                        'AMERICAÑO' : 'AMERICANO',
-                        'AFRICAÑO' : 'AFRICANO',
-                        '\n' : '', 
-                        '\'' : '', 
-                        '\"' : ''
+                    'Ñ' : 'N',
+                    '\n' : '', 
+                    '\'' : '', 
+                    '\"' : ''
                     }
         for clave,valor in reemplazos.items():
             lista['detalle'] = lista['detalle'].str.replace(clave, valor)

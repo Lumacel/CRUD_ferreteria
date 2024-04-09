@@ -36,13 +36,7 @@ def normalizar_lista(file, distribuidora):
         lista['detalle'] = lista['detalle'].str.replace('\"','')
         lista['precio'] = lista['precio']*.558  # .558 coeficiente AMAYA (precio lista -38% -10%)
         lista['precio'] = lista['precio'].round(2)
-        reemplazos = {'CANO' : 'CAÑO',
-                        'P/CANO' : 'P/CAÑO',
-                        'C/CANO ' : 'C/CAÑO',
-                        'VULCAÑO' : 'VULCANO',
-                        'VOLCAÑO' : 'VOLCANO',
-                        'AMERICAÑO' : 'AMERICANO',
-                        'AFRICAÑO' : 'AFRICANO',
+        reemplazos = {'Ñ' : 'N',
                         '\n' : '', 
                         '\'' : '', 
                         '\"' : ''

@@ -65,13 +65,7 @@ def normalizar_lista(file, distribuidora):
             lista.loc[condicion, 'detalle'] = value + lista['detalle']
 
         lista['distribuidora'] = distribuidora
-        reemplazos = {'CANO' : 'CAÑO',
-                        'P/CANO' : 'P/CAÑO',
-                        'C/CANO ' : 'C/CAÑO',
-                        'VULCAÑO' : 'VULCANO',
-                        'VOLCAÑO' : 'VOLCANO',
-                        'AMERICAÑO' : 'AMERICANO',
-                        'AFRICAÑO' : 'AFRICANO',
+        reemplazos = {'Ñ' : 'N',
                         '\n' : '', 
                         '\'' : '', 
                         '\"' : ''

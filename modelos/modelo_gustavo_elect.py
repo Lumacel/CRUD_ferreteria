@@ -35,7 +35,7 @@ def normalizar_lista(file, distribuidora):
                         }
             lista = lista.rename(columns= columnas)
             lista['codigo']= 'S/CODIGO'
-            lista.loc[lista['marca'].notna(), 'detalle'] = lista['detalle']+' (' + lista['marca'] + ')'
+            lista.loc[lista['marca'].notna(), 'detalle'] = lista['detalle']+' -' + lista['marca'] + '-'
             lista = lista[['codigo','detalle','precio']]
             lista['detalle'] = lista['detalle'].str.upper()
             lista['detalle'] = lista['detalle'].str.replace('\'','')
@@ -68,13 +68,7 @@ def normalizar_lista(file, distribuidora):
         # eliminando acentos, dieresis y caracteres no ascii
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
         lista['distribuidora'] = distribuidora
-        reemplazos = {'CANO' : 'CAÑO',
-                        'P/CANO' : 'P/CAÑO',
-                        'C/CANO ' : 'C/CAÑO',
-                        'VULCAÑO' : 'VULCANO',
-                        'VOLCAÑO' : 'VOLCANO',
-                        'AMERICAÑO' : 'AMERICANO',
-                        'AFRICAÑO' : 'AFRICANO',
+        reemplazos = {'Ñ' : 'N',
                         '\n' : '', 
                         '\'' : '', 
                         '\"' : ''

@@ -112,13 +112,7 @@ def normalizar_lista(file, distribuidora):
         lista['precio'] = pd.to_numeric(lista['precio'], errors='coerce')
         lista['precio'] = lista['precio'].round(2)
         lista = lista.dropna()
-        reemplazos = {'CANO' : 'CAÑO',
-                        'P/CANO' : 'P/CAÑO',
-                        'C/CANO ' : 'C/CAÑO',
-                        'VULCAÑO' : 'VULCANO',
-                        'VOLCAÑO' : 'VOLCANO',
-                        'AMERICAÑO' : 'AMERICANO',
-                        'AFRICAÑO' : 'AFRICANO',
+        reemplazos = {'Ñ' : 'N',
                         '\n' : '', 
                         '\'' : '', 
                         '\"' : ''
