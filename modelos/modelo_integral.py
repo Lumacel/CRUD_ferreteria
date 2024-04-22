@@ -23,22 +23,14 @@ def normalizar_lista(file, distribuidora):
     try:
         columnas = {lista.columns[0] : 'codigo',
                     lista.columns[1]: 'detalle',
-                    lista.columns[3] : 'precio'
+                    lista.columns[3 if basename.startswith("GENERAL") else 2] : 'precio'
                     }
         lista = lista.rename(columns= columnas)
         lista = lista[['codigo', 'detalle', 'precio']]
 
         lista['precio']= pd.to_numeric(lista['precio'], errors= 'coerce')
         lista['detalle'] = lista['detalle'].str.upper()
-        lista['detalle'] = lista['detalle'].str.replace('\'','')
-        lista['detalle'] = lista['detalle'].str.replace('\"','')
-        lista['detalle'] = lista['detalle'].str.replace('\n', ' ')
-        lista['codigo'] = lista['codigo'].str.upper()
-        lista['precio'] =lista['precio']*.52 # coeficiente Integral= .52 (precio lista -48%)
-        lista['precio'] =lista['precio'].round(2)
-        # eliminando acentos, dieresis y caracteres no ascii
-        lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
-        lista['distribuidora'] = distribuidora
+
         lista = lista.dropna()
         reemplazos = {'Ñ' : 'N',
                         '\'' : '', 
@@ -47,6 +39,13 @@ def normalizar_lista(file, distribuidora):
                         }
         lista['detalle'] = lista['detalle'].replace(reemplazos, regex=True)
 
+        lista['codigo'] = lista['codigo'].str.upper()
+        lista['precio'] =lista['precio']*.52 # coeficiente Integral= .52 (precio lista -48%)
+        lista['precio'] =lista['precio'].round(2)
+        # eliminando acentos, dieresis y caracteres no ascii
+        lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
+        lista['distribuidora'] = distribuidora
+        
         if lista.shape[0]<3 or lista.shape[1]<3:
             return 'error'
         else:
