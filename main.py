@@ -1336,18 +1336,20 @@ class App():
         mensaje1= "EL ARCHIVO FUE GENERADO EXITOSAMENTE\n"
         mensaje2= "LOS ARCHIVOS FUERON GENERADOS EXITOSAMENTE"
         mensaje3= "¿DESEA ELIMINAR REGISTROS ANTERIORES?"
-        nuevos_archivos = []
+
+        nuevos_archivos = [] # contendrá los nombres de los nuevos archivos normalizados
 
         if self.modelo_distr_norm.get() == "":
             self.ventana_normalizar.destroy()
         else:
             distribuidora = self.modelo_distr_norm.get()
-            lista_archivos = conversor.convertir_a_csv()
+            lista_archivos = conversor.convertir_a_csv() # devuelve paginas de excel en csv
             if not lista_archivos:
                 pass
             else:
                 for archivo in lista_archivos:
                     nuevo_archivo = normalizador.normalizar(archivo,distribuidora)
+                       
                     if nuevo_archivo == 'error':
                         error = True
                         messagebox.showwarning(title="ERROR!!!",
@@ -1368,6 +1370,9 @@ class App():
                                             ):
                         self.eliminar_archivos_anteriores(nuevos_archivos,distribuidora)
                     self.btn_salir.focus()
+
+        for archivo in lista_archivos:
+            os.remove(archivo)  # borra archivos csv generados en la ubicacion del excel
 
     def eliminar_archivos_anteriores(self,nuevos_archivos, distribuidora):
         """Elimina archivos generados anteriormente de la misma distribuidora"""

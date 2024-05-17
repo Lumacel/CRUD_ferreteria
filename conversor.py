@@ -19,6 +19,9 @@ def convertir_a_csv():
 
     archivo_excel = pd.ExcelFile(archivo)
     nombres_hojas = archivo_excel.sheet_names
+
+    lista_archivos_csv= []
+
     for hoja in nombres_hojas:
         print(hoja)
         dataframe = pd.read_excel(archivo, sheet_name= hoja)
@@ -27,19 +30,24 @@ def convertir_a_csv():
         if dataframe.shape[1] < 3: # cantidad de columnas
             continue
 
-        dataframe.to_csv(f'{path}/{hoja}.csv', index=False, encoding='utf-8-sig')
+        nombre_archivo_csv = f"{path}/{hoja}.csv"
 
-    lista_nueva_archivos = []
-    lista_achivos = os.listdir(path)
+        dataframe.to_csv(nombre_archivo_csv, index=False, encoding='utf-8-sig')
 
+        lista_archivos_csv.append(nombre_archivo_csv)
+
+    return lista_archivos_csv
+
+if __name__ == "__main__":
+    lista_nueva = convertir_a_csv()
+    print(lista_nueva)
+
+
+
+"""
     for arch in lista_achivos:
         if arch.endswith(".csv"):
             lista_nueva_archivos.append(f"{path}//{arch}")
         else:
             continue
-
-    return lista_nueva_archivos
-
-if __name__ == "__main__":
-    lista_nueva = convertir_a_csv()
-    print(lista_nueva)
+"""
