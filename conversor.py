@@ -41,13 +41,3 @@ def convertir_a_csv():
 if __name__ == "__main__":
     lista_nueva = convertir_a_csv()
     print(lista_nueva)
-
-
-
-"""
-    for arch in lista_achivos:
-        if arch.endswith(".csv"):
-            lista_nueva_archivos.append(f"{path}//{arch}")
-        else:
-            continue
-"""

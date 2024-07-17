@@ -22,8 +22,8 @@ def normalizar_lista(file, distribuidora):
 
     try:
         columnas = {lista.columns[0] : 'codigo',
-                    lista.columns[1]: 'detalle',
-                    lista.columns[3 if basename.startswith("GENERAL") else 2] : 'precio'
+                    lista.columns[1] : 'detalle',
+                    lista.columns[3] : 'precio'
                     }
         lista = lista.rename(columns= columnas)
         lista = lista[['codigo', 'detalle', 'precio']]

@@ -67,13 +67,13 @@ class App():
         self.distr_selecc= tk.StringVar()
 
         self.lbl_buscar = tk.Label(self.root, text="  BUSCAR ARTICULO  ", relief= "ridge",
-                                   width= 20, bg= "lightblue", fg= "black",font=("Arial", 11))
+                                   width= 20, bg= "#84b8f0", fg= "black",font=("Arial", 11))
         self.lbl_buscar.place(x=12,y=10)
         self.entry_buscar = tk.Entry(self.root,textvariable = self.articulo_busq, width=74,
                                      font=("Arial", 11))
         self.entry_buscar.place(x=200,y=10)
         self.lbl_distr = tk.Label(self.root, text = "DISTRIBUIDORA", width=20, relief= "ridge",
-                                  bg= "lightblue" ,fg= "black", font=("Arial", 11))
+                                  bg= "#84b8f0" ,fg= "black", font=("Arial", 11))
         self.lbl_distr.place(x=814, y=10)
         self.entry_distr = ttk.Combobox(self.root,textvariable = self.distr_selecc,
                                         values=self.get_distribuidoras(), state="readonly",
@@ -86,11 +86,11 @@ class App():
         self.total = tk.DoubleVar()
 
         self.lbl_modo_pago = tk.Label(self.root, text= "-- EFECTIVO --", relief= "sunken",
-                                      width=24, bg= "lightblue", fg= "blue",justify = "right",
+                                      width=24, bg= "#84b8f0", fg= "blue",justify = "right",
                                       font=("Arial", 11))
         self.lbl_modo_pago.place(x=25,y=260)
         self.lbl_subtotal_name = tk.Label(self.root, text = "SUBTOTAL ", relief= "ridge",
-                                          width=12, bg= "lightblue", fg= "black",
+                                          width=12, bg= "#84b8f0", fg= "black",
                                           font=("Arial", 11))
         self.lbl_subtotal_name.place(x=328,y=260)
         self.lbl_subtotal_valor = tk.Label(self.root, textvariable = self.subtotal,
@@ -99,7 +99,7 @@ class App():
                                            font=("Arial", 11))
         self.lbl_subtotal_valor.place(x=443,y=260)
         self.lbl_descuento_name = tk.Label(self.root, text="DESCUENTO ", relief= "ridge",
-                                            width= 12, bg= "lightblue", fg= "black",
+                                            width= 12, bg= "#84b8f0", fg= "black",
                                             font=("Arial", 11))
         self.lbl_descuento_name.place(x=627,y=260)
         self.lbl_descuento_valor = tk.Label(self.root, textvariable= self.descuento,
@@ -108,7 +108,7 @@ class App():
                                             font=("Arial", 11))
         self.lbl_descuento_valor.place(x=743,y=260)
         self.lbl_total_name = tk.Label(self.root, text="A PAGAR ", relief= "ridge", width= 12,
-                                       bg= "lightblue", fg= "black",font=("Arial", 11))
+                                       bg= "#84b8f0", fg= "black",font=("Arial", 11))
         self.lbl_total_name.place(x=918,y=260)
         self.lbl_total_valor = tk.Label(self.root, textvariable= self.total, relief= "sunken",
                                         width= 12, bg= "white", fg= "black", justify = "right",
@@ -211,13 +211,13 @@ class App():
         self.porcentaje_ganancia = tk.DoubleVar()
         self.porcentaje_ganancia.set(self.ventas.get_porcentaje_ganancia())
 
-        self.lbl_ganancia = tk.Label(self.toplevel_gan,text="GANANCIA % ", bg = "lightblue",
+        self.lbl_ganancia = tk.Label(self.toplevel_gan,text="GANANCIA % ", bg = "#84b8f0",
                                      relief= "ridge", width= 13, font=("Arial", 11))
         self.lbl_ganancia.place(x=12, y= 20)
         self.entry_ganancia = tk.Entry(self.toplevel_gan,textvariable = self.porcentaje_ganancia,
                                        width=15,justify = "right", font=("Arial", 11))
         self.entry_ganancia.place(x=138,y=20)
-        self.lbl_clave = tk.Label(self.toplevel_gan,text="CONTRASEÑA", bg = "lightblue",
+        self.lbl_clave = tk.Label(self.toplevel_gan,text="CONTRASEÑA", bg = "#84b8f0",
                                   relief= "ridge", width= 13, font=("Arial", 11))
         self.lbl_clave.place(x=12, y= 60)
         self.entry_clave = tk.Entry(self.toplevel_gan,textvariable = self.password,
@@ -316,7 +316,7 @@ class App():
         posicion = self.centrar_ventana(ancho_ventana,alto_ventana)
         self.toplevel_dto.geometry(posicion)
 
-        self.lbl_dto = tk.Label(self.toplevel_dto,text="DESCUENTO %", bg = "lightblue",
+        self.lbl_dto = tk.Label(self.toplevel_dto,text="DESCUENTO %", bg = "#84b8f0",
                                 relief= "ridge", width= 13, font=("Arial", 11))
         self.lbl_dto.place(x=12, y= 20)
         self.entry_dto = tk.Entry(self.toplevel_dto,textvariable = self.dto_global , width=15,
@@ -374,11 +374,11 @@ class App():
         self.toplevel_result.geometry(posicion)
 
         self.lbl_distr_resultados = tk.Label(self.toplevel_result, text = "DISTRIBUIDORA",
-                                             width=20, relief= "ridge", bg= "lightblue",
+                                             width=20, relief= "ridge", bg= "#84b8f0",
                                              fg= "black", font=("Arial", 11))
         self.lbl_distr_resultados.place(x=745, y=210)
         self.lbl_item_resultados = tk.Label(self.toplevel_result, text= "BUSQUEDA",
-                                            relief= "ridge", width= 20,bg= "lightblue",
+                                            relief= "ridge", width= 20,bg= "#84b8f0",
                                             fg= "black", font=("Arial", 11))
         self.lbl_item_resultados.place(x=12,y=210)
         self.entry_item_resultados = tk.Label(self.toplevel_result,
@@ -457,7 +457,7 @@ class App():
         self.tabla_venta.place(x= 25 , y=50)
 
         self.style.configure("Treeview", font=("Arial", 11))
-        self.style.configure('Treeview.Heading', background="lightblue", foreground="black",
+        self.style.configure('Treeview.Heading', background="#84b8f0", foreground="black",
                              font=("Arial", 11))
 
         self.scroll_venta = tk.Scrollbar(self.root, orient="vertical",
@@ -605,16 +605,16 @@ class App():
         self.fracc_state = tk.BooleanVar()
 
         self.lbl_cant_editar= tk.Label(self.ventana_editar, text = "CANT.", relief= "ridge",
-                                       width = 5, bg= "lightblue", font=("Arial", 11))
+                                       width = 5, bg= "#84b8f0", font=("Arial", 11))
         self.lbl_cant_editar.place(x=1,y=5)
         self.lbl_artic_editar= tk.Label(self.ventana_editar, text = "ARTICULO", relief= "ridge",
-                                        width = 58, bg= "lightblue", font=("Arial", 11))
+                                        width = 58, bg= "#84b8f0", font=("Arial", 11))
         self.lbl_artic_editar.place(x=52,y=5)
         self.lbl_artic_precio= tk.Label(self.ventana_editar, text = "PRECIO $", relief= "ridge",
-                                        width = 12, bg= "lightblue", font=("Arial", 11))
+                                        width = 12, bg= "#84b8f0", font=("Arial", 11))
         self.lbl_artic_precio.place(x=580,y=5)
         self.lbl_artic_descuento= tk.Label(self.ventana_editar, text = "DTO. %", relief= "ridge",
-                                           width = 8, bg= "lightblue", font=("Arial", 11))
+                                           width = 8, bg= "#84b8f0", font=("Arial", 11))
         self.lbl_artic_descuento.place(x=694,y=5)
         self.entry_cant_editar= tk.Entry(self.ventana_editar, textvariable = self.cant_editar,
                                          width = 6, bg= "white", justify = "center",
@@ -633,7 +633,7 @@ class App():
                                              font=("Arial", 11))
         self.entry_artic_descuento.place(x=694,y=28)
         self.lbl_fraccionar = tk.Label(self.ventana_editar, text = "FRACCIONAR", relief= "ridge",
-                                       width = 12, state= "disabled", bg= "lightblue",
+                                       width = 12, state= "disabled", bg= "#84b8f0",
                                        font=("Arial", 10))
         self.lbl_fraccionar.place(x=5,y=70)
         self.entry_fraccionar = tk.Entry(self.ventana_editar, textvariable = self.fracc_editar,
@@ -785,7 +785,7 @@ class App():
         self.modelo_distr_norm = tk.StringVar()
 
         self.lbl_modelo = tk.Label(self.ventana_normalizar,text=" SELECCIONAR MODELO ",
-                                   bg = "lightblue", relief= "ridge", width= 22,
+                                   bg = "#84b8f0", relief= "ridge", width= 22,
                                    font=("Arial", 11))
         self.lbl_modelo.place(x=10, y= 20)
         self.entry_modelo = ttk.Combobox(self.ventana_normalizar,
@@ -827,7 +827,7 @@ class App():
         self.toplevel_tarjeta.geometry(posicion)
 
         self.lbl_tarjeta = tk.Label(self.toplevel_tarjeta,text="TARJETA",
-                                    bg= "lightblue", relief= "ridge", width= 13,
+                                    bg= "#84b8f0", relief= "ridge", width= 13,
                                     font=("Arial", 11))
         self.lbl_tarjeta.place(x=12, y= 20)
         self.entry_monto = tk.Entry(self.toplevel_tarjeta,textvariable = self.monto_tarjeta,
@@ -909,13 +909,13 @@ class App():
         self.fecha_final= tk.StringVar(value = fecha)
 
         self.lbl_fecha_inicial = tk.Label(self.toplevel_reg, text="DESDE", relief= "ridge",
-                                          width=9, bg= "lightblue", fg= "black", font=("Arial", 10))
+                                          width=9, bg= "#84b8f0", fg= "black", font=("Arial", 10))
         self.lbl_fecha_inicial.place(x=12,y=10)
         self.entry_fecha_inicial = tk.Entry(self.toplevel_reg,textvariable = self.fecha_inicial,
                                             width=10, font=("Arial", 11))
         self.entry_fecha_inicial.place(x=92,y=10)
         self.lbl_fecha_final = tk.Label(self.toplevel_reg, text = "HASTA", width=9, relief= "ridge",
-                                        bg= "lightblue" ,fg= "black", font=("Arial", 10))
+                                        bg= "#84b8f0" ,fg= "black", font=("Arial", 10))
         self.lbl_fecha_final.place(x=200, y=10)
         self.entry_fecha_final = tk.Entry(self.toplevel_reg, textvariable = self.fecha_final,
                                           width=10, font=("Arial", 11))
@@ -1350,7 +1350,7 @@ class App():
                 for archivo in lista_archivos:
                     nuevo_archivo = normalizador.normalizar(archivo,distribuidora)
                        
-                    if nuevo_archivo == 'error':
+                    if nuevo_archivo == "error":
                         error = True
                         messagebox.showwarning(title="ERROR!!!",
                                     message = 'NO SE PUDO NORMALIZAR EL ARCHIVO.',
