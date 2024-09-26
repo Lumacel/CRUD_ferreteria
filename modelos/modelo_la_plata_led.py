@@ -28,6 +28,7 @@ def normalizar_lista(file, distribuidora):
         lista = lista.rename(columns= columnas)
         lista.loc[lista['categoria'] == 'CABLES', 'detalle'] = 'CABLE ' +  lista['detalle'] 
         lista = lista[['codigo', 'detalle', 'precio']]
+        lista['codigo']= lista['codigo'].astype(str)
         lista['distribuidora'] = distribuidora
         lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')
         lista['precio'] = lista['precio'].round(2)

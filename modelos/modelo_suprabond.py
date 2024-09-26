@@ -29,6 +29,7 @@ def normalizar_lista(file, distribuidora):
         lista = lista.rename(columns= columnas)
         lista = lista[columnas.values()] # seleccionamos columnas que formaran dataframe
         lista = lista.dropna()
+        lista['codigo']= lista['codigo'].astype(str)
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
         lista['detalle'] = lista['detalle'].str.upper()
         lista['detalle'] = lista['detalle'].str.replace('\'','')

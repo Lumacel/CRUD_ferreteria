@@ -28,6 +28,8 @@ def normalizar_lista(file, distribuidora):
         
         lista = lista.rename(columns= columnas)
         # eliminando acentos, dieresis y caracteres no ascii
+
+        lista['codigo']= lista['codigo'].astype(str)
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
         reemplazos = {'\n':'', '\'':'', '\"':''}
         lista['detalle'] = lista['detalle'].str.replace('\n', '')

@@ -28,6 +28,7 @@ def normalizar_lista(file, distribuidora):
         lista = lista.rename(columns= columnas)
         lista = lista[['codigo', 'detalle', 'precio']]
 
+        lista['codigo']= lista['codigo'].astype(str)
         lista['precio']= pd.to_numeric(lista['precio'], errors= 'coerce')
         lista['detalle'] = lista['detalle'].str.upper()
 
@@ -46,7 +47,7 @@ def normalizar_lista(file, distribuidora):
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
         lista['distribuidora'] = distribuidora
         
-        if lista.shape[0]<3 or lista.shape[1]<3:
+        if lista.shape[1]<3:
             return 'error'
         else:
             lista.to_csv(nombre_arch_csv, header= False, index= False)

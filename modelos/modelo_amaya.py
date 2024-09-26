@@ -25,6 +25,8 @@ def normalizar_lista(file, distribuidora):
                     lista.columns[3] : 'precio'
                     }
         lista= lista.rename(columns= columnas)
+
+        lista['codigo']= lista['codigo'].astype(str)
         # eliminando acentos, dieresis y caracteres no ascii
         lista['detalle'] = lista['detalle'].str.normalize('NFKD').str.encode('ASCII', 'ignore').str.decode('ASCII')
         lista = lista[['codigo','detalle','precio']]

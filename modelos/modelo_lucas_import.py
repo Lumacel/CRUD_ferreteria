@@ -39,6 +39,7 @@ def normalizar_lista(file, distribuidora):
         for clave,valor in reemplazos.items():
             lista['detalle'] = lista['detalle'].str.replace(clave, valor)
         
+        lista['codigo']= lista['codigo'].astype(str)
         lista['detalle'] = lista['detalle'].str.upper()
         lista['detalle'] = lista['detalle'].str.replace('\'','')
         lista['detalle'] = lista['detalle'].str.replace('\"','')

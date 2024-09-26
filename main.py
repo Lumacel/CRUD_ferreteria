@@ -1355,7 +1355,7 @@ class App():
                         messagebox.showwarning(title="ERROR!!!",
                                     message = 'NO SE PUDO NORMALIZAR EL ARCHIVO.',
                                     parent= self.ventana_normalizar)
-                        break 
+                        break
                     else:
                         error = False
                         nuevos_archivos.append(nuevo_archivo)

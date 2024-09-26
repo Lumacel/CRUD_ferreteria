@@ -29,6 +29,8 @@ def normalizar_lista(file, distribuidora):
                     lista.columns[3] : 'marca'
                     }
         lista = lista.rename(columns= columnas)
+
+        lista['codigo']= lista['codigo'].astype(str)
         lista['detalle'] = lista['detalle'].str.strip()
         lista['detalle'] = lista['detalle'] + ' -' + lista['marca'] + '-'
         lista = lista[['codigo', 'detalle', 'precio']]

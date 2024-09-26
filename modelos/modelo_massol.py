@@ -27,6 +27,8 @@ def normalizar_lista(file, distribuidora):
             lista.columns[3] : 'precio'
             }
         lista = lista.rename(columns= columnas)
+
+        lista['codigo']= lista['codigo'].astype(str)
         lista['detalle'] = lista['detalle'].str.strip() + ' -' + lista['marca'] + '-'
         lista= lista[['codigo', 'detalle', 'precio']]
         lista['precio'] = pd.to_numeric(lista['precio'], errors= 'coerce')

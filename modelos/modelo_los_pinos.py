@@ -34,6 +34,7 @@ def normalizar_lista(file, distribuidora):
         for i in range(3):
             lista[lista['detalle'].isna()] = lista.shift(periods=-1, axis=1, fill_value=None)
 
+        
         lista= lista.dropna(how= 'all')
         lista = lista[lista['precio'].notna()]
         lista = lista[~lista['precio'].str.contains('U')]
