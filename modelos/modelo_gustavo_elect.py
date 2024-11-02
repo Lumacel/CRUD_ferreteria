@@ -6,6 +6,7 @@ import os
 from datetime import datetime
 from tkinter import filedialog
 import pandas as pd
+import traceback
 
 def nombrar_archivo(distribuidora,carpeta="archivos_normalizados"):
     """Agrega encabezado al nombre del archivo con la fecha y hora actual"""
@@ -35,7 +36,7 @@ def normalizar_lista(file, distribuidora):
                         }
             lista = lista.rename(columns= columnas)
 
-            lista['codigo']= lista['codigo'].astype(str)
+            #lista['codigo']= lista['codigo'].astype(str)
             lista['codigo']= 'S/CODIGO'
             lista.loc[lista['marca'].notna(), 'detalle'] = lista['detalle']+' -' + lista['marca'] + '-'
             lista = lista[['codigo','detalle','precio']]
@@ -43,14 +44,17 @@ def normalizar_lista(file, distribuidora):
             lista['detalle'] = lista['detalle'].str.replace('\'','')
             lista['detalle'] = lista['detalle'].str.replace('\"','')
             categorias = lista[lista['precio'].isna()]
-            categ_dic = categorias['detalle'].to_dict()
-            indice_cat = list(categ_dic.keys())
+
+            categ_diccionario = categorias['detalle'].to_dict()
+
+            indice_cat = list(categ_diccionario.keys())
             lista['precio']= pd.to_numeric(lista['precio'], errors= 'coerce')
             
             for indice in lista.index:
                 for i in range(len(indice_cat)-1):
-                    if indice_cat[i] < indice < indice_cat[i+1] and categ_dic[indice_cat[i]] in mapeo:
-                        lista.loc[indice,'detalle'] = categ_dic[indice_cat[i]] + ' ' + lista.loc[indice,'detalle']
+                    if indice_cat[i] < indice < indice_cat[i+1] and categ_diccionario[indice_cat[i]] in mapeo:
+                        lista.loc[indice,'detalle'] = categ_diccionario[indice_cat[i]] + ' ' + lista.loc[indice,'detalle']
+            
 
         else:
             lista = pd.read_csv(file)
@@ -77,14 +81,18 @@ def normalizar_lista(file, distribuidora):
                         }
         lista['detalle'] = lista['detalle'].replace(reemplazos, regex=True)
         
-        if lista.shape[0]<3 or lista.shape[1]<3:
-                    return 'error'
+        if lista.shape[0]<1 or lista.shape[1]<3:
+            return 'error'
         else:
             lista.to_csv(nombre_arch_csv, header= False, index= False)
+
             return nombre_arch_csv.split("\\")[1]
 
     except Exception as e:
         print(e)
+        tb = traceback.extract_tb(e.__traceback__)
+        filename, lineno, func, text = tb[-1]
+        print(f"Error en el archivo '{filename}', línea {lineno}: {text}")
         return 'error'
 
 if __name__=="__main__":
