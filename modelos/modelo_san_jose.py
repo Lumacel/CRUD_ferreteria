@@ -24,7 +24,7 @@ def normalizar_lista(file, distribuidora):
     try:
         columnas= {lista.columns[0] : 'codigo',
                     lista.columns[1] : 'detalle',
-                    lista.columns[2] : 'precio'
+                    lista.columns[3] : 'precio'
                     }
         lista = lista.rename(columns= columnas)
         lista = lista[columnas.values()] # seleccionamos columnas que formaran dataframe
