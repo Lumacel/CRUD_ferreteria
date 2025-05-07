@@ -1364,11 +1364,11 @@ class App():
                     messagebox.showinfo(title="INFO",
                                         message = mensaje1 if len(lista_archivos) == 1 else mensaje2,
                                         parent= self.ventana_normalizar)
-                    if messagebox.askyesno(title="ELIMINAR REGISTROS",
-                                            message = mensaje3,
-                                            parent= self.ventana_normalizar
-                                            ):
-                        self.eliminar_archivos_anteriores(nuevos_archivos,distribuidora)
+                    #if messagebox.askyesno(title="ELIMINAR REGISTROS",
+                    #                       message = mensaje3,
+                    #                        parent= self.ventana_normalizar
+                    #                        ):
+                    self.eliminar_archivos_anteriores(nuevos_archivos,distribuidora)
                     self.btn_salir.focus()
 
         for archivo in lista_archivos:

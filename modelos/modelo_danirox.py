@@ -21,9 +21,9 @@ def normalizar_lista(file, distribuidora):
     lista = pd.read_csv(file)
 
     try:
-        columnas = {lista.columns[2] : 'detalle',
-                    lista.columns[3] : 'codigo',
-                    lista.columns[4] : 'precio'
+        columnas = {lista.columns[1] : 'detalle',
+                    lista.columns[2] : 'codigo',
+                    lista.columns[5] : 'precio'
                     }
         lista = lista.rename(columns = columnas)
         lista = lista[['codigo', 'detalle', 'precio']]

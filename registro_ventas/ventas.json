@@ -1812,5 +1812,47 @@
                 "distribuidora": "ACF"
             }
         ]
+    },
+    {
+        "timestamp": 1737460606.036298,
+        "numeracion": "00000074",
+        "estado": true,
+        "efectivo": 19921.89,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "SIM0580",
+                "articulo": "JUEGO DE HOJAS P/SIERRA CALADORA 18 PZAS G1953 2AC",
+                "cantidad": 1,
+                "descuento": 0.0,
+                "precio": 19921.89,
+                "distribuidora": "AMAYA"
+            }
+        ]
+    },
+    {
+        "timestamp": 1739707893.328555,
+        "numeracion": "00000075",
+        "estado": true,
+        "efectivo": 16469.3,
+        "tarjeta": 0,
+        "articulos": [
+            {
+                "codigo": "METDP510",
+                "articulo": "DESTORNILLADOR METZ PLANO  5 X 100",
+                "cantidad": 1,
+                "descuento": 20.0,
+                "precio": 3614.6,
+                "distribuidora": "CEDICA"
+            },
+            {
+                "codigo": "BAH5759",
+                "articulo": "DEST.PUNT.PLANA CONICA BAHCO 5X150 -3155X150- ",
+                "cantidad": 3,
+                "descuento": 20.0,
+                "precio": 5657.34,
+                "distribuidora": "AMAYA"
+            }
+        ]
     }
 ]
